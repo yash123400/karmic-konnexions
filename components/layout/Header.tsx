@@ -91,7 +91,7 @@ export default function Header() {
     <>
       <motion.header
         ref={headerRef}
-        className="fixed top-0 left-0 right-0 z-50 h-[72px] lg:h-[72px]"
+        className="fixed top-0 left-0 right-0 z-50 h-[88px] lg:h-[96px]"
         style={{
           backgroundColor: useTransform(bgOpacity, (v) => `rgba(255,255,255,${v})`),
           borderBottom: useTransform(borderOpacity, (v) => `1px solid rgba(224,231,255,${v})`),
@@ -101,8 +101,8 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0">
-            <img src="/logo-full.png" alt="Karmic Konnexions" className="h-12 w-auto object-contain" />
+          <Link href="/" className="flex items-center shrink-0 py-2">
+            <img src="/logo-full.png" alt="Karmic Konnexions" className="h-16 lg:h-20 w-auto object-contain mix-blend-multiply" />
           </Link>
 
           {/* Desktop Nav */}

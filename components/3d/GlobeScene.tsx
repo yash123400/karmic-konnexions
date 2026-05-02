@@ -114,10 +114,8 @@ export default function GlobeScene() {
         style={{ width: "100%", height: "100%" }}
         gl={{ antialias: true, alpha: true }}
       >
-        <fog attach="fog" args={["#0a0a1a", 3, 6]} />
-        <color attach="background" args={["#0a0a1a"]} />
-        <ambientLight intensity={0.3} />
-        <directionalLight position={[2, 2, 2]} intensity={1} />
+        <ambientLight intensity={0.6} />
+        <directionalLight position={[2, 2, 2]} intensity={1.5} />
         <Globe />
         <OrbitControls
           enableZoom={false}
