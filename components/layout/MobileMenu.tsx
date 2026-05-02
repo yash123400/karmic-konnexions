@@ -101,9 +101,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white z-[100] overflow-y-auto"
           >
             <div className="flex items-center justify-between p-6 border-b border-border">
-              <div className="font-bold text-primary text-lg">
-                Karmic Konnexions
-              </div>
+              <img src="/logo-full.png" alt="Karmic Konnexions" className="h-10 w-auto object-contain" />
               <button
                 onClick={onClose}
                 className="p-2 text-text-muted hover:text-text-primary transition-colors"

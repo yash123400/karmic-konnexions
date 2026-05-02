@@ -101,18 +101,8 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-white font-bold text-lg">K</span>
-            </div>
-            <div className="hidden sm:block">
-              <div className="font-bold text-primary text-lg leading-tight">
-                Karmic Konnexions
-              </div>
-              <div className="text-xs text-text-muted leading-tight hidden lg:block">
-                Global Consulting LLP
-              </div>
-            </div>
+          <Link href="/" className="flex items-center shrink-0">
+            <img src="/logo-full.png" alt="Karmic Konnexions" className="h-12 w-auto object-contain" />
           </Link>
 
           {/* Desktop Nav */}

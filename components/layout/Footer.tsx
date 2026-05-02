@@ -57,14 +57,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Column 1 — Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center">
-                <span className="text-primary font-bold text-lg">K</span>
-              </div>
-              <span className="font-bold text-white text-lg">
-                Karmic Konnexions
-              </span>
-            </div>
+            <Link href="/" className="inline-block mb-4">
+              <img src="/logo-full-white.png" alt="Karmic Konnexions" className="h-12 w-auto object-contain" />
+            </Link>
             <p className="text-accent italic text-sm mb-6">
               Health, Wealth, Longevity
             </p>
