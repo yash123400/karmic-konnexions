@@ -1,6 +1,7 @@
 "use client";
 
 import SectionHeader from "@/components/shared/SectionHeader";
+import RevealSection from "@/components/shared/RevealSection";
 
 const industries = [
   { name: "Logistics & Supply Chain", color: "#4F46E5" },
@@ -36,23 +37,25 @@ export default function IndustriesStrip() {
         />
       </div>
 
-      {/* Row 1 — scrolls left */}
-      <div className="overflow-hidden mb-4">
-        <div className="flex gap-4 animate-marquee-left pause-on-hover">
-          {[...industries, ...industries].map((ind, i) => (
-            <IndustryPill key={`r1-${i}`} name={ind.name} color={ind.color} />
-          ))}
+      <RevealSection delay={0.2}>
+        {/* Row 1 — scrolls left */}
+        <div className="overflow-hidden mb-4">
+          <div className="flex gap-4 animate-marquee-left pause-on-hover">
+            {[...industries, ...industries].map((ind, i) => (
+              <IndustryPill key={`r1-${i}`} name={ind.name} color={ind.color} />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Row 2 — scrolls right */}
-      <div className="overflow-hidden">
-        <div className="flex gap-4 animate-marquee-right pause-on-hover">
-          {[...industries, ...industries].map((ind, i) => (
-            <IndustryPill key={`r2-${i}`} name={ind.name} color={ind.color} />
-          ))}
+        {/* Row 2 — scrolls right */}
+        <div className="overflow-hidden">
+          <div className="flex gap-4 animate-marquee-right pause-on-hover">
+            {[...industries, ...industries].map((ind, i) => (
+              <IndustryPill key={`r2-${i}`} name={ind.name} color={ind.color} />
+            ))}
+          </div>
         </div>
-      </div>
+      </RevealSection>
     </section>
   );
 }

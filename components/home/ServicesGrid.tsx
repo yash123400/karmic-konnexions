@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { Briefcase, GraduationCap, Globe, Shirt, Cpu, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import SectionHeader from "@/components/shared/SectionHeader";
+import ServiceCard from "@/components/shared/ServiceCard";
 
 const services = [
   {
@@ -65,40 +66,20 @@ export default function ServicesGrid() {
           }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {services.map((service, i) => {
-            const Icon = service.icon;
-            return (
-              <motion.div
-                key={i}
-                variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-                  },
-                }}
-                className={i === services.length - 1 && services.length % 3 === 2 ? "sm:col-span-2 lg:col-span-1 lg:col-start-2" : ""}
-              >
-                <Link href={service.href} className="block group h-full">
-                  <div className="bg-white rounded-2xl border border-border p-8 h-full transition-all duration-300 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 hover:border-l-[3px] hover:border-l-primary">
-                    <div className="w-14 h-14 rounded-xl bg-primary-tint flex items-center justify-center text-primary">
-                      <Icon size={28} />
-                    </div>
-                    <h3 className="text-xl font-bold text-text-primary mt-6">
-                      {service.title}
-                    </h3>
-                    <p className="text-text-secondary mt-3 leading-relaxed">
-                      {service.desc}
-                    </p>
-                    <span className="inline-flex items-center gap-1 text-primary font-semibold mt-6 group-hover:gap-2 transition-all duration-200">
-                      Learn more <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
-            );
-          })}
+          {services.map((service, i) => (
+            <div
+              key={i}
+              className={i === services.length - 1 && services.length % 3 === 2 ? "sm:col-span-2 lg:col-span-1 lg:col-start-2" : ""}
+            >
+              <ServiceCard
+                icon={service.icon}
+                title={service.title}
+                description={service.desc}
+                href={service.href}
+                delay={i * 0.1}
+              />
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Menu } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import MagneticButton from "@/components/shared/MagneticButton";
 import MobileMenu from "./MobileMenu";
@@ -29,6 +29,7 @@ const servicesMegaMenu = [
       { label: "Finance & Accounts", href: "/services/bpo-outsourcing/finance-accounts" },
       { label: "CRM & Sales Ops", href: "/services/bpo-outsourcing/crm-sales-ops" },
       { label: "Marketing Services", href: "/services/bpo-outsourcing/marketing-services" },
+      { label: "Full BPO Bundle", href: "/services/bpo-outsourcing" },
     ],
   },
   {
@@ -37,6 +38,7 @@ const servicesMegaMenu = [
       { label: "LMS Platform", href: "/services/elearning/lms-platform" },
       { label: "Training Programs", href: "/services/elearning/training-programs" },
       { label: "Career Guidance", href: "/services/elearning/career-guidance" },
+      { label: "E-Learning Hub", href: "/services/elearning" },
     ],
   },
   {
@@ -52,7 +54,7 @@ const servicesMegaMenu = [
     heading: "AI & Technology",
     links: [
       { label: "AI Automation", href: "/services/ai-automation" },
-      { label: "Technology Programs", href: "/programs" },
+      { label: "Technology Programs", href: "/services/technology" },
       { label: "Gen AI Suites", href: "/programs/gen-ai" },
     ],
   },
@@ -62,82 +64,122 @@ const programsDropdown = [
   { label: "Business-Stack Leadership", href: "/programs/business-stack" },
   { label: "Data Zenmaster & Analytics", href: "/programs/data-zenmaster" },
   { label: "Generative AI Suites", href: "/programs/gen-ai" },
+  { divider: true },
+  { label: "All Programs", href: "/programs" },
 ];
 
 const initiativesDropdown = [
-  { label: "Swabhimaan — Rural Entrepreneurs", href: "/initiatives/swabhimaan" },
-  { label: "Marketplace", href: "/initiatives/swabhimaan/marketplace" },
+  { label: "Swabhimaan Initiative", href: "/initiatives/swabhimaan" },
+  { label: "Online Marketplace", href: "/initiatives/swabhimaan/marketplace" },
   { label: "Research & Impact", href: "/initiatives/swabhimaan/research" },
   { label: "Success Stories", href: "/initiatives/swabhimaan/stories" },
+  { divider: true },
+  { label: "All Initiatives", href: "/initiatives" },
 ];
 
 export default function Header() {
   const pathname = usePathname();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
   const headerRef = useRef<HTMLElement>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  const { scrollY, scrollYProgress } = useScroll();
+
+  // Scroll animations
   const bgOpacity = useTransform(scrollY, [0, 80], [0, 0.95]);
   const borderOpacity = useTransform(scrollY, [0, 80], [0, 1]);
-  const shadowOpacity = useTransform(scrollY, [0, 80], [0, 0.1]);
+  const shadowOpacity = useTransform(scrollY, [0, 80], [0, 0.05]);
+  const blurAmount = useTransform(scrollY, [0, 80], [0, 12]);
+  
+  // Logo text scaling
+  const logoScale = useTransform(scrollY, [0, 80], [1, 0.9]);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   };
 
+  const handleMouseEnter = (label: string) => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredItem(label);
+    }, 150);
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredItem(null);
+    }, 150);
+  };
+
+  // Handle Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setHoveredItem(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <>
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary to-accent z-[60] origin-left"
+        style={{ scaleX: scrollYProgress }}
+      />
       <motion.header
         ref={headerRef}
-        className="fixed top-0 left-0 right-0 z-50 h-[88px] lg:h-[96px]"
+        className="fixed top-0 left-0 right-0 z-50 h-[64px] lg:h-[72px] flex items-center transition-all duration-300"
         style={{
-          backgroundColor: useTransform(bgOpacity, (v) => `rgba(255,255,255,${v})`),
-          borderBottom: useTransform(borderOpacity, (v) => `1px solid rgba(224,231,255,${v})`),
-          boxShadow: useTransform(shadowOpacity, (v) => `0 1px 3px rgba(0,0,0,${v})`),
-          backdropFilter: useTransform(scrollY, [0, 80], ["blur(0px)", "blur(12px)"]),
+          backgroundColor: useTransform(bgOpacity, (v) => `rgba(255, 255, 255, ${v})`),
+          borderBottom: useTransform(borderOpacity, (v) => `1px solid rgba(224, 231, 255, ${v})`),
+          boxShadow: useTransform(shadowOpacity, (v) => `0 1px 2px 0 rgba(0, 0, 0, ${v})`),
+          backdropFilter: useTransform(blurAmount, (v) => `blur(${v}px)`),
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0 py-2">
-            <img src="/logo-full.png" alt="Karmic Konnexions" className="h-16 lg:h-20 w-auto object-contain mix-blend-multiply" />
+          <Link href="/" className="flex items-center gap-3 shrink-0 py-2">
+            <div className="w-[36px] h-[36px] bg-[#4F46E5] rounded-lg flex items-center justify-center shrink-0">
+              <span className="text-white font-black text-xl">K</span>
+            </div>
+            <motion.div style={{ scale: logoScale, transformOrigin: "left center" }} className="flex flex-col">
+              <div className="font-bold text-[#0F172A] text-base leading-none">
+                Karmic Konnexions
+              </div>
+              <div className="text-[10px] text-[#6B7280] tracking-wide mt-0.5 hidden sm:block">
+                Global Consulting LLP
+              </div>
+            </motion.div>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden xl:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1 h-full" aria-label="Main navigation">
             {navLinks.map((link) => (
               <div
                 key={link.href}
-                className="relative"
-                onMouseEnter={() => setHoveredItem(link.label)}
-                onMouseLeave={() => setHoveredItem(null)}
+                className="relative h-full flex items-center"
+                onMouseEnter={() => handleMouseEnter(link.label)}
+                onMouseLeave={handleMouseLeave}
               >
                 <Link
                   href={link.href}
                   className={cn(
-                    "px-3 py-2 text-sm font-medium rounded-lg transition-colors inline-flex items-center gap-1",
+                    "px-3 py-2 text-sm font-medium rounded-lg transition-all duration-150 inline-flex items-center gap-1",
                     isActive(link.href)
-                      ? "text-primary font-semibold"
-                      : "text-text-secondary hover:text-primary"
+                      ? "text-[#4F46E5] font-semibold"
+                      : "text-[#374151] hover:text-[#4F46E5] hover:bg-[#EEF2FF]"
                   )}
+                  aria-expanded={hoveredItem === link.label}
+                  aria-haspopup={(link.megaMenu || link.dropdown) ? "true" : undefined}
                 >
                   {link.label}
                   {(link.megaMenu || link.dropdown) && (
-                    <svg
-                      className="w-3.5 h-3.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <ChevronDown className="w-3.5 h-3.5" />
                   )}
                 </Link>
 
@@ -146,31 +188,49 @@ export default function Header() {
                   <AnimatePresence>
                     {hoveredItem === link.label && (
                       <motion.div
-                        initial={{ opacity: 0, y: -10 }}
+                        initial={{ opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[720px] bg-white rounded-2xl shadow-2xl border border-border p-8 grid grid-cols-4 gap-8"
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-[95vw] max-w-[900px] bg-white rounded-2xl shadow-2xl border border-[#E0E7FF] p-8 z-[100]"
+                        role="menu"
                       >
-                        {servicesMegaMenu.map((col) => (
-                          <div key={col.heading}>
-                            <h4 className="font-bold text-text-primary text-sm mb-3">
-                              {col.heading}
-                            </h4>
-                            <ul className="space-y-2">
-                              {col.links.map((l) => (
-                                <li key={l.href}>
+                        <div className="grid grid-cols-4 gap-8">
+                          {servicesMegaMenu.map((col) => (
+                            <div key={col.heading}>
+                              <h4 className="text-xs font-bold uppercase tracking-widest text-[#F97316] mb-3">
+                                {col.heading}
+                              </h4>
+                              <div className="flex flex-col space-y-0.5">
+                                {col.links.map((l) => (
                                   <Link
+                                    key={l.href}
                                     href={l.href}
-                                    className="text-sm text-text-secondary hover:text-primary transition-colors"
+                                    className="text-sm text-[#374151] hover:text-[#4F46E5] py-1.5 block rounded hover:bg-[#EEF2FF] px-2 -mx-2 transition-colors"
+                                    role="menuitem"
                                   >
                                     {l.label}
                                   </Link>
-                                </li>
-                              ))}
-                            </ul>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Bottom strip */}
+                        <div className="border-t border-[#E0E7FF] mt-6 pt-6">
+                          <div className="bg-[#EEF2FF] rounded-xl p-4 flex items-center justify-between">
+                            <span className="text-sm text-[#374151]">
+                              Not sure where to start?
+                            </span>
+                            <Link
+                              href="/get-proposal"
+                              className="text-sm font-semibold text-[#4F46E5] hover:underline"
+                            >
+                              Get a free proposal →
+                            </Link>
                           </div>
-                        ))}
+                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -181,20 +241,26 @@ export default function Header() {
                   <AnimatePresence>
                     {hoveredItem === link.label && (
                       <motion.div
-                        initial={{ opacity: 0, y: -10 }}
+                        initial={{ opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-border p-3"
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute top-full left-0 mt-0 w-[260px] bg-white rounded-2xl shadow-2xl border border-[#E0E7FF] p-3 z-[100]"
+                        role="menu"
                       >
-                        {programsDropdown.map((item) => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className="block px-4 py-2.5 text-sm text-text-secondary hover:text-primary hover:bg-primary-tint rounded-lg transition-colors"
-                          >
-                            {item.label}
-                          </Link>
+                        {programsDropdown.map((item, idx) => (
+                          item.divider ? (
+                            <div key={`div-${idx}`} className="h-px bg-[#E0E7FF] my-2 mx-2" />
+                          ) : (
+                            <Link
+                              key={item.href}
+                              href={item.href as string}
+                              className="block px-3 py-2 text-sm text-[#374151] hover:text-[#4F46E5] hover:bg-[#EEF2FF] rounded-lg transition-colors"
+                              role="menuitem"
+                            >
+                              {item.label}
+                            </Link>
+                          )
                         ))}
                       </motion.div>
                     )}
@@ -206,20 +272,26 @@ export default function Header() {
                   <AnimatePresence>
                     {hoveredItem === link.label && (
                       <motion.div
-                        initial={{ opacity: 0, y: -10 }}
+                        initial={{ opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-border p-3"
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute top-full left-0 mt-0 w-[280px] bg-white rounded-2xl shadow-2xl border border-[#E0E7FF] p-3 z-[100]"
+                        role="menu"
                       >
-                        {initiativesDropdown.map((item) => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className="block px-4 py-2.5 text-sm text-text-secondary hover:text-primary hover:bg-primary-tint rounded-lg transition-colors"
-                          >
-                            {item.label}
-                          </Link>
+                        {initiativesDropdown.map((item, idx) => (
+                          item.divider ? (
+                            <div key={`div-${idx}`} className="h-px bg-[#E0E7FF] my-2 mx-2" />
+                          ) : (
+                            <Link
+                              key={item.href}
+                              href={item.href as string}
+                              className="block px-3 py-2 text-sm text-[#374151] hover:text-[#4F46E5] hover:bg-[#EEF2FF] rounded-lg transition-colors"
+                              role="menuitem"
+                            >
+                              {item.label}
+                            </Link>
+                          )
                         ))}
                       </motion.div>
                     )}
@@ -229,24 +301,29 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right side */}
+          {/* Right side CTA & Mobile Toggle */}
           <div className="flex items-center gap-4">
-            <div className="hidden xl:block">
-              <MagneticButton href="/get-proposal" variant="primary" className="px-5 py-2.5 text-sm">
+            <div className="hidden lg:block">
+              <MagneticButton
+                href="/get-proposal"
+                className="bg-[#4F46E5] text-white px-5 py-2.5 text-sm font-semibold rounded-lg hover:bg-[#3730A3] transition-colors inline-block"
+              >
                 Get a Proposal
               </MagneticButton>
             </div>
+            
             <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="xl:hidden p-2 text-text-secondary hover:text-primary transition-colors"
-              aria-label="Open menu"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 rounded-lg text-[#374151] hover:bg-[#EEF2FF] transition-colors"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
-              <Menu className="w-6 h-6" />
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
       </motion.header>
 
+      {/* Render Mobile Menu */}
       <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
     </>
   );

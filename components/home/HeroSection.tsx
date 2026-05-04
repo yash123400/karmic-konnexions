@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import RevealSection from "@/components/shared/RevealSection";
 import MagneticButton from "@/components/shared/MagneticButton";
 import { motion } from "framer-motion";
+import SplitText from "@/components/shared/SplitText";
 
 const GlobeScene = dynamic(() => import("@/components/3d/GlobeScene"), {
   ssr: false,
@@ -57,8 +58,10 @@ export default function HeroSection() {
 
             <RevealSection delay={0.1}>
               <h1 className="text-[2.75rem] sm:text-6xl lg:text-[4.5rem] font-extrabold leading-[1.05] tracking-tight text-text-primary">
-                Empowering Growth <br />
-                Through <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent italic pr-2">Execution.</span>
+                <SplitText text="Empowering Growth Through" /> <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent italic pr-2">
+                  <SplitText text="Execution." />
+                </span>
               </h1>
             </RevealSection>
 

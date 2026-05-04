@@ -1,7 +1,6 @@
-"use client";
-
-import { useRef, useState, useEffect, useCallback } from "react";
-import { useInView } from "framer-motion";
+"use client"
+import { useEffect, useRef, useState } from "react";
+import { useInView, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface AnimatedCounterProps {
@@ -9,11 +8,8 @@ interface AnimatedCounterProps {
   duration?: number;
   prefix?: string;
   suffix?: string;
+  decimals?: number;
   className?: string;
-}
-
-function easeOutCubic(t: number): number {
-  return 1 - Math.pow(1 - t, 3);
 }
 
 export default function AnimatedCounter({
@@ -21,44 +17,54 @@ export default function AnimatedCounter({
   duration = 2.2,
   prefix = "",
   suffix = "",
+  decimals = 0,
   className,
 }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const [count, setCount] = useState(0);
+  const inView = useInView(ref, { once: true });
+  const shouldReduceMotion = useReducedMotion();
+  const [displayValue, setDisplayValue] = useState(0);
 
-  const animate = useCallback(() => {
-    const startTime = performance.now();
-    const durationMs = duration * 1000;
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setDisplayValue(end);
+      return;
+    }
 
-    const step = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / durationMs, 1);
-      const easedProgress = easeOutCubic(progress);
+    if (!inView) return;
 
-      setCount(Math.floor(easedProgress * end));
+    let startTime: number | null = null;
+    let animationFrame: number;
+
+    const tick = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / (duration * 1000), 1);
+      
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = end * eased;
+      
+      setDisplayValue(current);
 
       if (progress < 1) {
-        requestAnimationFrame(step);
+        animationFrame = requestAnimationFrame(tick);
       } else {
-        setCount(end);
+        setDisplayValue(end);
       }
     };
 
-    requestAnimationFrame(step);
-  }, [end, duration]);
+    animationFrame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [inView, end, duration, shouldReduceMotion]);
 
-  useEffect(() => {
-    if (isInView) {
-      animate();
-    }
-  }, [isInView, animate]);
+  const formatted = new Intl.NumberFormat('en-IN', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(displayValue);
 
   return (
-    <span ref={ref} className={cn(className)}>
-      {prefix}
-      {count.toLocaleString()}
-      {suffix}
+    <span ref={ref} className={cn("tabular-nums", className)}>
+      {prefix}{formatted}{suffix}
     </span>
   );
 }

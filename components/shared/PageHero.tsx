@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import SplitText from "./SplitText";
 import RevealSection from "./RevealSection";
+import { cn } from "@/lib/utils";
 
 interface BreadcrumbItem {
   label: string;
@@ -13,66 +14,76 @@ interface PageHeroProps {
   title: string;
   subtitle?: string;
   breadcrumb?: BreadcrumbItem[];
+  badge?: string;
+  gradient?: 'indigo' | 'accent' | 'neutral';
 }
+
+const gradientStyles = {
+  indigo: "from-[#EEF2FF] via-[#FAFBFF] to-[#FAFBFF]",
+  accent: "from-[#FFF7ED] via-[#FAFBFF] to-[#FAFBFF]",
+  neutral: "from-[#F8FAFC] to-[#FAFBFF]",
+};
 
 export default function PageHero({
   eyebrow,
   title,
   subtitle,
   breadcrumb,
+  badge,
+  gradient = 'indigo',
 }: PageHeroProps) {
   return (
-    <section className="relative py-24 md:py-32 bg-gradient-to-b from-primary-tint to-background overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={cn("relative py-20 md:py-28 overflow-hidden bg-gradient-to-br", gradientStyles[gradient])}>
+      {/* Background decoration */}
+      <div className="absolute w-96 h-96 bg-[#4F46E5]/5 rounded-full -top-20 -right-20 blur-3xl pointer-events-none" />
+      <div className="absolute w-64 h-64 bg-[#F97316]/8 rounded-full -bottom-10 -left-10 blur-2xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {breadcrumb && breadcrumb.length > 0 && (
-          <RevealSection>
-            <nav className="flex items-center gap-1 text-sm text-text-muted mb-8">
-              {breadcrumb.map((item, i) => (
-                <span key={i} className="flex items-center gap-1">
-                  {i > 0 && <ChevronRight className="w-3.5 h-3.5" />}
-                  {i < breadcrumb.length - 1 ? (
-                    <Link
-                      href={item.href}
-                      className="hover:text-primary transition-colors"
-                    >
+          <nav className="flex items-center gap-2 text-sm text-[#6B7280] mb-8" aria-label="Breadcrumb">
+            {breadcrumb.map((item, index) => {
+              const isLast = index === breadcrumb.length - 1;
+              return (
+                <div key={item.href} className="flex items-center gap-2">
+                  {isLast ? (
+                    <span className="text-[#374151] font-medium">{item.label}</span>
+                  ) : (
+                    <Link href={item.href} className="hover:text-[#4F46E5] transition-colors">
                       {item.label}
                     </Link>
-                  ) : (
-                    <span className="text-text-primary font-medium">
-                      {item.label}
-                    </span>
                   )}
-                </span>
-              ))}
-            </nav>
-          </RevealSection>
+                  {!isLast && <ChevronRight className="w-3 h-3" />}
+                </div>
+              );
+            })}
+          </nav>
+        )}
+
+        {badge && (
+          <div className="inline-flex mb-4 items-center gap-2 bg-[#EEF2FF] text-[#4F46E5] text-xs font-semibold px-3 py-1.5 rounded-full border border-[#E0E7FF]">
+            {badge}
+          </div>
         )}
 
         {eyebrow && (
-          <RevealSection>
-            <p className="text-sm font-semibold tracking-widest text-accent uppercase mb-4">
-              {eyebrow}
-            </p>
-          </RevealSection>
+          <div className="text-sm font-bold uppercase tracking-widest text-[#F97316] mb-3">
+            {eyebrow}
+          </div>
         )}
 
         <SplitText
           text={title}
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-tight"
+          className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0F172A] leading-[1.1] max-w-4xl"
         />
 
         {subtitle && (
           <RevealSection delay={0.3}>
-            <p className="text-lg md:text-xl text-text-secondary mt-6 max-w-3xl">
+            <p className="text-xl text-[#374151] mt-6 max-w-2xl leading-relaxed">
               {subtitle}
             </p>
           </RevealSection>
         )}
       </div>
-
-      {/* Decorative gradient orbs */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-accent/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
     </section>
   );
 }

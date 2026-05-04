@@ -1,48 +1,63 @@
-"use client";
-
-import { useRef } from "react";
-import { motion, useSpring, useTransform } from "framer-motion";
+"use client"
+import { useRef, forwardRef } from "react";
+import { motion, useSpring, useMotionValue } from "framer-motion";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 interface MagneticButtonProps {
   children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
   href?: string;
-  variant?: "primary" | "accent" | "outline";
+  onClick?: () => void;
+  variant?: 'primary' | 'accent' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
+  disabled?: boolean;
+  type?: 'button' | 'submit';
 }
 
 const variantStyles = {
-  primary:
-    "bg-primary text-white hover:bg-primary-dark shadow-lg shadow-primary/25 hover:shadow-primary/40",
-  accent:
-    "bg-accent text-white hover:bg-accent-dark shadow-lg shadow-accent/25 hover:shadow-accent/40",
-  outline:
-    "bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white",
+  primary: "bg-[#4F46E5] hover:bg-[#3730A3] text-white",
+  accent: "bg-[#F97316] hover:bg-[#EA580C] text-white",
+  outline: "border-2 border-[#4F46E5] text-[#4F46E5] hover:bg-[#EEF2FF] bg-transparent",
+  ghost: "text-[#4F46E5] hover:bg-[#EEF2FF] bg-transparent",
 };
+
+const sizeStyles = {
+  sm: "px-4 py-2 text-sm rounded-lg",
+  md: "px-6 py-3 text-sm rounded-xl",
+  lg: "px-8 py-4 text-base rounded-xl",
+};
+
+const MotionLink = motion.create(Link);
 
 export default function MagneticButton({
   children,
-  className,
-  onClick,
   href,
-  variant = "primary",
+  onClick,
+  variant = 'primary',
+  size = 'md',
+  className,
+  disabled,
+  type = 'button',
 }: MagneticButtonProps) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const x = useSpring(0, { stiffness: 150, damping: 15 });
-  const y = useSpring(0, { stiffness: 150, damping: 15 });
+  const ref = useRef<HTMLElement>(null);
+  
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 200, damping: 20 });
+  const springY = useSpring(y, { stiffness: 200, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
+    if (!ref.current || disabled) return;
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    const deltaX = (e.clientX - centerX) * 0.15;
-    const deltaY = (e.clientY - centerY) * 0.15;
-    x.set(Math.max(-8, Math.min(8, deltaX)));
-    y.set(Math.max(-8, Math.min(8, deltaY)));
+    
+    const deltaX = e.clientX - centerX;
+    const deltaY = e.clientY - centerY;
+    
+    x.set(Math.max(-8, Math.min(8, deltaX * 0.2)));
+    y.set(Math.max(-8, Math.min(8, deltaY * 0.2)));
   };
 
   const handleMouseLeave = () => {
@@ -50,29 +65,43 @@ export default function MagneticButton({
     y.set(0);
   };
 
-  const transformX = useTransform(x, (v) => v);
-  const transformY = useTransform(y, (v) => v);
-
-  const content = (
-    <motion.div
-      ref={ref}
-      style={{ x: transformX, y: transformY }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 font-semibold transition-colors duration-200 cursor-pointer",
-        variantStyles[variant],
-        className
-      )}
-      onClick={onClick}
-    >
-      {children}
-    </motion.div>
+  const baseClasses = cn(
+    "font-semibold transition-colors cursor-pointer inline-flex items-center justify-center gap-2",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4F46E5] focus-visible:ring-offset-2",
+    variantStyles[variant],
+    sizeStyles[size],
+    disabled && "opacity-50 cursor-not-allowed",
+    className
   );
 
   if (href) {
-    return <Link href={href}>{content}</Link>;
+    return (
+      <MotionLink
+        ref={ref as any}
+        href={href}
+        style={{ x: springX, y: springY }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className={baseClasses}
+        onClick={onClick}
+      >
+        {children}
+      </MotionLink>
+    );
   }
 
-  return content;
+  return (
+    <motion.button
+      ref={ref as any}
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      style={{ x: springX, y: springY }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={baseClasses}
+    >
+      {children}
+    </motion.button>
+  );
 }

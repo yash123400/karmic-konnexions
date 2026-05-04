@@ -1,44 +1,40 @@
-import { cn } from "@/lib/utils";
 import RevealSection from "./RevealSection";
+import { cn } from "@/lib/utils";
 
 interface SectionHeaderProps {
   eyebrow?: string;
   title: string;
   subtitle?: string;
-  align?: "left" | "center";
-  className?: string;
+  align?: 'left' | 'center';
+  titleSize?: 'default' | 'large';
 }
 
 export default function SectionHeader({
   eyebrow,
   title,
   subtitle,
-  align = "center",
-  className,
+  align = 'center',
+  titleSize = 'default',
 }: SectionHeaderProps) {
   return (
-    <RevealSection
-      className={cn(
-        "mb-16",
-        align === "center" && "text-center",
-        className
-      )}
-    >
+    <RevealSection className={cn("flex flex-col", align === 'center' ? 'text-center items-center' : 'text-left items-start')}>
       {eyebrow && (
-        <p className="text-sm font-semibold tracking-widest text-accent uppercase mb-3">
+        <span className="text-sm font-bold uppercase tracking-widest text-[#F97316] mb-3">
           {eyebrow}
-        </p>
+        </span>
       )}
-      <h2 className="text-4xl md:text-5xl font-bold text-text-primary leading-tight">
+      <h2
+        className={cn(
+          "text-[#0F172A]",
+          titleSize === 'large'
+            ? "text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05]"
+            : "text-3xl md:text-4xl lg:text-5xl font-bold leading-tight"
+        )}
+      >
         {title}
       </h2>
       {subtitle && (
-        <p
-          className={cn(
-            "text-lg text-text-muted mt-4 max-w-2xl",
-            align === "center" && "mx-auto"
-          )}
-        >
+        <p className={cn("text-lg text-[#6B7280] mt-4 max-w-2xl leading-relaxed", align === 'center' && "mx-auto")}>
           {subtitle}
         </p>
       )}

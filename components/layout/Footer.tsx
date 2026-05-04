@@ -1,219 +1,160 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin } from "lucide-react";
-
-function LinkedinIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-    </svg>
-  );
-}
-
-function TwitterIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-    </svg>
-  );
-}
-
-const footerServices = [
-  { label: "BPO Outsourcing", href: "/services/bpo-outsourcing" },
-  { label: "E-Learning", href: "/services/elearning" },
-  { label: "Global Workforce", href: "/services/global-workforce" },
-  { label: "Corporate Apparel", href: "/services/corporate-apparel" },
-  { label: "AI Automation", href: "/services/ai-automation" },
-];
-
-const footerPrograms = [
-  { label: "Business-Stack Leadership", href: "/programs/business-stack" },
-  { label: "Data Zenmaster", href: "/programs/data-zenmaster" },
-  { label: "Gen AI Suites", href: "/programs/gen-ai" },
-  { label: "Swabhimaan Initiative", href: "/initiatives/swabhimaan" },
-];
-
-const footerCompany = [
-  { label: "About Us", href: "/about" },
-  { label: "Why Karmic", href: "/why-karmic" },
-  { label: "Industries", href: "/industries" },
-  { label: "Case Studies", href: "/case-studies" },
-  { label: "Blog", href: "/blog" },
-  { label: "Careers", href: "/careers" },
-];
+import { MapPin, Mail, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-navy text-white/70">
-      <div className="border-t border-white/10" />
+    <footer className="bg-[#0F172A]">
+      {/* Top Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12">
-          {/* Column 1 — Brand */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-4">
-              <img src="/logo-full-white.png" alt="Karmic Konnexions" className="h-12 w-auto object-contain" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-10">
+          
+          {/* COLUMN 1 — Brand */}
+          <div className="lg:col-span-2">
+            <Link href="/" className="flex items-center gap-3 mb-4 inline-flex">
+              <div className="w-[40px] h-[40px] bg-white rounded-lg flex items-center justify-center shrink-0">
+                <span className="text-[#4F46E5] font-black text-xl">K</span>
+              </div>
+              <span className="text-white font-bold text-lg">Karmic Konnexions</span>
             </Link>
-            <p className="text-accent italic text-sm mb-6">
+
+            <div className="text-[#F97316] italic text-sm mb-5 font-medium">
               Health, Wealth, Longevity
-            </p>
-            <div className="space-y-3 text-sm">
+            </div>
+
+            <div className="text-[#94A3B8] text-sm leading-relaxed space-y-2">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-                <span>
-                  #106D, J Block, Adani Samsara Vilasa 2.0, Sec 63, Gurgaon,
-                  Haryana – 122011
-                </span>
+                <div>
+                  #106D, J Block, Adani Samsara Vilasa 2.0<br />
+                  Sec 63, Maidawas Road, Gurgaon, Haryana – 122011
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 shrink-0" />
-                <a
-                  href="mailto:karmickonnexions2309@gmail.com"
-                  className="hover:text-white transition-colors"
-                >
+                <a href="mailto:karmickonnexions2309@gmail.com" className="hover:text-white transition-colors">
                   karmickonnexions2309@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 shrink-0" />
-                <a
-                  href="tel:+919667759894"
-                  className="hover:text-white transition-colors"
-                >
+                <a href="tel:+919667759894" className="hover:text-white transition-colors">
                   +91-9667759894
                 </a>
               </div>
             </div>
-            <div className="flex items-center gap-3 mt-6">
-              <a
-                href="#"
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <LinkedinIcon className="w-4 h-4" />
+
+            <div className="mt-6 flex items-center gap-3 sm:justify-start justify-center">
+              <a href="#" className="w-[36px] h-[36px] rounded-lg bg-white/10 hover:bg-[#4F46E5] transition-colors flex items-center justify-center text-white" aria-label="LinkedIn">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                </svg>
               </a>
-              <a
-                href="#"
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-                aria-label="Twitter"
-              >
-                <TwitterIcon className="w-4 h-4" />
+              <a href="#" className="w-[36px] h-[36px] rounded-lg bg-white/10 hover:bg-[#4F46E5] transition-colors flex items-center justify-center text-white" aria-label="Twitter">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                </svg>
               </a>
-              <a
-                href="#"
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-                aria-label="Instagram"
-              >
-                <InstagramIcon className="w-4 h-4" />
+              <a href="#" className="w-[36px] h-[36px] rounded-lg bg-white/10 hover:bg-[#4F46E5] transition-colors flex items-center justify-center text-white" aria-label="Instagram">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
               </a>
             </div>
           </div>
 
-          {/* Column 2 — Services */}
+          {/* COLUMN 2 — Services */}
           <div>
-            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
-              Services
-            </h4>
-            <ul className="space-y-3">
-              {footerServices.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+            <h3 className="text-white font-semibold text-sm mb-4">Services</h3>
+            <ul className="space-y-2">
+              <li><Link href="/services/bpo-outsourcing" className="text-[#94A3B8] text-sm hover:text-white transition-colors">BPO Outsourcing</Link></li>
+              <li><Link href="/services/elearning" className="text-[#94A3B8] text-sm hover:text-white transition-colors">E-Learning & Training</Link></li>
+              <li><Link href="/services/global-workforce" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Global Workforce</Link></li>
+              <li><Link href="/services/corporate-apparel" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Corporate Apparel</Link></li>
+              <li><Link href="/services/ai-automation" className="text-[#94A3B8] text-sm hover:text-white transition-colors">AI Automation</Link></li>
             </ul>
           </div>
 
-          {/* Column 3 — Programs & Initiatives */}
+          {/* COLUMN 3 — Programs & Initiatives */}
           <div>
-            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
-              Programs & Initiatives
-            </h4>
-            <ul className="space-y-3">
-              {footerPrograms.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+            <h3 className="text-white font-semibold text-sm mb-4">Programs</h3>
+            <ul className="space-y-2 mb-4">
+              <li><Link href="/programs/business-stack" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Business-Stack Leadership</Link></li>
+              <li><Link href="/programs/data-zenmaster" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Data Zenmaster</Link></li>
+              <li><Link href="/programs/gen-ai" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Generative AI Suites</Link></li>
+            </ul>
+
+            <div className="border-t border-white/10 my-4"></div>
+
+            <h3 className="text-white font-semibold text-sm mb-2">Initiatives</h3>
+            <ul className="space-y-2">
+              <li><Link href="/initiatives/swabhimaan" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Swabhimaan</Link></li>
+              <li><Link href="/initiatives/swabhimaan/marketplace" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Marketplace</Link></li>
+              <li><Link href="/initiatives/swabhimaan/stories" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Success Stories</Link></li>
             </ul>
           </div>
 
-          {/* Column 4 — Company */}
+          {/* COLUMN 4 — Company */}
           <div>
-            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
-              Company
-            </h4>
-            <ul className="space-y-3">
-              {footerCompany.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+            <h3 className="text-white font-semibold text-sm mb-4">Company</h3>
+            <ul className="space-y-2">
+              <li><Link href="/about" className="text-[#94A3B8] text-sm hover:text-white transition-colors">About Us</Link></li>
+              <li><Link href="/why-karmic" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Why Karmic</Link></li>
+              <li><Link href="/industries" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Industries</Link></li>
+              <li><Link href="/case-studies" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Case Studies</Link></li>
+              <li><Link href="/blog" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Blog & Insights</Link></li>
+              <li><Link href="/careers" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Careers</Link></li>
+              <li><Link href="/contact" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>
 
-          {/* Column 5 — Contact */}
+          {/* COLUMN 5 — Contact */}
           <div>
-            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
-              Contact
-            </h4>
-            <p className="text-sm mb-6">
-              Ready to transform your operations?
+            <h3 className="text-white font-semibold text-sm mb-4">Start a Conversation</h3>
+            <p className="text-[#94A3B8] text-sm leading-relaxed mb-5">
+              Ready to transform your business operations with a fixed-cost outsourcing partner?
             </p>
-            <Link
-              href="/contact"
-              className="block w-full text-center bg-accent hover:bg-accent-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+            
+            <Link 
+              href="/contact" 
+              className="block w-full text-center bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold py-3 px-5 rounded-xl text-sm transition-colors"
             >
               Book a Discovery Call
             </Link>
-            <p className="text-xs text-white/50 mt-4 text-center">
-              or email us directly at{" "}
-              <a
-                href="mailto:karmickonnexions2309@gmail.com"
-                className="text-accent hover:text-accent-light transition-colors"
+
+            <div className="text-[#64748B] text-xs text-center my-3">or</div>
+
+            <div className="text-center">
+              <a 
+                href="mailto:karmickonnexions2309@gmail.com" 
+                className="text-[#4F46E5] hover:text-[#6366F1] text-sm font-medium transition-colors"
               >
-                karmickonnexions2309@gmail.com
+                Send us an email →
               </a>
-            </p>
+            </div>
+
+            <a 
+              href="https://wa.me/919667759894" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="mt-4 block w-full text-center border border-white/20 hover:border-white/40 text-[#94A3B8] hover:text-white rounded-xl py-2.5 px-4 text-sm transition-colors"
+            >
+              💬 WhatsApp Us
+            </a>
           </div>
+
         </div>
       </div>
 
-      {/* Bottom bar */}
+      {/* BOTTOM BAR */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/40">
-            © 2025 Karmic Konnexions Global Consulting LLP. All rights
-            reserved.
-          </p>
-          <div className="flex items-center gap-4 text-xs text-white/40">
-            <Link href="#" className="hover:text-white/60 transition-colors">
-              Privacy Policy
-            </Link>
-            <span>·</span>
-            <Link href="#" className="hover:text-white/60 transition-colors">
-              Terms of Service
-            </Link>
+          <div className="text-[#64748B] text-sm text-center sm:text-left order-2 sm:order-1">
+            © 2025 Karmic Konnexions Global Consulting LLP. All rights reserved.
+          </div>
+          <div className="flex flex-wrap justify-center gap-6 order-1 sm:order-2">
+            <Link href="/privacy" className="text-[#64748B] hover:text-white text-sm transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-[#64748B] hover:text-white text-sm transition-colors">Terms of Service</Link>
+            <Link href="/sitemap.xml" className="text-[#64748B] hover:text-white text-sm transition-colors">Sitemap</Link>
           </div>
         </div>
       </div>
