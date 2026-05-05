@@ -88,7 +88,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body>
+      <body className="font-[family-name:var(--font-inter-var)]">
+        {/* Skip to main content — accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:bg-white focus:text-primary focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:outline-none"
+        >
+          Skip to main content
+        </a>
         <JsonLd data={orgSchema} />
         <QueryProvider>
           <CustomCursor />
@@ -96,7 +103,7 @@ export default function RootLayout({
           <LenisProvider>
             <Header />
             <PageTransition>
-              <main className="flex-grow pt-[64px] lg:pt-[72px]">
+              <main id="main-content" className="flex-grow pt-[64px] lg:pt-[72px]">
                 {children}
               </main>
             </PageTransition>

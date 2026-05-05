@@ -1,7 +1,16 @@
 import { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import PageHero from '@/components/shared/PageHero'
-import ProposalForm from '@/components/proposal/ProposalForm'
 import RevealSection from '@/components/shared/RevealSection'
+
+const ProposalForm = dynamic(
+  () => import('@/components/proposal/ProposalForm'),
+  {
+    loading: () => (
+      <div className="h-[600px] bg-white rounded-2xl border border-slate-100 animate-pulse" aria-label="Loading proposal form..." />
+    ),
+  }
+)
 
 export const metadata: Metadata = {
   title: 'Get a Proposal | Karmic Konnexions',

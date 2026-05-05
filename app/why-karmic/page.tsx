@@ -1,23 +1,26 @@
 import { Metadata } from 'next'
-import Image from 'next/image'
-import { 
-  AlertCircle, 
-  CheckCircle2, 
-  TrendingUp, 
-  Zap, 
-  ShieldCheck, 
-  Scale, 
-  BarChart3, 
+import dynamic from 'next/dynamic'
+import {
+  AlertCircle,
+  CheckCircle2,
+  ShieldCheck,
   Users,
-  Clock,
   Quote
 } from 'lucide-react'
 import PageHero from '@/components/shared/PageHero'
 import SectionHeader from '@/components/shared/SectionHeader'
 import RevealSection from '@/components/shared/RevealSection'
 import MagneticButton from '@/components/shared/MagneticButton'
-import ROICalculator from '@/components/why-karmic/ROICalculator'
 import { cn } from '@/lib/utils'
+
+const ROICalculator = dynamic(
+  () => import('@/components/why-karmic/ROICalculator'),
+  {
+    loading: () => (
+      <div className="h-96 bg-slate-100 rounded-2xl animate-pulse" aria-label="Loading ROI Calculator..." />
+    ),
+  }
+)
 
 export const metadata: Metadata = {
   title: 'Why Choose Karmic Konnexions | Fixed-Cost Outsourcing That Delivers ROI',

@@ -103,8 +103,9 @@ export default function CustomCursor() {
     <>
       {/* Outer Ring */}
       <motion.div
+        aria-hidden="true"
         style={{
-          x: outerPos.x - 15, // center 30px
+          x: outerPos.x - 15,
           y: outerPos.y - 15,
           scaleX: outerScaleX,
           scaleY: outerScaleY,
@@ -114,11 +115,12 @@ export default function CustomCursor() {
           isHovering ? 'bg-[#4F46E5]/20 border-transparent' : 'bg-transparent'
         }`}
       />
-      
+
       {/* Inner Dot */}
       <motion.div
+        aria-hidden="true"
         style={{
-          x: innerPos.x - 3, // center 6px
+          x: innerPos.x - 3,
           y: innerPos.y - 3,
           scale: innerScale
         }}
