@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { buildServiceSchema, buildBreadcrumbSchema } from "@/lib/schemas";
 import HrHeroSection from "./_sections/HrHeroSection";
 import HrScopeGrid from "./_sections/HrScopeGrid";
 import HrStatsBar from "./_sections/HrStatsBar";
@@ -25,6 +27,17 @@ export const metadata: Metadata = {
 export default function HROutsourcingPage() {
   return (
     <>
+      <JsonLd data={buildServiceSchema({
+        name: 'HR & Payroll Outsourcing Services',
+        description: 'Full-cycle HR operations — payroll, statutory compliance, recruitment, performance management and HRMS technology — managed end-to-end by certified HR professionals.',
+        serviceType: 'HR Outsourcing',
+        url: '/services/bpo-outsourcing/hr-outsourcing',
+      })} />
+      <JsonLd data={buildBreadcrumbSchema([
+        { name: 'Services', item: '/services' },
+        { name: 'BPO Outsourcing', item: '/services/bpo-outsourcing' },
+        { name: 'HR & Payroll Outsourcing', item: '/services/bpo-outsourcing/hr-outsourcing' },
+      ])} />
       <HrHeroSection />
       <HrScopeGrid />
       <HrStatsBar />

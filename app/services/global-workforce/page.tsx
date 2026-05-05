@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { buildServiceSchema, buildBreadcrumbSchema } from "@/lib/schemas";
 import Image from "next/image";
 import PageHero from "@/components/shared/PageHero";
 import RevealSection from "@/components/shared/RevealSection";
@@ -62,6 +64,16 @@ export default function GlobalWorkforceHubPage() {
 
   return (
     <>
+      <JsonLd data={buildServiceSchema({
+        name: 'Global Workforce Solutions',
+        description: 'Talent sourcing across India, SEA, Middle East, Africa, and Europe. Talent acquisition, contract staffing, RPO, and managed workforce solutions.',
+        serviceType: 'Workforce Solutions',
+        url: '/services/global-workforce',
+      })} />
+      <JsonLd data={buildBreadcrumbSchema([
+        { name: 'Services', item: '/services' },
+        { name: 'Global Workforce', item: '/services/global-workforce' },
+      ])} />
       <PageHero
         variant="gradient"
         gradient="indigo"

@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /studio
+
+# Host
+Host: https://www.karmickonnexions.com
+
+# Sitemaps
+Sitemap: https://www.karmickonnexions.com/sitemap.xml

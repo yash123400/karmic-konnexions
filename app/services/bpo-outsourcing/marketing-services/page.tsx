@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { buildServiceSchema, buildBreadcrumbSchema } from "@/lib/schemas";
 import MktgHeroSection from "./_sections/MktgHeroSection";
 import MktgServicesList from "./_sections/MktgServicesList";
 import MktgComparison from "./_sections/MktgComparison";
@@ -25,6 +27,17 @@ export const metadata: Metadata = {
 export default function MarketingServicesPage() {
   return (
     <>
+      <JsonLd data={buildServiceSchema({
+        name: 'Marketing Services Outsourcing',
+        description: 'Outsource your content, email marketing, social media, and campaign analytics to a dedicated marketing operations team. Consistent execution without the agency markup.',
+        serviceType: 'Marketing Outsourcing',
+        url: '/services/bpo-outsourcing/marketing-services',
+      })} />
+      <JsonLd data={buildBreadcrumbSchema([
+        { name: 'Services', item: '/services' },
+        { name: 'BPO Outsourcing', item: '/services/bpo-outsourcing' },
+        { name: 'Marketing Services', item: '/services/bpo-outsourcing/marketing-services' },
+      ])} />
       <MktgHeroSection />
       <MktgServicesList />
       <MktgComparison />

@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/schemas";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import RevealSection from "@/components/shared/RevealSection";
@@ -33,9 +35,23 @@ const breadcrumb = [
   { label: "BPO Outsourcing", href: "/services/bpo-outsourcing" },
 ];
 
+const bpoFaqs = [
+  { q: "What processes can you outsource?", a: "We cover the full spectrum of back-office functions — HR, Payroll, Finance, Accounts, CRM Administration, and Marketing Operations. If it's process-driven and repeatable, we can handle it." },
+  { q: "How do you ensure data security?", a: "All our BPO operations follow ISO 27001 guidelines. Data is accessed through secured VPN channels, with role-based access controls and NDA-bound contracts for every engagement." },
+  { q: "Do I need to provide your team with computers?", a: "No. Our teams work from our infrastructure. You only provide secure access credentials to your systems and a point of contact for escalations." },
+  { q: "Can we start with just one process?", a: "Absolutely. Most clients start with payroll or accounts payable, see the results in 60 days, and then expand. There's no minimum scope requirement." },
+  { q: "What are your pricing models?", a: "We offer FTE-based (per-person per-month), transaction-based, and hybrid pricing. We'll recommend the best model after a free process audit tailored to your operations." },
+  { q: "Is there a lock-in period?", a: "Our standard contracts are 12 months with a 90-day exit clause. We keep clients by delivering results, not by locking them in." },
+];
+
 export default function BpoOutsourcingPage() {
   return (
     <>
+      <JsonLd data={buildBreadcrumbSchema([
+        { name: 'Services', item: '/services' },
+        { name: 'BPO Outsourcing', item: '/services/bpo-outsourcing' },
+      ])} />
+      <JsonLd data={buildFaqSchema(bpoFaqs)} />
       {/* ── Section 1 — Custom Hero ── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#EEF2FF] via-[#F0F4FF] to-[#FAFBFF] pt-32 pb-20 md:pb-28">
         {/* Geometric SVG decoration */}

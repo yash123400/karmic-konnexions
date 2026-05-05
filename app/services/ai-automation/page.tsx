@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { buildServiceSchema, buildBreadcrumbSchema } from "@/lib/schemas";
 import PageHero from "@/components/shared/PageHero";
 import RevealSection from "@/components/shared/RevealSection";
 import SectionHeader from "@/components/shared/SectionHeader";
@@ -36,8 +38,18 @@ export default function AiAutomationPage() {
 
   return (
     <>
-      {/* 
-        Note: Using 'accent' gradient which features coral/orange tones 
+      <JsonLd data={buildServiceSchema({
+        name: 'AI Automation Solutions',
+        description: 'AI-powered workflow automation, intelligent HR systems, AI marketing tools and process optimisation. Karmic Konnexions brings enterprise AI to growing businesses.',
+        serviceType: 'AI Automation',
+        url: '/services/ai-automation',
+      })} />
+      <JsonLd data={buildBreadcrumbSchema([
+        { name: 'Services', item: '/services' },
+        { name: 'AI Automation', item: '/services/ai-automation' },
+      ])} />
+      {/*
+        Note: Using 'accent' gradient which features coral/orange tones
         as defined in our PageHero component gradientStyles
       */}
       <PageHero

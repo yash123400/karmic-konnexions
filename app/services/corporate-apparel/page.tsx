@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { buildServiceSchema, buildBreadcrumbSchema } from "@/lib/schemas";
 import Image from "next/image";
 import PageHero from "@/components/shared/PageHero";
 import RevealSection from "@/components/shared/RevealSection";
@@ -47,6 +49,16 @@ export default function CorporateApparelPage() {
 
   return (
     <>
+      <JsonLd data={buildServiceSchema({
+        name: 'Corporate Apparel & Uniform Solutions',
+        description: 'Custom corporate uniforms — traditional business attire, casual business, and industry-specific workwear. Vendor empanelment, bulk ordering, bio-washed fabrics, 6–12 month warranty.',
+        serviceType: 'Corporate Apparel',
+        url: '/services/corporate-apparel',
+      })} />
+      <JsonLd data={buildBreadcrumbSchema([
+        { name: 'Services', item: '/services' },
+        { name: 'Corporate Apparel', item: '/services/corporate-apparel' },
+      ])} />
       <PageHero
         variant="split"
         eyebrow="Corporate Apparel Solutions"

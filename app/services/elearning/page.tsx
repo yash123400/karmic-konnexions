@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { buildServiceSchema, buildBreadcrumbSchema } from "@/lib/schemas";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
@@ -22,6 +24,16 @@ const breadcrumb = [
 export default function ELearningPage() {
   return (
     <>
+      <JsonLd data={buildServiceSchema({
+        name: 'E-Learning & Corporate Training Solutions',
+        description: 'AI-powered LMS, industry-aligned training programs, career guidance and campus-to-corporate pipelines. Karmic Konnexions NextGen Learning — bridging education and employment.',
+        serviceType: 'E-Learning',
+        url: '/services/elearning',
+      })} />
+      <JsonLd data={buildBreadcrumbSchema([
+        { name: 'Services', item: '/services' },
+        { name: 'E-Learning & Training', item: '/services/elearning' },
+      ])} />
       {/* Breadcrumb wrapper */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <nav className="flex items-center gap-2 text-sm text-[#6B7280]" aria-label="Breadcrumb">

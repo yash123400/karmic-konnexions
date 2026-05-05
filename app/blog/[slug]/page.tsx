@@ -3,14 +3,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
-import { 
-  ArrowLeft, 
-  Calendar, 
-  User, 
-  Clock, 
-  Globe, 
-  Link as LinkIcon, 
-  MessageSquare, 
+import {
+  ArrowLeft,
+  Calendar,
+  User,
+  Clock,
+  Globe,
+  Link as LinkIcon,
+  MessageSquare,
   Share2,
   ChevronRight,
   ArrowRight
@@ -21,6 +21,8 @@ import { formatDate, readingTime } from '@/lib/utils'
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
 import RevealSection from '@/components/shared/RevealSection'
 import MagneticButton from '@/components/shared/MagneticButton'
+import JsonLd from '@/components/seo/JsonLd'
+import { buildBlogPostingSchema, buildBreadcrumbSchema } from '@/lib/schemas'
 
 export const revalidate = 60
 
@@ -46,6 +48,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
   return (
     <main className="pt-32 pb-24 bg-white">
+      <JsonLd data={buildBlogPostingSchema(post)} />
+      <JsonLd data={buildBreadcrumbSchema([
+        { name: 'Blog', item: '/blog' },
+        { name: post.title, item: `/blog/${post.slug.current}` },
+      ])} />
       <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Meta Row */}

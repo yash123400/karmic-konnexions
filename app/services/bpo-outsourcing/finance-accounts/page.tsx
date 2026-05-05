@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { buildServiceSchema, buildBreadcrumbSchema } from "@/lib/schemas";
 import FaHeroSection from "./_sections/FaHeroSection";
 import FaScopeList from "./_sections/FaScopeList";
 import FaStatsBar from "./_sections/FaStatsBar";
@@ -25,6 +27,17 @@ export const metadata: Metadata = {
 export default function FinanceAccountsPage() {
   return (
     <>
+      <JsonLd data={buildServiceSchema({
+        name: 'Finance & Accounts Outsourcing Services',
+        description: 'Outsource your finance and accounts function — AP/AR, MIS reporting, tax compliance, and bookkeeping — to chartered-accountant-led teams at Karmic Konnexions.',
+        serviceType: 'Finance Outsourcing',
+        url: '/services/bpo-outsourcing/finance-accounts',
+      })} />
+      <JsonLd data={buildBreadcrumbSchema([
+        { name: 'Services', item: '/services' },
+        { name: 'BPO Outsourcing', item: '/services/bpo-outsourcing' },
+        { name: 'Finance & Accounts', item: '/services/bpo-outsourcing/finance-accounts' },
+      ])} />
       <FaHeroSection />
       <FaScopeList />
       <FaStatsBar />
