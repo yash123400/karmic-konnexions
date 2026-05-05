@@ -1,9 +1,20 @@
 "use client";
-
 import MagneticButton from "@/components/shared/MagneticButton";
 import RevealSection from "@/components/shared/RevealSection";
 
-export default function CTABanner() {
+interface CTABannerProps {
+  title?: string;
+  subtitle?: string;
+  ctaText?: string;
+  href?: string;
+}
+
+export default function CTABanner({ 
+  title = "Ready to Transform Your Business Operations?", 
+  subtitle = "A fixed-cost outsourcing partner that builds, runs and scales your HR, Finance, CRM and Marketing.",
+  ctaText = "Book a Discovery Call →",
+  href = "/contact"
+}: CTABannerProps) {
   return (
     <section className="py-24 bg-accent relative overflow-hidden">
       {/* Background circles */}
@@ -14,25 +25,24 @@ export default function CTABanner() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <RevealSection>
           <h2 className="text-4xl md:text-5xl font-black text-white text-center leading-tight">
-            Ready to Transform Your Business Operations?
+            {title}
           </h2>
         </RevealSection>
 
         <RevealSection delay={0.1}>
           <p className="text-white/80 text-xl text-center mt-4 max-w-2xl mx-auto">
-            A fixed-cost outsourcing partner that builds, runs and scales your
-            HR, Finance, CRM and Marketing.
+            {subtitle}
           </p>
         </RevealSection>
 
         <RevealSection delay={0.2}>
           <div className="flex justify-center mt-10">
             <MagneticButton
-              href="/contact"
+              href={href}
               variant="primary"
               className="px-10 py-5 text-lg font-bold rounded-xl"
             >
-              Book a Discovery Call →
+              {ctaText}
             </MagneticButton>
           </div>
         </RevealSection>

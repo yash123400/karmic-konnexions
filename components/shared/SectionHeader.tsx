@@ -8,6 +8,7 @@ interface SectionHeaderProps {
   align?: 'left' | 'center';
   titleSize?: 'default' | 'large';
   theme?: 'light' | 'dark';
+  className?: string;
 }
 
 export default function SectionHeader({
@@ -17,9 +18,10 @@ export default function SectionHeader({
   align = 'center',
   titleSize = 'default',
   theme = 'light',
+  className,
 }: SectionHeaderProps) {
   return (
-    <RevealSection className={cn("flex flex-col", align === 'center' ? 'text-center items-center' : 'text-left items-start')}>
+    <RevealSection className={cn("flex flex-col", align === 'center' ? 'text-center items-center' : 'text-left items-start', className)}>
       {eyebrow && (
         <span className="text-sm font-bold uppercase tracking-widest text-[#F97316] mb-3">
           {eyebrow}

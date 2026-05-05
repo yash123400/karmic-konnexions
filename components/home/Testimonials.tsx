@@ -1,50 +1,66 @@
-"use client";
-
 import SectionHeader from "@/components/shared/SectionHeader";
 import RevealSection from "@/components/shared/RevealSection";
+import { sanityFetch } from "@/lib/sanity";
+import { FEATURED_TESTIMONIALS_QUERY } from "@/lib/queries";
+import { Quote } from "lucide-react";
 
-export default function Testimonials() {
+export default async function Testimonials() {
+  const testimonials = await sanityFetch<any[]>({ query: FEATURED_TESTIMONIALS_QUERY });
+
+  // Fallback if no testimonials in Sanity yet
+  const displayTestimonials = testimonials?.length > 0 ? testimonials : [
+    {
+      _id: 'default',
+      quote: "Karmic Konnexions built our entire HR function from scratch in 45 days. Dashboards, compliance and a great team — without a single full-time HR hire.",
+      attribution: "CFO, Logistics Company, 300 Employees",
+      service: "HR & Payroll"
+    }
+  ];
+
   return (
-    <section className="py-24 bg-primary-tint">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-32 bg-slate-50 overflow-hidden relative">
+      <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeader
-          eyebrow="Client Voices"
-          title="What Our Clients Say"
+          eyebrow="Client Success"
+          title="Direct from our Partners"
           align="center"
+          className="mb-20"
         />
 
-        <RevealSection>
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white rounded-3xl p-12 shadow-xl border border-border relative">
-              {/* Large quote mark */}
-              <svg
-                className="absolute top-8 left-8 w-20 h-20 text-primary opacity-20"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
+        <div className="max-w-4xl mx-auto">
+          {displayTestimonials.map((t, idx) => (
+            <RevealSection key={t._id} delay={idx * 0.1}>
+              <div className="bg-white rounded-[3rem] p-12 md:p-20 shadow-2xl shadow-primary/5 border border-slate-100 relative group">
+                <Quote className="absolute top-10 left-10 w-24 h-24 text-primary opacity-10 group-hover:opacity-20 transition-opacity" />
+                
+                <div className="relative z-10">
+                  <blockquote className="text-2xl md:text-3xl font-black text-slate-900 italic leading-relaxed mb-12">
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
 
-              <blockquote className="text-2xl font-medium text-text-primary italic leading-relaxed relative z-10">
-                &ldquo;Karmic Konnexions built our entire HR function from
-                scratch in 45 days. Dashboards, compliance and a great team —
-                without a single full-time HR hire.&rdquo;
-              </blockquote>
-
-              <div className="flex items-center gap-4 mt-8">
-                <div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">
-                  KK
-                </div>
-                <div>
-                  <p className="font-semibold text-text-primary">
-                    CFO, Logistics Company
-                  </p>
-                  <p className="text-sm text-text-muted">300 Employees</p>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pt-10 border-t border-slate-50">
+                    <div className="flex items-center gap-5">
+                      <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-white font-black text-xl shadow-lg shadow-primary/20">
+                        {t.attribution[0]}
+                      </div>
+                      <div>
+                        <p className="text-lg font-black text-slate-900 uppercase tracking-widest leading-tight">
+                          {t.attribution}
+                        </p>
+                        <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">Strategic Partner</p>
+                      </div>
+                    </div>
+                    
+                    <div className="px-6 py-2.5 rounded-full bg-slate-50 border border-slate-100 text-[10px] font-black text-primary uppercase tracking-[0.2em]">
+                      {t.service}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </RevealSection>
+            </RevealSection>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -22,7 +22,7 @@ interface PageHeroProps {
   breadcrumb?: BreadcrumbItem[];
   badge?: string;
   gradient?: 'indigo' | 'accent' | 'neutral';
-  variant?: 'default' | 'split' | 'gradient';
+  variant?: 'default' | 'split' | 'gradient' | 'minimal';
   primaryCta?: CtaProps;
   secondaryCta?: CtaProps;
   rightContent?: React.ReactNode;
@@ -47,7 +47,10 @@ export default function PageHero({
   rightContent,
 }: PageHeroProps) {
   return (
-    <section className={cn("relative py-20 md:py-28 overflow-hidden bg-gradient-to-br", gradientStyles[gradient])}>
+    <section className={cn(
+      "relative py-20 md:py-28 overflow-hidden",
+      variant === 'minimal' ? "bg-white pb-12" : cn("bg-gradient-to-br", gradientStyles[gradient])
+    )}>
       {/* Background decoration */}
       <div className="absolute w-96 h-96 bg-[#4F46E5]/5 rounded-full -top-20 -right-20 blur-3xl pointer-events-none" />
       <div className="absolute w-64 h-64 bg-[#F97316]/8 rounded-full -bottom-10 -left-10 blur-2xl pointer-events-none" />

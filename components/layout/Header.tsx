@@ -86,6 +86,13 @@ export default function Header() {
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const { scrollY, scrollYProgress } = useScroll();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    return scrollY.on("change", (latest) => {
+      setIsScrolled(latest > 50);
+    });
+  }, [scrollY]);
 
   // Scroll animations
   const bgOpacity = useTransform(scrollY, [0, 80], [0, 0.95]);
@@ -141,7 +148,10 @@ export default function Header() {
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0 py-2 group">
-            <div className="relative w-[38px] h-[38px] overflow-hidden rounded-lg shadow-sm group-hover:shadow-indigo-200/50 transition-all">
+            <div className={cn(
+              "relative w-[38px] h-[38px] overflow-hidden rounded-lg shadow-sm transition-all",
+              !isScrolled && "brightness-[100] contrast-[100]"
+            )}>
               <Image 
                 src="/images/brand/logo-main.png" 
                 alt="Karmic Konnexions Logo" 
@@ -150,10 +160,16 @@ export default function Header() {
               />
             </div>
             <motion.div style={{ scale: logoScale, transformOrigin: "left center" }} className="flex flex-col">
-              <div className="font-bold text-[#0F172A] text-base leading-none">
+              <div className={cn(
+                "font-bold text-base leading-none transition-colors",
+                isScrolled ? "text-[#0F172A]" : "text-white"
+              )}>
                 Karmic Konnexions
               </div>
-              <div className="text-[10px] text-[#6B7280] tracking-wide mt-0.5 hidden sm:block">
+              <div className={cn(
+                "text-[10px] tracking-wide mt-0.5 hidden sm:block transition-colors",
+                isScrolled ? "text-[#6B7280]" : "text-white/60"
+              )}>
                 Global Consulting LLP
               </div>
             </motion.div>
@@ -171,10 +187,14 @@ export default function Header() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-lg transition-all duration-150 inline-flex items-center gap-0.5 xl:gap-1",
-                    isActive(link.href)
-                      ? "text-[#4F46E5] font-semibold"
-                      : "text-[#374151] hover:text-[#4F46E5] hover:bg-[#EEF2FF]"
+                    "px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-lg transition-all duration-300 inline-flex items-center gap-0.5 xl:gap-1",
+                    isScrolled
+                      ? isActive(link.href)
+                        ? "text-[#4F46E5] font-semibold"
+                        : "text-[#374151] hover:text-[#4F46E5] hover:bg-[#EEF2FF]"
+                      : isActive(link.href)
+                        ? "text-white font-semibold"
+                        : "text-white/80 hover:text-white"
                   )}
                   aria-expanded={hoveredItem === link.label}
                   aria-haspopup={(link.megaMenu || link.dropdown) ? "true" : undefined}

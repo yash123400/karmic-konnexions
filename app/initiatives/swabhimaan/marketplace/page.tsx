@@ -1,41 +1,55 @@
-import { Metadata } from "next";
-import PageHero from "@/components/shared/PageHero";
-import RevealSection from "@/components/shared/RevealSection";
-import CTABanner from "@/components/home/CTABanner";
+import { Metadata } from 'next'
+import Link from 'next/link'
+import { Store, ArrowRight, ArrowLeft } from 'lucide-react'
+import PageHero from '@/components/shared/PageHero'
+import RevealSection from '@/components/shared/RevealSection'
+import MagneticButton from '@/components/shared/MagneticButton'
 
 export const metadata: Metadata = {
-  title: "Swabhimaan Marketplace",
-  description: "Digital marketplace connecting rural entrepreneurs with enterprise buyers.",
-};
+  title: 'Swabhimaan Marketplace | Karmic Konnexions',
+  description: 'A platform connecting rural women entrepreneurs to wider markets.'
+}
 
-export default function MarketplacePage() {
+export default function SwabhimaanMarketplacePage() {
   return (
-    <>
+    <main className="pt-16">
+      <section className="bg-white pt-24 pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <Link href="/initiatives/swabhimaan" className="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-primary transition-colors mb-12 uppercase tracking-widest">
+              <ArrowLeft className="w-4 h-4" />
+              Back to Swabhimaan
+           </Link>
+        </div>
+      </section>
+
       <PageHero
-        title="Swabhimaan Marketplace"
-        subtitle="Digital marketplace connecting rural entrepreneurs with enterprise buyers."
-        breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Initiatives', href: '/initiatives' }, { label: 'Swabhimaan', href: '/initiatives/swabhimaan' }, { label: 'Marketplace', href: '/initiatives/swabhimaan/marketplace' }]}
+        eyebrow="Initiative Marketplace"
+        title="Connecting Talent\nto Markets."
+        subtitle="The Swabhimaan Marketplace is a dedicated platform for our rural entrepreneurs to showcase and sell their products."
       />
-      <section className="py-24">
+
+      <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <RevealSection>
-            <div className="border-2 border-dashed border-primary/20 rounded-2xl p-12 text-center">
-              <div className="w-16 h-16 rounded-full bg-primary-tint flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
+            <div className="max-w-3xl mx-auto text-center space-y-12">
+              <div className="w-24 h-24 rounded-full bg-slate-50 flex items-center justify-center mx-auto border border-slate-100">
+                <Store className="w-10 h-10 text-slate-300" />
               </div>
-              <h3 className="text-2xl font-bold text-text-primary mb-3">
-                Page Coming Soon
-              </h3>
-              <p className="text-text-muted max-w-md mx-auto">
-                We&apos;re building something amazing. This page will be available shortly with full content and features.
-              </p>
+              <div className="space-y-6">
+                <h2 className="text-3xl font-black text-slate-900">Marketplace Launching Soon.</h2>
+                <p className="text-xl text-slate-500 leading-relaxed">
+                  We are currently onboarding our first batch of entrepreneurs and setting up the digital infrastructure. Check back soon to support grassroots business.
+                </p>
+              </div>
+              <div className="pt-8 flex justify-center gap-6">
+                <MagneticButton href="/contact?type=swabhimaan-partner" className="px-10 py-4">
+                  Partner with the Marketplace
+                </MagneticButton>
+              </div>
             </div>
           </RevealSection>
         </div>
       </section>
-      <CTABanner />
-    </>
-  );
+    </main>
+  )
 }

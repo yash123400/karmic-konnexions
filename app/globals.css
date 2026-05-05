@@ -11,6 +11,7 @@
   --accent-light: #FBBF24;
   --accent-tint: #FFFBEB;
   --background: #FAFBFF;
+  --midnight: #0B0E14;
   --surface: #FFFFFF;
   --border-color: #E0E7FF;
   --text-primary: #0F172A;
@@ -102,6 +103,13 @@ body::before {
 }
 
 /* ─── Premium Utilities ─── */
+.bg-midnight {
+  background-color: #0B0E14;
+  background-image: 
+    radial-gradient(circle at 50% -20%, rgba(99,102,241,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 0% 100%, rgba(245,158,11,0.05) 0%, transparent 40%);
+}
+
 .glass-card {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);

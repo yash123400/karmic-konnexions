@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react'
 import { motion, useSpring } from 'framer-motion'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 interface MagneticButtonProps {
   children: React.ReactNode
@@ -10,9 +11,20 @@ interface MagneticButtonProps {
   className?: string
   strength?: number // Default: 0.4
   variant?: "primary" | "secondary" | "outline" | "ghost"
+  type?: "button" | "submit" | "reset"
+  disabled?: boolean
 }
 
-export default function MagneticButton({ children, href, onClick, className = '', strength = 0.4, variant }: MagneticButtonProps) {
+export default function MagneticButton({ 
+  children, 
+  href, 
+  onClick, 
+  className = '', 
+  strength = 0.4, 
+  variant,
+  type = "button",
+  disabled = false
+}: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null)
   const x = useSpring(0, { stiffness: 300, damping: 30 })
   const y = useSpring(0, { stiffness: 300, damping: 30 })
@@ -40,12 +52,21 @@ export default function MagneticButton({ children, href, onClick, className = ''
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
       data-cursor="hover"
-      className={`inline-block ${className}`}
+      className={cn("inline-block", className)}
     >
       {children}
     </motion.div>
   )
 
   if (href) return <Link href={href}>{inner}</Link>
-  return <button onClick={onClick} className="appearance-none bg-transparent border-0 p-0">{inner}</button>
+  return (
+    <button 
+      type={type} 
+      onClick={onClick} 
+      disabled={disabled}
+      className="appearance-none bg-transparent border-0 p-0 cursor-pointer disabled:cursor-not-allowed"
+    >
+      {inner}
+    </button>
+  )
 }

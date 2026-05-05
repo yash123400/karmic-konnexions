@@ -32,80 +32,84 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-primary-tint to-background"
+      className="relative min-h-screen flex items-center overflow-hidden bg-[#020617]"
       onMouseMove={handleMouseMove}
     >
-      {/* Cursor spotlight */}
+      {/* Immersive 3D Backdrop */}
+      <div className="absolute inset-0 z-0">
+        <NetworkScene />
+      </div>
+
+      {/* Atmospheric lighting layers */}
+      <div className="absolute inset-0 pointer-events-none z-[1] bg-gradient-to-b from-transparent via-[#020617]/50 to-[#020617]" />
+      
       <div
-        className="absolute w-[1000px] h-[1000px] rounded-full pointer-events-none z-0 transition-transform duration-300 ease-out"
+        className="absolute w-[1200px] h-[1200px] rounded-full pointer-events-none z-[2] transition-transform duration-500 ease-out opacity-20"
         style={{
           background:
-            "radial-gradient(circle, rgba(79,70,229,0.1) 0%, rgba(245,158,11,0.03) 30%, transparent 70%)",
-          transform: `translate(${mousePos.x - 500}px, ${mousePos.y - 500}px)`,
+            "radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(245,158,11,0.05) 40%, transparent 80%)",
+          transform: `translate(${mousePos.x - 600}px, ${mousePos.y - 600}px)`,
         }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-0 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left Column */}
-          <div className="max-w-2xl">
-            <RevealSection>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-primary/10 shadow-sm mb-6">
-                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                <span className="text-xs font-bold tracking-wider text-primary uppercase">Karmic Konnexions Global</span>
-              </div>
-            </RevealSection>
+        <div className="max-w-4xl">
+          {/* Badge */}
+          <RevealSection>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl mb-8">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shadow-[0_0_10px_rgba(245,158,11,0.8)]" />
+              <span className="text-[10px] font-bold tracking-[0.2em] text-white/70 uppercase">Global Consulting Excellence</span>
+            </div>
+          </RevealSection>
 
-            <RevealSection delay={0.1}>
-              <h1 className="text-[2.75rem] sm:text-6xl lg:text-[4.5rem] font-extrabold leading-[1.05] tracking-tight text-text-primary">
-                <SplitText text="Empowering Growth Through" /> <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-indigo-600 to-amber-500 italic pr-2">
-                  <SplitText text="Execution." />
-                </span>
-              </h1>
-            </RevealSection>
+          {/* Title */}
+          <RevealSection delay={0.1}>
+            <h1 className="text-5xl sm:text-7xl lg:text-[5.5rem] font-extrabold leading-[0.95] tracking-tight text-white mb-8">
+              <span className="block opacity-90">Empowering</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-200 to-white">Growth Through</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200 italic pr-2">
+                Execution.
+              </span>
+            </h1>
+          </RevealSection>
 
-            <RevealSection delay={0.2}>
-              <p className="text-lg sm:text-xl text-text-secondary mt-6 leading-relaxed max-w-xl">
-                Strategic Outsourcing & Transformative Learning tailored for enterprises scaling globally.
-              </p>
-            </RevealSection>
+          {/* Subtitle */}
+          <RevealSection delay={0.2}>
+            <p className="text-xl sm:text-2xl text-white/60 mt-6 leading-relaxed max-w-2xl font-light tracking-wide">
+              Strategic Outsourcing & Transformative Learning <br className="hidden md:block" /> 
+              tailored for high-growth enterprises scaling globally.
+            </p>
+          </RevealSection>
 
-            <RevealSection delay={0.3}>
-              <div className="flex items-center gap-6 mt-10 pt-8 border-t border-border/60">
-                <div>
-                  <div className="text-3xl lg:text-4xl font-black text-primary tracking-tight">500+</div>
-                  <div className="text-xs font-semibold text-text-muted mt-1 uppercase tracking-wider">Clients</div>
-                </div>
-                <div className="w-px h-10 bg-border" />
-                <div>
-                  <div className="text-3xl lg:text-4xl font-black text-amber-600 tracking-tight">300k+</div>
-                  <div className="text-xs font-semibold text-text-muted mt-1 uppercase tracking-wider">Learners</div>
-                </div>
-                <div className="w-px h-10 bg-border hidden sm:block" />
-                <div className="hidden sm:block">
-                  <div className="text-3xl lg:text-4xl font-black text-primary tracking-tight">8</div>
-                  <div className="text-xs font-semibold text-text-muted mt-1 uppercase tracking-wider">Countries</div>
-                </div>
-              </div>
-            </RevealSection>
-
-            <RevealSection delay={0.4}>
-              <div className="flex flex-wrap gap-4 mt-10">
-                <MagneticButton href="/services" variant="primary">
-                  Explore Services →
-                </MagneticButton>
-                <MagneticButton href="/get-proposal" variant="outline">
-                  Get a Proposal
-                </MagneticButton>
-              </div>
-            </RevealSection>
-          </div>
-
-          {/* Right Column — Network Constellation */}
+          {/* Stats Bar - Premium Glassmorphism */}
           <RevealSection delay={0.3}>
-            <div className="relative w-full aspect-square max-w-[600px] mx-auto">
-              <NetworkScene />
+            <div className="flex flex-wrap items-center gap-10 mt-16 pt-10 border-t border-white/10">
+              <div className="group">
+                <div className="text-4xl font-light text-white tracking-tighter group-hover:text-amber-400 transition-colors duration-300">500<span className="text-amber-500 font-bold">+</span></div>
+                <div className="text-[10px] font-bold text-white/40 mt-1 uppercase tracking-[0.2em]">Global Clients</div>
+              </div>
+              <div className="w-px h-12 bg-white/10" />
+              <div className="group">
+                <div className="text-4xl font-light text-white tracking-tighter group-hover:text-amber-400 transition-colors duration-300">300k<span className="text-amber-500 font-bold">+</span></div>
+                <div className="text-[10px] font-bold text-white/40 mt-1 uppercase tracking-[0.2em]">Certified Learners</div>
+              </div>
+              <div className="w-px h-12 bg-white/10 hidden sm:block" />
+              <div className="hidden sm:block group">
+                <div className="text-4xl font-light text-white tracking-tighter group-hover:text-amber-400 transition-colors duration-300">8</div>
+                <div className="text-[10px] font-bold text-white/40 mt-1 uppercase tracking-[0.2em]">Core Regions</div>
+              </div>
+            </div>
+          </RevealSection>
+
+          {/* CTAs */}
+          <RevealSection delay={0.4}>
+            <div className="flex flex-wrap gap-5 mt-16">
+              <MagneticButton href="/services" variant="primary" className="!bg-white !text-midnight hover:!bg-amber-500 transition-colors">
+                Explore Solutions →
+              </MagneticButton>
+              <MagneticButton href="/get-proposal" variant="outline" className="!border-white/20 !text-white hover:!bg-white/10">
+                Get Expert Proposal
+              </MagneticButton>
             </div>
           </RevealSection>
         </div>
