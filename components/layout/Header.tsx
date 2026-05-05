@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import MagneticButton from "@/components/shared/MagneticButton";
@@ -86,25 +86,27 @@ export default function Header() {
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const { scrollY } = useScroll();
 
-  // Computed styles for transparency support
-  const textColour = isScrolled ? 'text-[var(--text-primary)]' : 'text-white';
-  const logoColour = isScrolled ? 'text-[var(--primary)]' : 'text-white';
-  const headerBg = isScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100' : 'bg-transparent border-b border-transparent';
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 50);
+  });
+
+  useEffect(() => {
+    setIsScrolled(scrollY.get() > 50);
+  }, [scrollY]);
+
+  const isHomePage = pathname === "/";
+  // Forced solid theme for 100% reliability and visibility
+  const isDarkTheme = false; 
+
+  const textColour = 'text-[#374151] font-semibold';
+  const logoColour = 'text-[#4F46E5] font-extrabold';
+  const headerBg = 'bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm';
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
+    return pathname === href || pathname.startsWith(href + "/");
   };
 
   const handleMouseEnter = (label: string) => {
@@ -146,7 +148,7 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-3 shrink-0 py-2 group">
             <div className={cn(
               "relative w-[38px] h-[38px] overflow-hidden rounded-lg shadow-sm transition-all duration-300",
-              !isScrolled && "brightness-0 invert"
+              isDarkTheme && "brightness-0 invert"
             )}>
               <Image 
                 src="/images/brand/logo-main.png" 
@@ -163,8 +165,7 @@ export default function Header() {
                 Karmic Konnexions
               </div>
               <div className={cn(
-                "text-[10px] tracking-wide mt-0.5 hidden sm:block transition-colors duration-300",
-                isScrolled ? "text-[#6B7280]" : "text-white/60"
+                "text-[10px] tracking-wide mt-0.5 hidden sm:block transition-colors duration-300 text-[#6B7280]"
               )}>
                 Global Consulting LLP
               </div>
@@ -328,10 +329,7 @@ export default function Header() {
             
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={cn(
-                "lg:hidden p-2 rounded-lg transition-colors duration-300",
-                isScrolled ? "text-[#374151] hover:bg-[#EEF2FF]" : "text-white hover:bg-white/10"
-              )}
+              className="lg:hidden p-2 rounded-lg transition-colors duration-300 text-[#374151] hover:bg-[#EEF2FF]"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -348,8 +346,7 @@ export default function Header() {
                   alt="Karmic Brand Mark" 
                   fill 
                   className={cn(
-                    "object-contain transition-all duration-300",
-                    !isScrolled ? "brightness-0 invert" : "grayscale hover:grayscale-0"
+                    "object-contain transition-all duration-300 grayscale hover:grayscale-0"
                   )}
                 />
               </div>

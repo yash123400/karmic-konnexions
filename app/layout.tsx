@@ -60,7 +60,9 @@ export default function RootLayout({
           <LenisProvider>
             <Header />
             <PageTransition>
-              <main className="pt-[64px] lg:pt-[72px]">{children}</main>
+              <main className="flex-grow pt-[64px] lg:pt-[72px]">
+                {children}
+              </main>
             </PageTransition>
             <Footer />
           </LenisProvider>

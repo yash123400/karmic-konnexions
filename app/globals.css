@@ -60,11 +60,18 @@ html {
 }
 
 body {
-  background-color: var(--background);
+  background-color: #0B0E14; /* Set dark baseline for body to avoid white flashes */
   color: var(--text-primary);
   font-family: var(--font-inter-var, var(--font-inter)), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Force main tag to respect transparency/hero bleed */
+main {
+  background-color: transparent !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
 }
 
 /* Noise texture overlay for premium feel */

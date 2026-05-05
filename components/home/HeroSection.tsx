@@ -31,10 +31,7 @@ export default function HeroSection() {
   );
 
   return (
-    <section
-      className="relative min-h-screen flex items-center overflow-hidden bg-[#020617]"
-      onMouseMove={handleMouseMove}
-    >
+    <section id="hero" className="relative min-h-[90vh] lg:min-h-screen w-full flex items-center overflow-hidden bg-[#0B0E14]" onMouseMove={handleMouseMove}>
       {/* Immersive 3D Backdrop */}
       <div className="absolute inset-0 z-0">
         <NetworkScene />
@@ -46,7 +43,7 @@ export default function HeroSection() {
       {/* Header gradient guard — ensures nav is always readable */}
       <div
         className="absolute top-0 left-0 right-0 h-32 pointer-events-none z-[5]"
-        style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%)' }}
+        style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)' }}
         aria-hidden="true"
       />
       
@@ -59,7 +56,7 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-0 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[120px] pb-24 lg:pt-[160px] lg:pb-0 relative z-10">
         <div className="max-w-4xl">
           {/* Badge */}
           <RevealSection>

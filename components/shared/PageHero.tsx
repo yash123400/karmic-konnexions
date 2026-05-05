@@ -48,7 +48,7 @@ export default function PageHero({
 }: PageHeroProps) {
   return (
     <section className={cn(
-      "relative py-20 md:py-28 overflow-hidden",
+      "relative pt-[144px] pb-20 lg:pt-[172px] md:pb-28 overflow-hidden",
       variant === 'minimal' ? "bg-white pb-12" : cn("bg-gradient-to-br", gradientStyles[gradient])
     )}>
       {/* Background decoration */}
@@ -62,7 +62,7 @@ export default function PageHero({
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 relative z-10">
         {breadcrumb && breadcrumb.length > 0 && (
           <nav className="flex items-center gap-2 text-sm text-[#6B7280] mb-8" aria-label="Breadcrumb">
             {breadcrumb.map((item, index) => {
