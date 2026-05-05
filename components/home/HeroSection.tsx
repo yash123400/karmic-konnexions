@@ -37,11 +37,11 @@ export default function HeroSection() {
     >
       {/* Cursor spotlight */}
       <div
-        className="absolute w-[800px] h-[800px] rounded-full pointer-events-none z-0 transition-transform duration-150"
+        className="absolute w-[1000px] h-[1000px] rounded-full pointer-events-none z-0 transition-transform duration-300 ease-out"
         style={{
           background:
-            "radial-gradient(circle, rgba(79,70,229,0.08) 0%, transparent 60%)",
-          transform: `translate(${mousePos.x - 400}px, ${mousePos.y - 400}px)`,
+            "radial-gradient(circle, rgba(79,70,229,0.1) 0%, rgba(245,158,11,0.03) 30%, transparent 70%)",
+          transform: `translate(${mousePos.x - 500}px, ${mousePos.y - 500}px)`,
         }}
       />
 
@@ -50,8 +50,8 @@ export default function HeroSection() {
           {/* Left Column */}
           <div className="max-w-2xl">
             <RevealSection>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-primary/10 shadow-sm mb-6">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-primary/10 shadow-sm mb-6">
+                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
                 <span className="text-xs font-bold tracking-wider text-primary uppercase">Karmic Konnexions Global</span>
               </div>
             </RevealSection>
@@ -59,7 +59,7 @@ export default function HeroSection() {
             <RevealSection delay={0.1}>
               <h1 className="text-[2.75rem] sm:text-6xl lg:text-[4.5rem] font-extrabold leading-[1.05] tracking-tight text-text-primary">
                 <SplitText text="Empowering Growth Through" /> <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent italic pr-2">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-indigo-600 to-amber-500 italic pr-2">
                   <SplitText text="Execution." />
                 </span>
               </h1>
@@ -79,7 +79,7 @@ export default function HeroSection() {
                 </div>
                 <div className="w-px h-10 bg-border" />
                 <div>
-                  <div className="text-3xl lg:text-4xl font-black text-primary tracking-tight">300k+</div>
+                  <div className="text-3xl lg:text-4xl font-black text-amber-600 tracking-tight">300k+</div>
                   <div className="text-xs font-semibold text-text-muted mt-1 uppercase tracking-wider">Learners</div>
                 </div>
                 <div className="w-px h-10 bg-border hidden sm:block" />
