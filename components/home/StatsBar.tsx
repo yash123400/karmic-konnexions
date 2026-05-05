@@ -25,7 +25,7 @@ export default function StatsBar() {
             >
               <div className="flex items-baseline justify-center">
                 <AnimatedCounter
-                  end={stat.end}
+                  value={stat.end}
                   suffix={stat.suffix}
                   className="text-5xl font-bold text-white"
                 />

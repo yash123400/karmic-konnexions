@@ -1,41 +1,89 @@
 import { Metadata } from "next";
 import PageHero from "@/components/shared/PageHero";
 import RevealSection from "@/components/shared/RevealSection";
-import CTABanner from "@/components/home/CTABanner";
+import SectionHeader from "@/components/shared/SectionHeader";
+import MagneticButton from "@/components/shared/MagneticButton";
 
 export const metadata: Metadata = {
-  title: "Recruitment Process Outsourcing",
-  description: "Complete RPO solutions for high-volume and specialised hiring across industries.",
+  title: 'Recruitment Process Outsourcing (RPO) | Karmic Konnexions',
+  description: 'Full-cycle RPO services — resume processing, assessments, HR helpdesk, BGV, document management, and centralised dashboards. Outsource your entire recruitment function.',
 };
 
-export default function RPOPage() {
+export default function RpoPage() {
+  const blocks = [
+    {
+      title: "Recruitment Process Outsourcing",
+      desc: "We operate as your embedded talent acquisition team. We absorb your culture, understand your long-term goals, and handle the complete recruitment lifecycle from requisition to onboarding.",
+      number: "01"
+    },
+    {
+      title: "Resume Processing & Assessments",
+      desc: "Structured screening, shortlisting and assessment coordination. We filter out the noise and present only the top quartile of qualified candidates to your hiring managers.",
+      number: "02"
+    },
+    {
+      title: "HR Helpdesk & BGV",
+      desc: "Comprehensive support covering candidate queries, background verification (BGV), reference checks, and secure offer documentation management.",
+      number: "03"
+    },
+    {
+      title: "Centralised Dashboards",
+      desc: "Real-time visibility into pipeline health, time-to-fill, cost-per-hire, and diversity metrics through our integrated analytics dashboards.",
+      number: "04"
+    }
+  ];
+
   return (
     <>
       <PageHero
-        title="Recruitment Process Outsourcing"
-        subtitle="Complete RPO solutions for high-volume and specialised hiring across industries."
-        breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }, { label: 'Global Workforce', href: '/services/global-workforce' }, { label: 'Rpo', href: '/services/global-workforce/rpo' }]}
+        variant="gradient"
+        gradient="indigo"
+        eyebrow="Recruitment Process Outsourcing"
+        title={"Your Hiring Function.\nFully Managed."}
+        subtitle="Outsource your recruitment end-to-end. We deploy dedicated teams, proven processes, and advanced technology to deliver talent at scale while reducing your cost-per-hire."
+        breadcrumb={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Global Workforce', href: '/services/global-workforce' },
+          { label: 'RPO', href: '/services/global-workforce/rpo' }
+        ]}
       />
-      <section className="py-24">
+
+      <section className="py-24 bg-[#FAFBFF]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <RevealSection>
-            <div className="border-2 border-dashed border-primary/20 rounded-2xl p-12 text-center">
-              <div className="w-16 h-16 rounded-full bg-primary-tint flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-text-primary mb-3">
-                Page Coming Soon
-              </h3>
-              <p className="text-text-muted max-w-md mx-auto">
-                We&apos;re building something amazing. This page will be available shortly with full content and features.
-              </p>
-            </div>
-          </RevealSection>
+          <SectionHeader eyebrow="Our Methodology" title="The RPO Advantage" align="center" />
+          
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {blocks.map((block, i) => (
+              <RevealSection key={i} delay={0.1 * i}>
+                <div className="bg-white p-10 rounded-3xl shadow-sm border border-[#E0E7FF] h-full flex flex-col relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-8 text-8xl font-black text-[#F3F4F6] group-hover:text-[#EEF2FF] transition-colors z-0 select-none">
+                    {block.number}
+                  </div>
+                  <div className="relative z-10 flex-grow">
+                    <h3 className="text-2xl font-bold text-[#0F172A] mb-4 pr-12">{block.title}</h3>
+                    <p className="text-[#4B5563] leading-relaxed text-lg">{block.desc}</p>
+                  </div>
+                </div>
+              </RevealSection>
+            ))}
+          </div>
         </div>
       </section>
-      <CTABanner />
+
+      {/* CTA */}
+      <section className="py-20 bg-white text-center border-t border-[#E0E7FF]">
+        <RevealSection>
+          <h2 className="text-3xl font-bold text-[#0F172A] mb-6">Want to lower your cost-per-hire?</h2>
+          <MagneticButton
+            href="/contact?service=rpo&type=proposal"
+            variant="primary"
+            className="px-8 py-4 text-base font-bold rounded-xl bg-[#4F46E5] text-white"
+          >
+            Get an RPO Proposal
+          </MagneticButton>
+        </RevealSection>
+      </section>
     </>
   );
 }

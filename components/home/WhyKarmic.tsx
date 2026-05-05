@@ -45,7 +45,7 @@ export default function WhyKarmic() {
                 <div className="flex items-baseline gap-1">
                   {card.isCounter ? (
                     <AnimatedCounter
-                      end={card.stat as number}
+                      value={card.stat as number}
                       suffix={card.suffix}
                       className="text-6xl font-black text-primary"
                     />

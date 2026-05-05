@@ -2,9 +2,15 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import SplitText from "./SplitText";
 import RevealSection from "./RevealSection";
+import MagneticButton from "./MagneticButton";
 import { cn } from "@/lib/utils";
 
 interface BreadcrumbItem {
+  label: string;
+  href: string;
+}
+
+interface CtaProps {
   label: string;
   href: string;
 }
@@ -16,6 +22,10 @@ interface PageHeroProps {
   breadcrumb?: BreadcrumbItem[];
   badge?: string;
   gradient?: 'indigo' | 'accent' | 'neutral';
+  variant?: 'default' | 'split' | 'gradient';
+  primaryCta?: CtaProps;
+  secondaryCta?: CtaProps;
+  rightContent?: React.ReactNode;
 }
 
 const gradientStyles = {
@@ -31,6 +41,10 @@ export default function PageHero({
   breadcrumb,
   badge,
   gradient = 'indigo',
+  variant = 'default',
+  primaryCta,
+  secondaryCta,
+  rightContent,
 }: PageHeroProps) {
   return (
     <section className={cn("relative py-20 md:py-28 overflow-hidden bg-gradient-to-br", gradientStyles[gradient])}>
@@ -59,30 +73,67 @@ export default function PageHero({
           </nav>
         )}
 
-        {badge && (
-          <div className="inline-flex mb-4 items-center gap-2 bg-[#EEF2FF] text-[#4F46E5] text-xs font-semibold px-3 py-1.5 rounded-full border border-[#E0E7FF]">
-            {badge}
+        <div className={cn("flex flex-col gap-12", variant === 'split' ? "lg:flex-row lg:items-center" : "")}>
+          <div className={cn("flex-1", variant === 'split' ? "lg:max-w-xl xl:max-w-2xl" : "")}>
+            {badge && (
+              <div className="inline-flex mb-4 items-center gap-2 bg-[#EEF2FF] text-[#4F46E5] text-xs font-semibold px-3 py-1.5 rounded-full border border-[#E0E7FF]">
+                {badge}
+              </div>
+            )}
+
+            {eyebrow && (
+              <div className="text-sm font-bold uppercase tracking-widest text-[#F97316] mb-3">
+                {eyebrow}
+              </div>
+            )}
+
+            <SplitText
+              text={title}
+              className={cn("text-4xl md:text-5xl lg:text-6xl font-black text-[#0F172A] leading-[1.1]", variant === 'split' ? "" : "max-w-4xl")}
+            />
+
+            {subtitle && (
+              <RevealSection delay={0.3}>
+                <p className={cn("text-xl text-[#374151] mt-6 leading-relaxed", variant === 'split' ? "" : "max-w-2xl")}>
+                  {subtitle}
+                </p>
+              </RevealSection>
+            )}
+
+            {(primaryCta || secondaryCta) && (
+              <RevealSection delay={0.4}>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-10">
+                  {primaryCta && (
+                    <MagneticButton
+                      href={primaryCta.href}
+                      variant="primary"
+                      className="px-8 py-4 text-base font-bold rounded-xl bg-[#4F46E5] text-white"
+                    >
+                      {primaryCta.label}
+                    </MagneticButton>
+                  )}
+                  {secondaryCta && (
+                    <Link
+                      href={secondaryCta.href}
+                      className="inline-flex items-center gap-2 text-[#4F46E5] font-semibold text-base hover:gap-3 transition-all duration-200"
+                    >
+                      {secondaryCta.label}
+                      <ChevronRight className="w-4 h-4" />
+                    </Link>
+                  )}
+                </div>
+              </RevealSection>
+            )}
           </div>
-        )}
-
-        {eyebrow && (
-          <div className="text-sm font-bold uppercase tracking-widest text-[#F97316] mb-3">
-            {eyebrow}
-          </div>
-        )}
-
-        <SplitText
-          text={title}
-          className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0F172A] leading-[1.1] max-w-4xl"
-        />
-
-        {subtitle && (
-          <RevealSection delay={0.3}>
-            <p className="text-xl text-[#374151] mt-6 max-w-2xl leading-relaxed">
-              {subtitle}
-            </p>
-          </RevealSection>
-        )}
+          
+          {variant === 'split' && rightContent && (
+            <div className="flex-1 w-full lg:w-1/2 flex justify-center lg:justify-end">
+              <RevealSection delay={0.2}>
+                {rightContent}
+              </RevealSection>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

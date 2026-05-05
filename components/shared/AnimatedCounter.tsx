@@ -1,70 +1,37 @@
-"use client"
-import { useEffect, useRef, useState } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
-import { cn } from "@/lib/utils";
+"use client";
+
+import { useEffect, useRef } from "react";
+import { useInView, useMotionValue, useSpring } from "framer-motion";
 
 interface AnimatedCounterProps {
-  end: number;
-  duration?: number;
-  prefix?: string;
+  value: number;
   suffix?: string;
-  decimals?: number;
+  prefix?: string;
   className?: string;
 }
 
-export default function AnimatedCounter({
-  end,
-  duration = 2.2,
-  prefix = "",
-  suffix = "",
-  decimals = 0,
-  className,
-}: AnimatedCounterProps) {
+export default function AnimatedCounter({ value, suffix = "", prefix = "", className = "" }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-  const shouldReduceMotion = useReducedMotion();
-  const [displayValue, setDisplayValue] = useState(0);
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, {
+    damping: 30,
+    stiffness: 100,
+  });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
-    if (shouldReduceMotion) {
-      setDisplayValue(end);
-      return;
+    if (isInView) {
+      motionValue.set(value);
     }
+  }, [motionValue, isInView, value]);
 
-    if (!inView) return;
-
-    let startTime: number | null = null;
-    let animationFrame: number;
-
-    const tick = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const progress = Math.min(elapsed / (duration * 1000), 1);
-      
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = end * eased;
-      
-      setDisplayValue(current);
-
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(tick);
-      } else {
-        setDisplayValue(end);
+  useEffect(() => {
+    return springValue.on("change", (latest) => {
+      if (ref.current) {
+        ref.current.textContent = `${prefix}${Math.round(latest)}${suffix}`;
       }
-    };
+    });
+  }, [springValue, prefix, suffix]);
 
-    animationFrame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [inView, end, duration, shouldReduceMotion]);
-
-  const formatted = new Intl.NumberFormat('en-IN', {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(displayValue);
-
-  return (
-    <span ref={ref} className={cn("tabular-nums", className)}>
-      {prefix}{formatted}{suffix}
-    </span>
-  );
+  return <span ref={ref} className={className}>{prefix}0{suffix}</span>;
 }

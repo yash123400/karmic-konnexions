@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -127,13 +128,9 @@ export default function Header() {
 
   return (
     <>
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary to-accent z-[60] origin-left"
-        style={{ scaleX: scrollYProgress }}
-      />
       <motion.header
         ref={headerRef}
-        className="fixed top-0 left-0 right-0 z-50 h-[64px] lg:h-[72px] flex items-center transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 h-[64px] lg:h-[72px] flex items-center transition-all duration-300 border-b border-transparent"
         style={{
           backgroundColor: useTransform(bgOpacity, (v) => `rgba(255, 255, 255, ${v})`),
           borderBottom: useTransform(borderOpacity, (v) => `1px solid rgba(224, 231, 255, ${v})`),
@@ -143,9 +140,14 @@ export default function Header() {
       >
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0 py-2">
-            <div className="w-[36px] h-[36px] bg-[#4F46E5] rounded-lg flex items-center justify-center shrink-0">
-              <span className="text-white font-black text-xl">K</span>
+          <Link href="/" className="flex items-center gap-3 shrink-0 py-2 group">
+            <div className="relative w-[38px] h-[38px] overflow-hidden rounded-lg shadow-sm group-hover:shadow-indigo-200/50 transition-all">
+              <Image 
+                src="/images/brand/logo-main.png" 
+                alt="Karmic Konnexions Logo" 
+                fill 
+                className="object-cover"
+              />
             </div>
             <motion.div style={{ scale: logoScale, transformOrigin: "left center" }} className="flex flex-col">
               <div className="font-bold text-[#0F172A] text-base leading-none">
@@ -158,7 +160,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1 h-full" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5 h-full overflow-hidden" aria-label="Main navigation">
             {navLinks.map((link) => (
               <div
                 key={link.href}
@@ -169,7 +171,7 @@ export default function Header() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "px-3 py-2 text-sm font-medium rounded-lg transition-all duration-150 inline-flex items-center gap-1",
+                    "px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-lg transition-all duration-150 inline-flex items-center gap-0.5 xl:gap-1",
                     isActive(link.href)
                       ? "text-[#4F46E5] font-semibold"
                       : "text-[#374151] hover:text-[#4F46E5] hover:bg-[#EEF2FF]"
@@ -319,6 +321,18 @@ export default function Header() {
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
+
+            {/* Top Right Brand Mark (Desktop) */}
+            <div className="hidden lg:flex items-center pl-4 border-l border-slate-200">
+              <div className="relative w-8 h-8 opacity-40 hover:opacity-100 transition-opacity">
+                <Image 
+                  src="/images/brand/logo-mark.png" 
+                  alt="Karmic Brand Mark" 
+                  fill 
+                  className="object-contain grayscale hover:grayscale-0 transition-all"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </motion.header>

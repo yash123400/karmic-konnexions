@@ -1,41 +1,86 @@
 import { Metadata } from "next";
 import PageHero from "@/components/shared/PageHero";
 import RevealSection from "@/components/shared/RevealSection";
-import CTABanner from "@/components/home/CTABanner";
+import SectionHeader from "@/components/shared/SectionHeader";
+import MagneticButton from "@/components/shared/MagneticButton";
+import { CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contract Staffing Solutions",
-  description: "Flexible contract staffing and temporary workforce solutions for enterprises.",
+  title: 'Contract & Temporary Staffing | Karmic Konnexions',
+  description: 'Flexible contract staffing, payroll management, compliance, and scalable managed workforce for seasonal and project-based needs — across India and internationally.',
 };
 
 export default function ContractStaffingPage() {
+  const scope = [
+    {
+      title: "Contract / Temporary Staffing",
+      desc: "Rapid deployment of screened contract resources for fixed durations. Avoid headcount commitments while meeting immediate delivery requirements.",
+    },
+    {
+      title: "Payroll & Compliance",
+      desc: "Full statutory payroll management for contract staff including PF, ESIC, PT, and TDS. We assume the employer-of-record liabilities.",
+    },
+    {
+      title: "Onboarding & Exit Management",
+      desc: "End-to-end joining formalities, induction coordination, and smooth exit processes — ensuring zero friction for your internal HR teams.",
+    },
+    {
+      title: "Scalable for Seasonal/Project Needs",
+      desc: "Ramp up or down within 2 weeks. Ideal for IT rollouts, festive season retail spikes, or large-scale manufacturing shifts with no long-term commitment.",
+    }
+  ];
+
   return (
     <>
       <PageHero
-        title="Contract Staffing Solutions"
-        subtitle="Flexible contract staffing and temporary workforce solutions for enterprises."
-        breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }, { label: 'Global Workforce', href: '/services/global-workforce' }, { label: 'Contract Staffing', href: '/services/global-workforce/contract-staffing' }]}
+        variant="gradient"
+        gradient="indigo"
+        eyebrow="Contract Staffing"
+        title={"Flexible Workforce.\nZero Compliance Risk."}
+        subtitle="Deploy contract and temporary staff rapidly. We handle payroll, compliance, onboarding and exit — you get the output without the employment liability."
+        breadcrumb={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Global Workforce', href: '/services/global-workforce' },
+          { label: 'Contract Staffing', href: '/services/global-workforce/contract-staffing' }
+        ]}
       />
-      <section className="py-24">
+
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <RevealSection>
-            <div className="border-2 border-dashed border-primary/20 rounded-2xl p-12 text-center">
-              <div className="w-16 h-16 rounded-full bg-primary-tint flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-text-primary mb-3">
-                Page Coming Soon
-              </h3>
-              <p className="text-text-muted max-w-md mx-auto">
-                We&apos;re building something amazing. This page will be available shortly with full content and features.
-              </p>
-            </div>
-          </RevealSection>
+          <SectionHeader eyebrow="Our Solution" title="Comprehensive Staffing Scope" align="center" />
+          
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {scope.map((item, i) => (
+              <RevealSection key={i} delay={0.1 * i}>
+                <div className="flex gap-6 items-start bg-[#FAFBFF] p-8 rounded-2xl border border-[#E0E7FF] h-full hover:shadow-md transition-shadow">
+                  <div className="flex-shrink-0">
+                    <CheckCircle2 className="w-8 h-8 text-[#10B981]" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-[#0F172A] mb-3">{item.title}</h3>
+                    <p className="text-[#374151] leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              </RevealSection>
+            ))}
+          </div>
         </div>
       </section>
-      <CTABanner />
+
+      {/* CTA */}
+      <section className="py-20 bg-[#0F172A] text-center border-t border-white/10">
+        <RevealSection>
+          <h2 className="text-3xl font-bold text-white mb-6">Need resources quickly?</h2>
+          <MagneticButton
+            href="/contact?service=contract-staffing"
+            variant="primary"
+            className="px-8 py-4 text-base font-bold rounded-xl bg-[#4F46E5] text-white"
+          >
+            Discuss Staffing Needs
+          </MagneticButton>
+        </RevealSection>
+      </section>
     </>
   );
 }

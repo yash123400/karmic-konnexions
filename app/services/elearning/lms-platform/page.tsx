@@ -1,41 +1,107 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import PageHero from "@/components/shared/PageHero";
 import RevealSection from "@/components/shared/RevealSection";
-import CTABanner from "@/components/home/CTABanner";
+import SectionHeader from "@/components/shared/SectionHeader";
+import MagneticButton from "@/components/shared/MagneticButton";
 
 export const metadata: Metadata = {
-  title: "LMS Platform",
-  description: "Enterprise learning management system with AI-powered content delivery and assessments.",
+  title: 'AI-Based LMS Platform | Karmic Konnexions NextGen Learning',
+  description: 'Karmic Konnexions AI-powered Learning Management System — content delivery, progress tracking, assessments, discussion forums and mobile access for corporate and institutional training.',
 };
 
-export default function LMSPlatformPage() {
+export default function LmsPlatformPage() {
   return (
     <>
+      {/* Hero */}
       <PageHero
-        title="LMS Platform"
-        subtitle="Enterprise learning management system with AI-powered content delivery and assessments."
-        breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }, { label: 'Elearning', href: '/services/elearning' }, { label: 'Lms Platform', href: '/services/elearning/lms-platform' }]}
+        variant="gradient"
+        eyebrow="AI-Based LMS"
+        title="Smart Learning.\nMeasurable Outcomes."
+        subtitle="Our Learning Management System powers every program — delivering content, tracking progress, enabling assessments, and keeping learners engaged across devices."
+        primaryCta={{ label: 'Get a Demo', href: '/contact?service=lms-platform' }}
       />
-      <section className="py-24">
+
+      {/* Visual Infographic */}
+      <section className="py-24 bg-[#FAFBFF]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <RevealSection>
-            <div className="border-2 border-dashed border-primary/20 rounded-2xl p-12 text-center">
-              <div className="w-16 h-16 rounded-full bg-primary-tint flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-text-primary mb-3">
-                Page Coming Soon
-              </h3>
-              <p className="text-text-muted max-w-md mx-auto">
-                We&apos;re building something amazing. This page will be available shortly with full content and features.
-              </p>
+          <SectionHeader title="The Engine Behind Our Training" align="center" />
+          
+          <RevealSection delay={0.2}>
+            <div className="mt-12 mb-20 relative w-full max-w-5xl mx-auto h-[300px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl bg-white border border-[#E0E7FF]">
+               <Image 
+                 src="/images/capability/capability-infographic.png" 
+                 fill
+                 alt="E-Learning LMS Infographic" 
+                 className="object-cover" 
+               />
             </div>
           </RevealSection>
+
+          {/* 6 Feature Deep-Dives */}
+          <SectionHeader eyebrow="LMS Features" title="Built for Modern Learners" align="center" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+            {[
+              {
+                title: "Content Access",
+                desc: "Trainees access lecture materials, e-books, videos, and practice questions on-demand.",
+                num: "01"
+              },
+              {
+                title: "Progress Tracking",
+                desc: "Individual dashboards showing test scores, attendance, and participation.",
+                num: "02"
+              },
+              {
+                title: "Quizzes & Tests",
+                desc: "Weekly assessments and final evaluations with real-time feedback.",
+                num: "03"
+              },
+              {
+                title: "Discussion Forums",
+                desc: "Interactive forums for peer discussions, SME queries, and group problem-solving.",
+                num: "04"
+              },
+              {
+                title: "Mobile Access",
+                desc: "Fully accessible on smartphones for learning flexibility and convenience.",
+                num: "05"
+              },
+              {
+                title: "AI Personalisation",
+                desc: "AI adapts learning paths based on individual performance and engagement data.",
+                num: "06"
+              }
+            ].map((feature, i) => (
+              <RevealSection key={i} delay={0.1 * (i % 3)}>
+                <div className="bg-white p-8 rounded-2xl border border-[#E0E7FF] h-full shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                  <div className="absolute -top-4 -right-4 text-7xl font-black text-[#FAFBFF] group-hover:text-[#EEF2FF] transition-colors z-0 select-none pointer-events-none">
+                    {feature.num}
+                  </div>
+                  <div className="relative z-10">
+                    <h3 className="text-xl font-bold text-[#0F172A] mb-3">{feature.title}</h3>
+                    <p className="text-[#374151] leading-relaxed">{feature.desc}</p>
+                  </div>
+                </div>
+              </RevealSection>
+            ))}
+          </div>
         </div>
       </section>
-      <CTABanner />
+      
+      {/* CTA bottom */}
+      <section className="py-20 bg-white border-t border-[#E0E7FF] text-center">
+        <RevealSection>
+          <h2 className="text-3xl font-bold text-[#0F172A] mb-6">Ready to see it in action?</h2>
+          <MagneticButton
+            href="/contact?service=lms-platform"
+            variant="primary"
+            className="px-8 py-4 text-base font-bold rounded-xl bg-[#4F46E5] text-white"
+          >
+            Request an LMS Demo
+          </MagneticButton>
+        </RevealSection>
+      </section>
     </>
   );
 }

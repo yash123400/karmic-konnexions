@@ -4,6 +4,7 @@ import { ChevronRight } from "lucide-react";
 import RevealSection from "@/components/shared/RevealSection";
 import SplitText from "@/components/shared/SplitText";
 import MagneticButton from "@/components/shared/MagneticButton";
+import SplineSceneDynamic from "@/components/3d/SplineSceneDynamic";
 
 // Client section imports
 import BpoStatsBar from "@/components/bpo/BpoStatsBar";
@@ -82,53 +83,67 @@ export default function BpoOutsourcingPage() {
             })}
           </nav>
 
-          {/* Eyebrow */}
-          <div className="text-sm font-bold uppercase tracking-widest text-[#F97316] mb-4">
-            Business Process Outsourcing
-          </div>
+          <div className="flex flex-col lg:flex-row items-center gap-10">
+            <div className="flex-1">
+              {/* Eyebrow */}
+              <div className="text-sm font-bold uppercase tracking-widest text-[#F97316] mb-4">
+                Business Process Outsourcing
+              </div>
 
-          {/* Headline */}
-          <div className="max-w-4xl">
-            <SplitText
-              text="Scale Operations Without"
-              className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0F172A] leading-[1.08]"
-            />
-            <SplitText
-              text="Scaling Headcount"
-              className="text-4xl md:text-5xl lg:text-6xl font-black text-[#4F46E5] leading-[1.08]"
-            />
-          </div>
+              {/* Headline */}
+              <div className="max-w-4xl">
+                <SplitText
+                  text="Scale Operations Without"
+                  className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0F172A] leading-[1.08]"
+                />
+                <SplitText
+                  text="Scaling Headcount"
+                  className="text-4xl md:text-5xl lg:text-6xl font-black text-[#4F46E5] leading-[1.08]"
+                />
+              </div>
 
-          {/* Subtitle */}
-          <RevealSection delay={0.35}>
-            <p className="text-lg md:text-xl text-[#374151] mt-6 max-w-2xl leading-relaxed">
-              Karmic Konnexions delivers end-to-end BPO solutions that cut
-              operational costs by up to 60% while elevating service quality.
-              From HR to Finance to Sales — we run the processes so you can run
-              the business.
-            </p>
-          </RevealSection>
+              {/* Subtitle */}
+              <RevealSection delay={0.35}>
+                <p className="text-lg md:text-xl text-[#374151] mt-6 max-w-2xl leading-relaxed">
+                  Karmic Konnexions delivers end-to-end BPO solutions that cut
+                  operational costs by up to 60% while elevating service quality.
+                  From HR to Finance to Sales — we run the processes so you can run
+                  the business.
+                </p>
+              </RevealSection>
 
-          {/* CTAs */}
-          <RevealSection delay={0.5}>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-10">
-              <MagneticButton
-                href="/contact?service=bpo"
-                variant="primary"
-                className="px-8 py-4 text-base font-bold rounded-xl"
-              >
-                Get a Free Process Audit
-              </MagneticButton>
-              <Link
-                href="#how-we-work"
-                className="inline-flex items-center gap-2 text-[#4F46E5] font-semibold text-base
-                  hover:gap-3 transition-all duration-200"
-              >
-                See Our Process
-                <ChevronRight className="w-4 h-4" />
-              </Link>
+              {/* CTAs */}
+              <RevealSection delay={0.5}>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-10">
+                  <MagneticButton
+                    href="/contact?service=bpo"
+                    variant="primary"
+                    className="px-8 py-4 text-base font-bold rounded-xl bg-[#4F46E5] text-white"
+                  >
+                    Get a Free Process Audit
+                  </MagneticButton>
+                  <Link
+                    href="#how-we-work"
+                    className="inline-flex items-center gap-2 text-[#4F46E5] font-semibold text-base
+                      hover:gap-3 transition-all duration-200"
+                  >
+                    See Our Process
+                    <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </RevealSection>
             </div>
-          </RevealSection>
+            
+            <div className="hidden lg:flex w-full lg:w-[400px] justify-end items-center">
+              <RevealSection delay={0.2}>
+                <SplineSceneDynamic
+                  fallbackColor="#4F46E5"
+                  className="w-80 h-80 lg:w-[400px] lg:h-[400px]"
+                  // url="https://prod.spline.design/YOUR_SCENE_ID/scene.splinecode"
+                />
+              </RevealSection>
+            </div>
+          </div>
         </div>
       </section>
 

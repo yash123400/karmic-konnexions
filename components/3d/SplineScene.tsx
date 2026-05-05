@@ -1,33 +1,36 @@
-"use client";
+"use client"
+import Spline from '@splinetool/react-spline'
+import { Suspense } from 'react'
 
-import { Suspense } from "react";
-import Spline from "@splinetool/react-spline";
-import { cn } from "@/lib/utils";
-
-interface SplineSceneProps {
-  scene: string;
-  className?: string;
-  fallback?: React.ReactNode;
+// Fallback: animated CSS gradient orb matching the service vertical's accent
+function SplineFallback({ color = 'var(--primary)' }: { color?: string }) {
+  return (
+    <div
+      className="w-full h-full rounded-2xl flex items-center justify-center"
+      style={{ background: `radial-gradient(circle at 40% 40%, ${color}30, ${color}08)` }}
+    >
+      <div
+        className="w-32 h-32 rounded-full animate-pulse"
+        style={{ background: `${color}25` }}
+      />
+    </div>
+  )
 }
 
-export default function SplineScene({
-  scene,
-  className,
-  fallback,
-}: SplineSceneProps) {
+interface SplineSceneProps {
+  url?: string
+  fallbackColor?: string
+  className?: string
+}
+
+export default function SplineScene({ url, fallbackColor, className = '' }: SplineSceneProps) {
+  if (!url) return <SplineFallback color={fallbackColor} />
+
   return (
-    <Suspense
-      fallback={
-        fallback || (
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="w-24 h-24 rounded-full bg-primary/20 animate-pulse" />
-          </div>
-        )
-      }
-    >
-      <div className={cn("w-full h-full", className)}>
-        <Spline scene={scene} />
+    <Suspense fallback={<SplineFallback color={fallbackColor} />}>
+      <div className={`relative overflow-hidden ${className}`}>
+        <Spline scene={url} />
       </div>
     </Suspense>
-  );
+  )
 }

@@ -32,10 +32,9 @@ export default function HrStatsBar() {
               <div key={i} className="text-center group">
                 <div className="text-5xl font-black text-white mb-2 tabular-nums">
                   <AnimatedCounter
-                    end={stat.value}
+                    value={stat.value}
                     suffix={stat.suffix}
                     className="text-5xl font-black text-white"
-                    duration={2.5}
                   />
                 </div>
                 <p className="text-[#94A3B8] text-sm font-medium uppercase tracking-wide">

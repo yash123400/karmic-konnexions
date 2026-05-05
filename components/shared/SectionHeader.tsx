@@ -7,6 +7,7 @@ interface SectionHeaderProps {
   subtitle?: string;
   align?: 'left' | 'center';
   titleSize?: 'default' | 'large';
+  theme?: 'light' | 'dark';
 }
 
 export default function SectionHeader({
@@ -15,6 +16,7 @@ export default function SectionHeader({
   subtitle,
   align = 'center',
   titleSize = 'default',
+  theme = 'light',
 }: SectionHeaderProps) {
   return (
     <RevealSection className={cn("flex flex-col", align === 'center' ? 'text-center items-center' : 'text-left items-start')}>
@@ -25,7 +27,7 @@ export default function SectionHeader({
       )}
       <h2
         className={cn(
-          "text-[#0F172A]",
+          theme === 'light' ? "text-[#0F172A]" : "text-white",
           titleSize === 'large'
             ? "text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05]"
             : "text-3xl md:text-4xl lg:text-5xl font-bold leading-tight"
@@ -34,7 +36,7 @@ export default function SectionHeader({
         {title}
       </h2>
       {subtitle && (
-        <p className={cn("text-lg text-[#6B7280] mt-4 max-w-2xl leading-relaxed", align === 'center' && "mx-auto")}>
+        <p className={cn("text-lg mt-4 max-w-2xl leading-relaxed", theme === 'light' ? "text-[#6B7280]" : "text-white/70", align === 'center' && "mx-auto")}>
           {subtitle}
         </p>
       )}

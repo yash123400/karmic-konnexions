@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import LenisProvider from "@/components/layout/LenisProvider";
-import ScrollProgress from "@/components/layout/ScrollProgress";
+import LenisProvider from "@/components/providers/LenisProvider";
+import PageTransition from "@/components/providers/PageTransition";
+import CustomCursor from "@/components/shared/CustomCursor";
+import ScrollProgress from "@/components/shared/ScrollProgress";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import QueryProvider from "@/components/layout/QueryProvider";
@@ -52,14 +54,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body>
-        <LenisProvider>
-          <QueryProvider>
-            <ScrollProgress />
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </QueryProvider>
-        </LenisProvider>
+        <QueryProvider>
+          <CustomCursor />
+          <ScrollProgress />
+          <LenisProvider>
+            <PageTransition>
+              <Header />
+              <main className="pt-[64px] lg:pt-[72px]">{children}</main>
+              <Footer />
+            </PageTransition>
+          </LenisProvider>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -133,11 +133,9 @@ export default function FaDashboardPreview() {
                   <div className="text-2xl font-black text-[#0F172A] tabular-nums">
                     {kpi.prefix}
                     <AnimatedCounter
-                      end={isInView ? kpi.value : 0}
+                      value={isInView ? kpi.value : 0}
                       suffix={kpi.suffix}
-                      decimals={kpi.decimals}
                       className="text-2xl font-black text-[#0F172A]"
-                      duration={2.0}
                     />
                   </div>
                   <span

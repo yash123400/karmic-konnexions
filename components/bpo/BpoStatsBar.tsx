@@ -20,7 +20,7 @@ export default function BpoStatsBar() {
               <div key={i} className="text-center">
                 <div className="text-4xl md:text-5xl font-black text-white mb-2">
                   <AnimatedCounter
-                    end={stat.value}
+                    value={stat.value}
                     suffix={stat.suffix}
                     className="text-4xl md:text-5xl font-black text-white"
                   />

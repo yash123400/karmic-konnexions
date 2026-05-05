@@ -1,128 +1,112 @@
-"use client";
+"use client"
+import { Canvas, useFrame } from '@react-three/fiber'
+import { OrbitControls, Sphere, Html } from '@react-three/drei'
+import { useRef, useState } from 'react'
+import * as THREE from 'three'
 
-import { useRef, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import * as THREE from "three";
-import { Suspense } from "react";
-
-interface MarkerData {
-  lat: number;
-  lng: number;
-  label: string;
+// Convert lat/lng to 3D sphere position (radius 2)
+function latLngTo3D(lat: number, lng: number, r = 2.02): [number, number, number] {
+  const phi = (90 - lat) * (Math.PI / 180)
+  const theta = (lng + 180) * (Math.PI / 180)
+  return [
+    -(r * Math.sin(phi) * Math.cos(theta)),
+    r * Math.cos(phi),
+    r * Math.sin(phi) * Math.sin(theta),
+  ]
 }
 
-const locations: MarkerData[] = [
-  { lat: 19.076, lng: 72.8777, label: "Mumbai" },
-  { lat: 28.6139, lng: 77.209, label: "New Delhi" },
-  { lat: 51.5074, lng: -0.1278, label: "London" },
-  { lat: 25.2048, lng: 55.2708, label: "Dubai" },
-  { lat: 1.3521, lng: 103.8198, label: "Singapore" },
-  { lat: -26.2041, lng: 28.0473, label: "Johannesburg" },
-  { lat: 40.7128, lng: -74.006, label: "New York" },
-  { lat: -33.8688, lng: 151.2093, label: "Sydney" },
-];
+// 8 city markers — Karmic's real global presence regions
+const CITIES = [
+  { name: 'Gurgaon', lat: 28.4595, lng: 77.0266, label: 'HQ — India' },
+  { name: 'Mumbai', lat: 19.076, lng: 72.877, label: 'India Operations' },
+  { name: 'Dubai', lat: 25.2048, lng: 55.2708, label: 'Middle East' },
+  { name: 'London', lat: 51.5074, lng: -0.1278, label: 'United Kingdom' },
+  { name: 'Johannesburg', lat: -26.2041, lng: 28.0473, label: 'South Africa' },
+  { name: 'Singapore', lat: 1.3521, lng: 103.8198, label: 'Southeast Asia' },
+  { name: 'Nairobi', lat: -1.2921, lng: 36.8219, label: 'East Africa' },
+  { name: 'Toronto', lat: 43.6532, lng: -79.3832, label: 'North America' },
+]
 
-function latLngToXYZ(lat: number, lng: number, radius: number) {
-  const phi = (90 - lat) * (Math.PI / 180);
-  const theta = (lng + 180) * (Math.PI / 180);
-  return new THREE.Vector3(
-    -(radius * Math.sin(phi) * Math.cos(theta)),
-    radius * Math.cos(phi),
-    radius * Math.sin(phi) * Math.sin(theta)
-  );
-}
-
-function Marker({ position, phase }: { position: THREE.Vector3; phase: number }) {
-  const ref = useRef<THREE.Mesh>(null);
-
-  useFrame(({ clock }) => {
-    if (ref.current) {
-      const scale = 1 + 0.6 * Math.sin(clock.getElapsedTime() * 2 + phase);
-      ref.current.scale.setScalar(scale);
-    }
-  });
+function CityMarker({ lat, lng, name, label }: typeof CITIES[0]) {
+  const [hovered, setHovered] = useState(false)
+  const pos = latLngTo3D(lat, lng)
 
   return (
-    <mesh ref={ref} position={position}>
-      <sphereGeometry args={[0.025, 16, 16]} />
-      <meshBasicMaterial color="#F97316" />
-    </mesh>
-  );
+    <group position={pos}>
+      {/* Pulsing dot */}
+      <mesh
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+      >
+        <sphereGeometry args={[0.04, 8, 8]} />
+        <meshBasicMaterial color={hovered ? '#F97316' : '#4F46E5'} />
+      </mesh>
+      {/* Outer pulse ring */}
+      <mesh>
+        <ringGeometry args={[0.05, 0.08, 16]} />
+        <meshBasicMaterial color="#4F46E5" opacity={0.4} transparent side={THREE.DoubleSide} />
+      </mesh>
+      {/* Tooltip on hover */}
+      {hovered && (
+        <Html distanceFactor={8} center>
+          <div className="bg-white rounded-lg px-3 py-1.5 shadow-lg text-xs font-medium text-gray-800 whitespace-nowrap pointer-events-none">
+            <div className="font-bold text-[#4F46E5]">{name}</div>
+            <div className="text-gray-500">{label}</div>
+          </div>
+        </Html>
+      )}
+    </group>
+  )
 }
 
 function Globe() {
-  const earthRef = useRef<THREE.Mesh>(null);
-  const wireframeRef = useRef<THREE.Mesh>(null);
-
-  const markerPositions = useMemo(
-    () => locations.map((loc) => latLngToXYZ(loc.lat, loc.lng, 1.01)),
-    []
-  );
-
-  useFrame(() => {
-    if (earthRef.current) {
-      earthRef.current.rotation.y += 0.002;
-    }
-    if (wireframeRef.current) {
-      wireframeRef.current.rotation.y += 0.002;
-    }
-  });
+  const meshRef = useRef<THREE.Mesh>(null)
+  useFrame((_, delta) => {
+    if (meshRef.current) meshRef.current.rotation.y += delta * 0.08
+  })
 
   return (
     <group>
       {/* Earth sphere */}
-      <mesh ref={earthRef}>
-        <sphereGeometry args={[1, 64, 64]} />
-        <meshPhongMaterial
-          color="#1a1a3e"
-          emissive="#4F46E5"
-          emissiveIntensity={0.1}
+      <Sphere ref={meshRef} args={[2, 64, 64]}>
+        <meshStandardMaterial
+          color="#1e1b4b"
+          roughness={0.8}
+          metalness={0.1}
+          wireframe={false}
         />
-      </mesh>
-
+      </Sphere>
       {/* Wireframe overlay */}
-      <mesh ref={wireframeRef}>
-        <sphereGeometry args={[1.002, 64, 64]} />
-        <meshBasicMaterial
-          color="#4F46E5"
-          transparent
-          opacity={0.15}
-          wireframe
-        />
-      </mesh>
-
-      {/* Location markers */}
-      {markerPositions.map((pos, i) => (
-        <Marker key={i} position={pos} phase={i * 0.8} />
+      <Sphere args={[2.01, 32, 32]}>
+        <meshBasicMaterial color="#4F46E5" wireframe opacity={0.08} transparent />
+      </Sphere>
+      {/* City markers */}
+      {CITIES.map((city) => (
+        <CityMarker key={city.name} {...city} />
       ))}
     </group>
-  );
+  )
 }
 
-export default function GlobeScene() {
+interface GlobeSceneProps {
+  size?: number // px, default 480
+  interactive?: boolean // enables OrbitControls, default true
+}
+
+export default function GlobeScene({ size = 480, interactive = true }: GlobeSceneProps) {
   return (
-    <Suspense
-      fallback={
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="w-32 h-32 rounded-full bg-primary/20 animate-pulse" />
-        </div>
-      }
-    >
+    <div style={{ width: size, height: size }} className="relative">
       <Canvas
-        camera={{ position: [0, 0, 2.8], fov: 45 }}
-        style={{ width: "100%", height: "100%" }}
+        camera={{ position: [0, 0, 6], fov: 45 }}
+        frameloop="always"
         gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[2, 2, 2]} intensity={1.5} />
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 3, 5]} intensity={1.2} color="#6366f1" />
+        <directionalLight position={[-5, -3, -5]} intensity={0.3} color="#F97316" />
         <Globe />
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          autoRotate={false}
-        />
+        {interactive && <OrbitControls enableZoom={false} enablePan={false} autoRotate={false} />}
       </Canvas>
-    </Suspense>
-  );
+    </div>
+  )
 }
