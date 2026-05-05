@@ -192,7 +192,7 @@ export default function AboutPage() {
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center justify-center">
                 <div className="flex items-baseline text-4xl lg:text-6xl font-black text-white mb-2">
-                  <AnimatedCounter value={stat.value} duration={2} />
+                  <AnimatedCounter value={stat.value} />
                   <span className="text-[#4F46E5]">{stat.suffix}</span>
                 </div>
                 <p className="text-sm md:text-base text-[#94A3B8] font-medium tracking-wide uppercase">

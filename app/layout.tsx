@@ -58,11 +58,11 @@ export default function RootLayout({
           <CustomCursor />
           <ScrollProgress />
           <LenisProvider>
+            <Header />
             <PageTransition>
-              <Header />
               <main className="pt-[64px] lg:pt-[72px]">{children}</main>
-              <Footer />
             </PageTransition>
+            <Footer />
           </LenisProvider>
         </QueryProvider>
       </body>

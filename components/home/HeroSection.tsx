@@ -7,11 +7,11 @@ import MagneticButton from "@/components/shared/MagneticButton";
 import { motion } from "framer-motion";
 import SplitText from "@/components/shared/SplitText";
 
-const GlobeScene = dynamic(() => import("@/components/3d/GlobeScene"), {
+const NetworkScene = dynamic(() => import("@/components/3d/NetworkScene"), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="w-32 h-32 rounded-full bg-primary/20 animate-pulse" />
+      <div className="w-32 h-32 rounded-full bg-primary/10 animate-pulse" />
     </div>
   ),
 });
@@ -102,10 +102,10 @@ export default function HeroSection() {
             </RevealSection>
           </div>
 
-          {/* Right Column — Globe */}
+          {/* Right Column — Network Constellation */}
           <RevealSection delay={0.3}>
-            <div className="relative w-full aspect-square max-w-[600px] mx-auto mix-blend-multiply">
-              <GlobeScene />
+            <div className="relative w-full aspect-square max-w-[600px] mx-auto">
+              <NetworkScene />
             </div>
           </RevealSection>
         </div>
