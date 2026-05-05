@@ -17,7 +17,7 @@ const services = [
   {
     icon: GraduationCap,
     title: "E-Learning & Training",
-    desc: "AI-powered LMS, corporate upskilling, pre/post assessments and placement support for 300,000+ learners.",
+    desc: "AI-powered LMS, corporate upskilling, pre/post assessments and placement support for enterprise-wide scaling.",
     href: "/services/elearning",
   },
   {

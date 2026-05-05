@@ -97,13 +97,18 @@ export default function HeroSection() {
               </div>
               <div className="w-px h-12 bg-white/10" />
               <div className="group">
-                <div className="text-4xl font-light text-white tracking-tighter group-hover:text-amber-400 transition-colors duration-300">300k<span className="text-amber-500 font-bold">+</span></div>
-                <div className="text-[10px] font-bold text-white/40 mt-1 uppercase tracking-[0.2em]">Certified Learners</div>
+                <div className="text-4xl font-light text-white tracking-tighter group-hover:text-amber-400 transition-colors duration-300">98<span className="text-amber-500 font-bold">%</span></div>
+                <div className="text-[10px] font-bold text-white/40 mt-1 uppercase tracking-[0.2em]">Client Retention</div>
+              </div>
+              <div className="w-px h-12 bg-white/10" />
+              <div className="group">
+                <div className="text-4xl font-light text-white tracking-tighter group-hover:text-amber-400 transition-colors duration-300">20<span className="text-amber-500 font-bold">+</span></div>
+                <div className="text-[10px] font-bold text-white/40 mt-1 uppercase tracking-[0.2em]">Industries Served</div>
               </div>
               <div className="w-px h-12 bg-white/10 hidden sm:block" />
               <div className="hidden sm:block group">
-                <div className="text-4xl font-light text-white tracking-tighter group-hover:text-amber-400 transition-colors duration-300">8</div>
-                <div className="text-[10px] font-bold text-white/40 mt-1 uppercase tracking-[0.2em]">Core Regions</div>
+                <div className="text-4xl font-light text-white tracking-tighter group-hover:text-amber-400 transition-colors duration-300">15<span className="text-amber-500 font-bold">+</span></div>
+                <div className="text-[10px] font-bold text-white/40 mt-1 uppercase tracking-[0.2em]">Years of Expertise</div>
               </div>
             </div>
           </RevealSection>

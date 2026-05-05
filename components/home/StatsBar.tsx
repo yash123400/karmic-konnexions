@@ -6,9 +6,9 @@ import RevealSection from "@/components/shared/RevealSection";
 
 const stats = [
   { end: 500, suffix: "+", label: "Clients Served", href: "/case-studies" },
-  { end: 300000, suffix: "+", label: "Learners Trained", href: "/services/elearning" },
   { end: 98, suffix: "%", label: "Client Retention Rate", href: "/why-karmic" },
   { end: 20, suffix: "+", label: "Industries Served", href: "/industries" },
+  { end: 15, suffix: "+", label: "Years of Expertise", href: "/why-karmic" },
 ];
 
 export default function StatsBar() {
