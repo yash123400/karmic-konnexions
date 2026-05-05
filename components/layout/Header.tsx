@@ -85,7 +85,7 @@ export default function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const { scrollY, scrollYProgress } = useScroll();
+  const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -94,14 +94,10 @@ export default function Header() {
     });
   }, [scrollY]);
 
-  // Scroll animations
-  const bgOpacity = useTransform(scrollY, [0, 80], [0, 0.95]);
-  const borderOpacity = useTransform(scrollY, [0, 80], [0, 1]);
-  const shadowOpacity = useTransform(scrollY, [0, 80], [0, 0.05]);
-  const blurAmount = useTransform(scrollY, [0, 80], [0, 12]);
-  
-  // Logo text scaling
-  const logoScale = useTransform(scrollY, [0, 80], [1, 0.9]);
+  // Computed styles for transparency support
+  const textColour = isScrolled ? 'text-[var(--text-primary)]' : 'text-white';
+  const logoColour = isScrolled ? 'text-[var(--primary)]' : 'text-white';
+  const headerBg = isScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100' : 'bg-transparent border-b border-transparent';
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -137,20 +133,17 @@ export default function Header() {
     <>
       <motion.header
         ref={headerRef}
-        className="fixed top-0 left-0 right-0 z-50 h-[64px] lg:h-[72px] flex items-center transition-all duration-300 border-b border-transparent"
-        style={{
-          backgroundColor: useTransform(bgOpacity, (v) => `rgba(255, 255, 255, ${v})`),
-          borderBottom: useTransform(borderOpacity, (v) => `1px solid rgba(224, 231, 255, ${v})`),
-          boxShadow: useTransform(shadowOpacity, (v) => `0 1px 2px 0 rgba(0, 0, 0, ${v})`),
-          backdropFilter: useTransform(blurAmount, (v) => `blur(${v}px)`),
-        }}
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 h-[64px] lg:h-[72px] flex items-center transition-all duration-300",
+          headerBg
+        )}
       >
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0 py-2 group">
             <div className={cn(
-              "relative w-[38px] h-[38px] overflow-hidden rounded-lg shadow-sm transition-all",
-              !isScrolled && "brightness-[100] contrast-[100]"
+              "relative w-[38px] h-[38px] overflow-hidden rounded-lg shadow-sm transition-all duration-300",
+              !isScrolled && "brightness-0 invert"
             )}>
               <Image 
                 src="/images/brand/logo-main.png" 
@@ -159,20 +152,20 @@ export default function Header() {
                 className="object-cover"
               />
             </div>
-            <motion.div style={{ scale: logoScale, transformOrigin: "left center" }} className="flex flex-col">
+            <div className="flex flex-col transition-all duration-300 origin-left">
               <div className={cn(
-                "font-bold text-base leading-none transition-colors",
-                isScrolled ? "text-[#0F172A]" : "text-white"
+                "font-bold text-base leading-none transition-colors duration-300",
+                logoColour
               )}>
                 Karmic Konnexions
               </div>
               <div className={cn(
-                "text-[10px] tracking-wide mt-0.5 hidden sm:block transition-colors",
+                "text-[10px] tracking-wide mt-0.5 hidden sm:block transition-colors duration-300",
                 isScrolled ? "text-[#6B7280]" : "text-white/60"
               )}>
                 Global Consulting LLP
               </div>
-            </motion.div>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
@@ -188,20 +181,16 @@ export default function Header() {
                   href={link.href}
                   className={cn(
                     "px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-lg transition-all duration-300 inline-flex items-center gap-0.5 xl:gap-1",
-                    isScrolled
-                      ? isActive(link.href)
-                        ? "text-[#4F46E5] font-semibold"
-                        : "text-[#374151] hover:text-[#4F46E5] hover:bg-[#EEF2FF]"
-                      : isActive(link.href)
-                        ? "text-white font-semibold"
-                        : "text-white/80 hover:text-white"
+                    textColour,
+                    isActive(link.href) && "font-bold underline underline-offset-8 decoration-2 decoration-primary/50",
+                    isScrolled && !isActive(link.href) && "hover:bg-[#EEF2FF] hover:text-[#4F46E5]"
                   )}
                   aria-expanded={hoveredItem === link.label}
                   aria-haspopup={(link.megaMenu || link.dropdown) ? "true" : undefined}
                 >
                   {link.label}
                   {(link.megaMenu || link.dropdown) && (
-                    <ChevronDown className="w-3.5 h-3.5" />
+                    <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-300", hoveredItem === link.label && "rotate-180")} />
                   )}
                 </Link>
 
@@ -214,7 +203,7 @@ export default function Header() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-[95vw] max-w-[900px] bg-white rounded-2xl shadow-2xl border border-[#E0E7FF] p-8 z-[100]"
+                        className="absolute top-[80%] left-1/2 -translate-x-1/2 mt-0 w-[95vw] max-w-[900px] bg-white rounded-2xl shadow-2xl border border-[#E0E7FF] p-8 z-[100]"
                         role="menu"
                       >
                         <div className="grid grid-cols-4 gap-8">
@@ -267,7 +256,7 @@ export default function Header() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute top-full left-0 mt-0 w-[260px] bg-white rounded-2xl shadow-2xl border border-[#E0E7FF] p-3 z-[100]"
+                        className="absolute top-[80%] left-0 mt-0 w-[260px] bg-white rounded-2xl shadow-2xl border border-[#E0E7FF] p-3 z-[100]"
                         role="menu"
                       >
                         {programsDropdown.map((item, idx) => (
@@ -298,7 +287,7 @@ export default function Header() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute top-full left-0 mt-0 w-[280px] bg-white rounded-2xl shadow-2xl border border-[#E0E7FF] p-3 z-[100]"
+                        className="absolute top-[80%] left-0 mt-0 w-[280px] bg-white rounded-2xl shadow-2xl border border-[#E0E7FF] p-3 z-[100]"
                         role="menu"
                       >
                         {initiativesDropdown.map((item, idx) => (
@@ -336,20 +325,29 @@ export default function Header() {
             
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-[#374151] hover:bg-[#EEF2FF] transition-colors"
+              className={cn(
+                "lg:hidden p-2 rounded-lg transition-colors duration-300",
+                isScrolled ? "text-[#374151] hover:bg-[#EEF2FF]" : "text-white hover:bg-white/10"
+              )}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
 
             {/* Top Right Brand Mark (Desktop) */}
-            <div className="hidden lg:flex items-center pl-4 border-l border-slate-200">
+            <div className={cn(
+              "hidden lg:flex items-center pl-4 border-l transition-colors duration-300",
+              isScrolled ? "border-slate-200" : "border-white/20"
+            )}>
               <div className="relative w-8 h-8 opacity-40 hover:opacity-100 transition-opacity">
                 <Image 
                   src="/images/brand/logo-mark.png" 
                   alt="Karmic Brand Mark" 
                   fill 
-                  className="object-contain grayscale hover:grayscale-0 transition-all"
+                  className={cn(
+                    "object-contain transition-all duration-300",
+                    !isScrolled ? "brightness-0 invert" : "grayscale hover:grayscale-0"
+                  )}
                 />
               </div>
             </div>

@@ -43,6 +43,13 @@ export default function HeroSection() {
       {/* Atmospheric lighting layers */}
       <div className="absolute inset-0 pointer-events-none z-[1] bg-gradient-to-b from-transparent via-[#020617]/50 to-[#020617]" />
       
+      {/* Header gradient guard — ensures nav is always readable */}
+      <div
+        className="absolute top-0 left-0 right-0 h-32 pointer-events-none z-[5]"
+        style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%)' }}
+        aria-hidden="true"
+      />
+      
       <div
         className="absolute w-[1200px] h-[1200px] rounded-full pointer-events-none z-[2] transition-transform duration-500 ease-out opacity-20"
         style={{

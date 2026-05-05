@@ -55,6 +55,13 @@ export default function PageHero({
       <div className="absolute w-96 h-96 bg-[#4F46E5]/5 rounded-full -top-20 -right-20 blur-3xl pointer-events-none" />
       <div className="absolute w-64 h-64 bg-[#F97316]/8 rounded-full -bottom-10 -left-10 blur-2xl pointer-events-none" />
 
+      {/* Header gradient guard — ensures nav is always readable */}
+      <div
+        className="absolute top-0 left-0 right-0 h-32 pointer-events-none z-[5]"
+        style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%)' }}
+        aria-hidden="true"
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {breadcrumb && breadcrumb.length > 0 && (
           <nav className="flex items-center gap-2 text-sm text-[#6B7280] mb-8" aria-label="Breadcrumb">
