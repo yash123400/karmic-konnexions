@@ -8,6 +8,7 @@ import ScrollProgress from "@/components/shared/ScrollProgress";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import QueryProvider from "@/components/layout/QueryProvider";
+import NextAuthSessionProvider from "@/components/providers/SessionProvider";
 import JsonLd from "@/components/seo/JsonLd";
 import { orgSchema } from "@/lib/schemas";
 
@@ -21,13 +22,13 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.karmickonnexions.com"),
   title: {
     default:
-      "Karmic Konnexions Global Consulting LLP | BPO Outsourcing & HR Solutions India",
+      "Karmic Konnexions Global Consulting LLP | HRO & Business Functions Outsourcing India",
     template: "%s | Karmic Konnexions",
   },
   description:
-    "Karmic Konnexions Global Consulting LLP — execution-focused BPO outsourcing, HR & Payroll, Finance, CRM, E-Learning and Corporate Apparel solutions. 500+ clients. 98% retention. Based in Gurgaon, India.",
+    "Karmic Konnexions Global Consulting LLP — execution-focused HRO outsourcing: Human Resources Operations, Finance, CRM, Marketing & E-Learning solutions. 500+ clients. 98% retention. Based in Gurgaon, India.",
   keywords: [
-    "BPO outsourcing India",
+    "HRO outsourcing India",
     "HR outsourcing Gurgaon",
     "finance outsourcing India",
     "CRM outsourcing",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
     "Karmic Konnexions",
     "outsourcing company Gurgaon",
     "payroll outsourcing India",
-    "business process outsourcing",
+    "human resources operations outsourcing",
   ],
   authors: [{ name: "Karmic Konnexions Global Consulting LLP" }],
   creator: "Karmic Konnexions Global Consulting LLP",
@@ -60,7 +61,7 @@ export const metadata: Metadata = {
     title:
       "Karmic Konnexions — Execution-Focused Outsourcing & HR Solutions",
     description:
-      "500+ clients. 98% retention. 60% cost savings. BPO, HR, Finance, CRM, E-Learning and Corporate Apparel.",
+      "500+ clients. 98% retention. 60% cost savings. HRO, Finance, CRM, E-Learning and Corporate Apparel.",
     images: [
       {
         url: "/logo-full.png",
@@ -74,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Karmic Konnexions Global Consulting LLP",
     description:
-      "Execution-focused BPO outsourcing in India. 500+ clients. 98% retention.",
+      "Execution-focused HRO outsourcing in India. 500+ clients. 98% retention.",
     images: ["/logo-full.png"],
   },
   // Add Google Search Console verification token here when available:
@@ -97,6 +98,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <JsonLd data={orgSchema} />
+        <NextAuthSessionProvider>
         <QueryProvider>
           <CustomCursor />
           <ScrollProgress />
@@ -110,6 +112,7 @@ export default function RootLayout({
             <Footer />
           </LenisProvider>
         </QueryProvider>
+        </NextAuthSessionProvider>
       </body>
     </html>
   );
