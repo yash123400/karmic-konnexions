@@ -66,7 +66,7 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold text-sm mb-4">Services</h3>
             <ul className="space-y-2">
-              <li><Link href="/services/bpo-outsourcing" className="text-[#94A3B8] text-sm hover:text-white transition-colors">BPO Outsourcing</Link></li>
+              <li><Link href="/services/hro-outsourcing" className="text-[#94A3B8] text-sm hover:text-white transition-colors">HRO & Business Functions</Link></li>
               <li><Link href="/services/elearning" className="text-[#94A3B8] text-sm hover:text-white transition-colors">E-Learning & Training</Link></li>
               <li><Link href="/services/global-workforce" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Global Workforce</Link></li>
               <li><Link href="/services/corporate-apparel" className="text-[#94A3B8] text-sm hover:text-white transition-colors">Corporate Apparel</Link></li>
@@ -149,7 +149,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-[#64748B] text-sm text-center sm:text-left order-2 sm:order-1">
-            © 2025 Karmic Konnexions Global Consulting LLP. All rights reserved.
+            © {new Date().getFullYear()} Karmic Konnexions Global Consulting LLP. All rights reserved.
           </div>
           <div className="flex flex-wrap justify-center gap-6 order-1 sm:order-2">
             <Link href="/privacy" className="text-[#64748B] hover:text-white text-sm transition-colors">Privacy Policy</Link>
