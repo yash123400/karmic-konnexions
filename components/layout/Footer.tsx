@@ -155,15 +155,8 @@ export default function Footer() {
             <Link href="/privacy" className="text-[#64748B] hover:text-white text-sm transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="text-[#64748B] hover:text-white text-sm transition-colors">Terms of Service</Link>
             <Link href="/sitemap.xml" className="text-[#64748B] hover:text-white text-sm transition-colors">Sitemap</Link>
+            <Link href="/admin/login" className="text-[#1E293B] hover:text-[#64748B] text-xs transition-colors">Staff Login</Link>
           </div>
-        </div>
-        <div className="border-t border-white/5 pb-4 text-center">
-          <a
-            href="/admin/login"
-            className="text-xs text-[#334155] hover:text-[#475569] transition-colors"
-          >
-            Staff Login
-          </a>
         </div>
       </div>
     </footer>
