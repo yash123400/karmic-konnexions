@@ -15,7 +15,15 @@ export default function SearchConsoleWidget() {
   useEffect(() => {
     fetch('/api/admin/search-console')
       .then(r => r.json())
-      .then(d => { setData(d); setLoading(false) })
+      .then(d => {
+        // If the API returned an error shape, silently hide the widget
+        if (d?.error || !d?.queries) {
+          setLoading(false)
+          return
+        }
+        setData(d)
+        setLoading(false)
+      })
       .catch(() => setLoading(false))
   }, [])
 

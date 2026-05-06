@@ -19,7 +19,16 @@ export default function AnalyticsWidget() {
   useEffect(() => {
     fetch('/api/admin/analytics')
       .then(r => r.json())
-      .then(d => { setData(d); setLoading(false) })
+      .then(d => {
+        // If the API returned an error shape, treat it as a load failure
+        if (d?.error) {
+          setError('Analytics not configured')
+          setLoading(false)
+          return
+        }
+        setData(d)
+        setLoading(false)
+      })
       .catch(() => { setError('Could not load analytics'); setLoading(false) })
   }, [])
 
