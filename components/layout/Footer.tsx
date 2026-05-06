@@ -155,7 +155,7 @@ export default function Footer() {
             <Link href="/privacy" className="text-[#64748B] hover:text-white text-sm transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="text-[#64748B] hover:text-white text-sm transition-colors">Terms of Service</Link>
             <Link href="/sitemap.xml" className="text-[#64748B] hover:text-white text-sm transition-colors">Sitemap</Link>
-            <Link href="/admin/login" className="text-[#64748B] hover:text-white text-xs transition-colors">Staff Login</Link>
+            <Link href="/admin/login" className="text-[#94A3B8] hover:text-white text-sm font-medium transition-colors">Staff Login</Link>
           </div>
         </div>
       </div>
