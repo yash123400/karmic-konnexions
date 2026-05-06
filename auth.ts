@@ -55,4 +55,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: '/admin/login',
     error: '/admin/login',
   },
+  callbacks: {
+    authorized({ auth: session, request: { nextUrl } }) {
+      // Always allow the login page through — prevents the redirect loop
+      if (nextUrl.pathname === '/admin/login') return true
+      // Require a session for everything else under /admin
+      return !!session?.user
+    },
+    jwt({ token, user }) {
+      if (user) token.id = user.id
+      return token
+    },
+    session({ session, token }) {
+      if (session.user && token.id) {
+        session.user.id = token.id as string
+      }
+      return session
+    },
+  },
 })
