@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { getSupabaseAdmin } from '@/lib/supabase-server'
 import { BookOpen, FileText, Users, MessageSquare, ArrowRight } from 'lucide-react'
 import Link from 'next/link'

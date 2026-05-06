@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { BookOpen, FileText, MessageSquare, Megaphone, Users, Briefcase, Image, ExternalLink } from 'lucide-react'
 
 const contentTypes = [

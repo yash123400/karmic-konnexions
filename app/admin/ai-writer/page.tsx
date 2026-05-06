@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 'use client'
 import { useState } from 'react'
 import { Sparkles, Copy, ExternalLink, Loader2 } from 'lucide-react'
