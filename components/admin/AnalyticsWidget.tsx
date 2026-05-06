@@ -20,8 +20,7 @@ export default function AnalyticsWidget() {
     fetch('/api/admin/analytics')
       .then(r => r.json())
       .then(d => {
-        // If the API returned an error shape, treat it as a load failure
-        if (d?.error) {
+        if (!d || d.error || d.sessions === undefined) {
           setError('Analytics not configured')
           setLoading(false)
           return

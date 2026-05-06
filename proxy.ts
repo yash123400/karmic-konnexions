@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-export function proxy(req: NextRequest) {
+export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
   // Let the login page through unconditionally
