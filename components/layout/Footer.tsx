@@ -157,6 +157,14 @@ export default function Footer() {
             <Link href="/sitemap.xml" className="text-[#64748B] hover:text-white text-sm transition-colors">Sitemap</Link>
           </div>
         </div>
+        <div className="border-t border-white/5 pb-4 text-center">
+          <a
+            href="/admin/login"
+            className="text-xs text-[#334155] hover:text-[#475569] transition-colors"
+          >
+            Staff Login
+          </a>
+        </div>
       </div>
     </footer>
   );
