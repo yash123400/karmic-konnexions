@@ -1,4 +1,5 @@
 import { auth } from '@/auth'
+import { headers } from 'next/headers'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import AdminHeader from '@/components/admin/AdminHeader'
 
@@ -13,9 +14,13 @@ export default async function AdminLayout({
   children: React.ReactNode
 }) {
   const session = await auth()
+  const headersList = await headers()
+  const pathname = headersList.get('x-pathname') ?? ''
+  const isLoginPage = pathname === '/admin/login'
 
-  // Login page shares this layout — render children only, no shell
-  if (!session) {
+  // Never render the admin shell on the login page.
+  // The login page is full-screen dark and manages its own layout.
+  if (!session || isLoginPage) {
     return <>{children}</>
   }
 
