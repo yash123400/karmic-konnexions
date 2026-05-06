@@ -12,9 +12,14 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  const session = await auth()
+  let session = null
+  try {
+    session = await auth()
+  } catch {
+    // auth() failed — render without admin shell
+  }
 
-  if (!session) {
+  if (!session?.user) {
     return <>{children}</>
   }
 

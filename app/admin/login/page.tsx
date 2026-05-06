@@ -3,9 +3,13 @@ import { redirect } from 'next/navigation'
 import LoginForm from './LoginForm'
 
 export default async function LoginPage() {
-  const session = await auth()
-  if (session) {
-    // Already logged in — send to dashboard
+  let session = null
+  try {
+    session = await auth()
+  } catch {
+    // auth() failed — show login form regardless
+  }
+  if (session?.user) {
     redirect('/admin')
   }
   return <LoginForm />
