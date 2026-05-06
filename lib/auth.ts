@@ -15,6 +15,12 @@ const adminUsers = [
     name: process.env.ADMIN_USER_2_NAME!,
     passwordHash: process.env.ADMIN_USER_2_PASSWORD_HASH!,
   },
+  {
+    id: '3',
+    email: process.env.ADMIN_USER_3_EMAIL!,
+    name: process.env.ADMIN_USER_3_NAME!,
+    passwordHash: process.env.ADMIN_USER_3_PASSWORD_HASH!,
+  },
 ]
 
 export const authOptions: NextAuthOptions = {
