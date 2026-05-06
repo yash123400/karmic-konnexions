@@ -48,9 +48,9 @@ export default function AboutPage() {
   const services = [
     {
       num: "01",
-      name: "BPO Outsourcing",
+      name: "HRO & Business Functions",
       desc: "Execution-focused HR, Finance, CRM & Marketing outsourcing with fixed-cost retainer models",
-      href: "/services/bpo-outsourcing"
+      href: "/services/hro-outsourcing"
     },
     {
       num: "02",

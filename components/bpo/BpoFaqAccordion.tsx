@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "How do you ensure data security?",
-    a: "All our BPO operations follow ISO 27001 guidelines. Data is accessed through secured VPN channels, with role-based access controls and NDA-bound contracts for every engagement.",
+    a: "All our HRO operations follow ISO 27001 guidelines. Data is accessed through secured VPN channels, with role-based access controls and NDA-bound contracts for every engagement.",
   },
   {
     q: "Do I need to provide your team with computers?",
@@ -41,7 +41,7 @@ export default function BpoFaqAccordion() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Common Questions"
-          title={"Everything You Need to Know\nAbout BPO with Karmic"}
+          title={"Everything You Need to Know\nAbout HRO with Karmic"}
           align="center"
         />
 

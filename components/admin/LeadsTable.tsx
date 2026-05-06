@@ -1,5 +1,5 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { Fragment, useState, useMemo } from 'react'
 import { Search, Download, Mail, Phone, Calendar, Filter } from 'lucide-react'
 
 type Lead = {
@@ -13,10 +13,19 @@ type Lead = {
   created_at: string
 }
 
+type AiScore = {
+  score: 'hot' | 'warm' | 'cold'
+  score_reason: string
+  priority_service: string
+  suggested_reply: string
+}
+
 export default function LeadsTable({ leads }: { leads: Lead[] }) {
   const [search, setSearch] = useState('')
   const [serviceFilter, setServiceFilter] = useState('all')
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null)
+  const [aiResult, setAiResult] = useState<Record<string, AiScore>>({})
+  const [aiLoading, setAiLoading] = useState<string | null>(null)
 
   const services = useMemo(() => {
     const s = new Set(leads.map(l => l.service).filter(Boolean))
@@ -53,6 +62,18 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
     a.download = `karmic-leads-${new Date().toISOString().split('T')[0]}.csv`
     a.click()
     URL.revokeObjectURL(url)
+  }
+
+  async function scoreLead(lead: Lead) {
+    setAiLoading(lead.id)
+    const res = await fetch('/api/admin/ai', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'score_lead', data: lead }),
+    })
+    const result = await res.json()
+    setAiResult(prev => ({ ...prev, [lead.id]: result }))
+    setAiLoading(null)
   }
 
   return (
@@ -111,47 +132,85 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                 </td>
               </tr>
             ) : filtered.map(lead => (
-              <tr key={lead.id} className="hover:bg-gray-50 transition-colors">
-                <td className="px-4 py-3">
-                  <p className="font-medium text-gray-900">{lead.name}</p>
-                  {lead.company && <p className="text-xs text-gray-500">{lead.company}</p>}
-                </td>
-                <td className="px-4 py-3">
-                  <a href={`mailto:${lead.email}`} className="flex items-center gap-1 text-indigo-600 hover:underline text-xs">
-                    <Mail className="w-3 h-3" />{lead.email}
-                  </a>
-                  {lead.phone && (
-                    <a href={`tel:${lead.phone}`} className="flex items-center gap-1 text-gray-500 hover:underline text-xs mt-1">
-                      <Phone className="w-3 h-3" />{lead.phone}
+              <Fragment key={lead.id}>
+                <tr className="hover:bg-gray-50 transition-colors">
+                  <td className="px-4 py-3">
+                    <p className="font-medium text-gray-900">{lead.name}</p>
+                    {lead.company && <p className="text-xs text-gray-500">{lead.company}</p>}
+                  </td>
+                  <td className="px-4 py-3">
+                    <a href={`mailto:${lead.email}`} className="flex items-center gap-1 text-indigo-600 hover:underline text-xs">
+                      <Mail className="w-3 h-3" />{lead.email}
                     </a>
-                  )}
-                </td>
-                <td className="px-4 py-3">
-                  {lead.service ? (
-                    <span className="inline-block bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full text-xs font-medium">
-                      {lead.service}
-                    </span>
-                  ) : (
-                    <span className="text-gray-400 text-xs">—</span>
-                  )}
-                </td>
-                <td className="px-4 py-3 text-gray-500 text-xs">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-3 h-3" />
-                    {new Date(lead.created_at).toLocaleDateString('en-IN', {
-                      day: 'numeric', month: 'short', year: 'numeric',
-                    })}
-                  </div>
-                </td>
-                <td className="px-4 py-3">
-                  <button
-                    onClick={() => setSelectedLead(lead)}
-                    className="text-xs text-indigo-600 hover:underline"
-                  >
-                    View message
-                  </button>
-                </td>
-              </tr>
+                    {lead.phone && (
+                      <a href={`tel:${lead.phone}`} className="flex items-center gap-1 text-gray-500 hover:underline text-xs mt-1">
+                        <Phone className="w-3 h-3" />{lead.phone}
+                      </a>
+                    )}
+                  </td>
+                  <td className="px-4 py-3">
+                    {lead.service ? (
+                      <span className="inline-block bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full text-xs font-medium">
+                        {lead.service}
+                      </span>
+                    ) : (
+                      <span className="text-gray-400 text-xs">—</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-gray-500 text-xs">
+                    <div className="flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
+                      {new Date(lead.created_at).toLocaleDateString('en-IN', {
+                        day: 'numeric', month: 'short', year: 'numeric',
+                      })}
+                    </div>
+                  </td>
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => setSelectedLead(lead)}
+                      className="text-xs text-indigo-600 hover:underline"
+                    >
+                      View message
+                    </button>
+                    <button
+                      onClick={() => scoreLead(lead)}
+                      disabled={aiLoading === lead.id}
+                      className="text-xs text-violet-600 hover:underline ml-3 disabled:opacity-50"
+                    >
+                      {aiLoading === lead.id ? 'Scoring...' : '✦ AI Score'}
+                    </button>
+                  </td>
+                </tr>
+                {aiResult[lead.id] && (
+                  <tr>
+                    <td colSpan={5} className="px-4 pb-3 bg-violet-50/50">
+                      <div className="flex items-start gap-4 text-xs">
+                        <span className={`font-bold ${
+                          aiResult[lead.id].score === 'hot' ? 'text-emerald-600' :
+                          aiResult[lead.id].score === 'warm' ? 'text-amber-600' : 'text-red-500'
+                        }`}>
+                          {aiResult[lead.id].score === 'hot' ? '🟢 Hot lead' :
+                           aiResult[lead.id].score === 'warm' ? '🟡 Warm lead' : '🔴 Cold lead'}
+                        </span>
+                        <span className="text-gray-600">{aiResult[lead.id].score_reason}</span>
+                        <span className="text-indigo-600">→ {aiResult[lead.id].priority_service}</span>
+                      </div>
+                      {aiResult[lead.id].suggested_reply && (
+                        <div className="mt-2 bg-white border border-violet-200 rounded-lg p-3 text-xs text-gray-700">
+                          <p className="font-medium text-violet-700 mb-1">Suggested reply:</p>
+                          {aiResult[lead.id].suggested_reply}
+                          <button
+                            onClick={() => navigator.clipboard.writeText(aiResult[lead.id].suggested_reply)}
+                            className="mt-2 text-violet-600 hover:underline block"
+                          >
+                            Copy to clipboard
+                          </button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
             ))}
           </tbody>
         </table>

@@ -1,14 +1,24 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-// Fallback logic in case environment variables aren't set during build
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder-url.supabase.co';
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { getSupabaseAdmin } from '@/lib/supabase-server';
+import { rateLimit } from '@/lib/rate-limit';
+import { headers } from 'next/headers';
 
 export async function POST(request: Request) {
   try {
+    const headersList = await headers();
+    const ip =
+      headersList.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+      headersList.get('x-real-ip') ??
+      '127.0.0.1';
+
+    const { allowed } = rateLimit(ip, 5, 60_000);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please wait a minute and try again.' },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const { email, source, name, phone, message } = body;
 
@@ -19,6 +29,7 @@ export async function POST(request: Request) {
     // Insert into Supabase (if configured)
     // We wrap this in a try/catch so the frontend doesn't break if Supabase isn't fully configured
     if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
+      const supabase = getSupabaseAdmin();
       const { error } = await supabase
         .from('leads')
         .insert([{ 
@@ -35,8 +46,6 @@ export async function POST(request: Request) {
         // We still return 200 so the user gets a success message even if the DB insertion fails
         // In a real production app with rigid requirements, this might be a 500
       }
-    } else {
-      console.log('Lead captured (No Supabase URL configured):', { email, source, name, phone, message });
     }
 
     return NextResponse.json({ success: true, message: 'Lead captured successfully' });

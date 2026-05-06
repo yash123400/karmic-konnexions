@@ -18,7 +18,7 @@ export default defineType({
     defineField({
       name: 'service', title: 'Service Used', type: 'string',
       options: { list: ['HR & Payroll Outsourcing', 'Finance & Accounts Outsourcing', 'CRM & Sales Ops',
-        'Marketing Services', 'E-Learning & Training', 'Global Workforce Solutions', 'Corporate Apparel', 'Full BPO Bundle'] },
+        'Marketing Services', 'E-Learning & Training', 'Global Workforce Solutions', 'Corporate Apparel', 'Full HRO Bundle'] },
     }),
     defineField({ name: 'challenge', title: 'The Challenge', type: 'array', of: [{ type: 'block' }] }),
     defineField({ name: 'solution', title: 'Our Solution', type: 'array', of: [{ type: 'block' }] }),

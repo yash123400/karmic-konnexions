@@ -24,13 +24,13 @@ const navLinks = [
 
 const servicesMegaMenu = [
   {
-    heading: "BPO Outsourcing",
+    heading: "HRO & Business Functions",
     links: [
-      { label: "HR Outsourcing", href: "/services/bpo-outsourcing/hr-outsourcing" },
-      { label: "Finance & Accounts", href: "/services/bpo-outsourcing/finance-accounts" },
-      { label: "CRM & Sales Ops", href: "/services/bpo-outsourcing/crm-sales-ops" },
-      { label: "Marketing Services", href: "/services/bpo-outsourcing/marketing-services" },
-      { label: "Full BPO Bundle", href: "/services/bpo-outsourcing" },
+      { label: "HR Outsourcing", href: "/services/hro-outsourcing/hr-outsourcing" },
+      { label: "Finance & Accounts", href: "/services/hro-outsourcing/finance-accounts" },
+      { label: "CRM & Sales Ops", href: "/services/hro-outsourcing/crm-sales-ops" },
+      { label: "Marketing Services", href: "/services/hro-outsourcing/marketing-services" },
+      { label: "HRO & Business Functions", href: "/services/hro-outsourcing" },
     ],
   },
   {

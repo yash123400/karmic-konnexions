@@ -23,10 +23,11 @@ import MagneticButton from '@/components/shared/MagneticButton'
 import AnimatedCounter from '@/components/shared/AnimatedCounter'
 import GlobeSceneDynamic from '@/components/3d/GlobeSceneDynamic'
 import { cn } from '@/lib/utils'
+import { sanityFetch, urlFor } from '@/lib/sanity'
 
 export const metadata: Metadata = {
   title: 'About Us | Karmic Konnexions Global Consulting LLP',
-  description: 'Karmic Konnexions is a globally renowned HR consulting, BPO outsourcing, e-learning, and corporate apparel solutions company based in Gurgaon, India. Health, Wealth, Longevity.',
+  description: 'Karmic Konnexions is a globally renowned HR consulting, HRO outsourcing, e-learning, and corporate apparel solutions company based in Gurgaon, India. Health, Wealth, Longevity.',
   keywords: ['about Karmic Konnexions', 'HR consulting Gurgaon', 'global consulting India', 'Karmic Konnexions LLP']
 }
 
@@ -73,9 +74,9 @@ const stats = [
 const serviceVerticals = [
   {
     id: '01',
-    name: 'BPO Outsourcing',
+    name: 'HRO & Business Functions',
     description: 'Execution-focused HR, Finance, CRM & Marketing outsourcing with fixed-cost retainer models',
-    href: '/services/bpo-outsourcing'
+    href: '/services/hro-outsourcing'
   },
   {
     id: '02',
@@ -112,7 +113,29 @@ const regions = [
   { name: 'Europe', flag: '🇪🇺' }
 ]
 
-export default function AboutPage() {
+type TeamMember = {
+  _id: string
+  name: string
+  role: string
+  photo?: { asset: { _ref: string } }
+  bio?: string
+  linkedin?: string
+  email?: string
+}
+
+export default async function AboutPage() {
+  let team: TeamMember[] = []
+  try {
+    team = await sanityFetch<TeamMember[]>({
+      query: `*[_type == "teamMember"] | order(order asc) {
+        _id, name, role, photo, bio, linkedin, email
+      }`,
+      revalidate: 300,
+    })
+  } catch {
+    // Sanity unavailable — show hardcoded founders section
+  }
+
   return (
     <main className="pt-16">
       {/* SECTION 1 — PageHero */}
@@ -273,7 +296,66 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION 7 — Leadership Contact */}
+      {/* SECTION 7 — Team (Sanity) or Leadership Contact (fallback) */}
+      {team.length > 0 ? (
+        <section className="py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <SectionHeader
+              eyebrow="Our People"
+              title="Meet the Team"
+              align="center"
+            />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+              {team.map((member, idx) => (
+                <RevealSection key={member._id} delay={idx * 0.08}>
+                  <div className="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:border-primary/20 transition-all p-8 text-center">
+                    {member.photo ? (
+                      <Image
+                        src={urlFor(member.photo).width(120).height(120).url()}
+                        alt={member.name}
+                        width={80}
+                        height={80}
+                        className="w-20 h-20 rounded-full object-cover mx-auto mb-4"
+                      />
+                    ) : (
+                      <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                        <Users2 className="w-8 h-8 text-primary" />
+                      </div>
+                    )}
+                    <h4 className="text-lg font-bold text-slate-900">{member.name}</h4>
+                    <p className="text-primary font-semibold text-sm mt-1">{member.role}</p>
+                    {member.bio && (
+                      <p className="text-slate-500 text-sm mt-3 leading-relaxed">{member.bio}</p>
+                    )}
+                    <div className="flex justify-center gap-3 mt-4">
+                      {member.email && (
+                        <a
+                          href={`mailto:${member.email}`}
+                          className="text-slate-400 hover:text-primary transition-colors"
+                          aria-label="Email"
+                        >
+                          <Mail className="w-4 h-4" />
+                        </a>
+                      )}
+                      {member.linkedin && (
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-slate-400 hover:text-primary transition-colors"
+                          aria-label="LinkedIn"
+                        >
+                          <MessageSquare className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </RevealSection>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : (
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
@@ -336,6 +418,7 @@ export default function AboutPage() {
           </RevealSection>
         </div>
       </section>
+      )}
 
       {/* SECTION 8 — CTA Banner */}
       <section className="py-24 bg-primary">

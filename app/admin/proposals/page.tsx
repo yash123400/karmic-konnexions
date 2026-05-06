@@ -1,12 +1,10 @@
-import { createClient } from '@supabase/supabase-js'
+import { getSupabaseAdmin } from '@/lib/supabase-server'
 import ProposalsTable from '@/components/admin/ProposalsTable'
 
 async function getProposals() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!url || !key) return []
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return []
 
-  const supabase = createClient(url, key)
+  const supabase = getSupabaseAdmin()
   const { data, error } = await supabase
     .from('proposals')
     .select('*')

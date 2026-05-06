@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, FileText, BookOpen, Users,
-  MessageSquare, Briefcase, ExternalLink,
+  MessageSquare, Briefcase, ExternalLink, Sparkles,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -12,6 +12,7 @@ const navItems = [
   { href: '/admin/leads', label: 'Leads & Enquiries', icon: Users, exact: false },
   { href: '/admin/proposals', label: 'Proposals', icon: Briefcase, exact: false },
   { href: '/admin/content', label: 'Content', icon: FileText, exact: false },
+  { href: '/admin/ai-writer', label: 'AI Blog Writer', icon: Sparkles, exact: false },
 ]
 
 const studioLinks = [

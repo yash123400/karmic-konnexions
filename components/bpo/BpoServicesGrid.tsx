@@ -20,7 +20,7 @@ const bpoServices = [
       "Recruitment & onboarding",
       "Performance management systems",
     ],
-    href: "/services/bpo-outsourcing/hr-outsourcing",
+    href: "/services/hro-outsourcing/hr-outsourcing",
     accent: "#4F46E5",
   },
   {
@@ -34,7 +34,7 @@ const bpoServices = [
       "MIS reporting & dashboards",
       "GST/tax compliance (India & global)",
     ],
-    href: "/services/bpo-outsourcing/finance-accounts",
+    href: "/services/hro-outsourcing/finance-accounts",
     accent: "#4F46E5",
   },
   {
@@ -48,7 +48,7 @@ const bpoServices = [
       "Sales pipeline reporting",
       "Lead qualification & follow-up",
     ],
-    href: "/services/bpo-outsourcing/crm-sales-ops",
+    href: "/services/hro-outsourcing/crm-sales-ops",
     accent: "#F97316",
   },
   {
@@ -62,7 +62,7 @@ const bpoServices = [
       "Email marketing automation",
       "Performance analytics & reporting",
     ],
-    href: "/services/bpo-outsourcing/marketing-services",
+    href: "/services/hro-outsourcing/marketing-services",
     accent: "#F97316",
   },
 ];

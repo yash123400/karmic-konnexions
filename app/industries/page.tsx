@@ -19,7 +19,7 @@ import MagneticButton from '@/components/shared/MagneticButton'
 
 export const metadata: Metadata = {
   title: 'Industries We Serve | Karmic Konnexions',
-  description: 'Karmic Konnexions serves 20+ industries — Logistics, Manufacturing, Healthcare, EdTech, IT, BFSI, Retail and Startups — with tailored BPO, workforce and training solutions.'
+  description: 'Karmic Konnexions serves 20+ industries — Logistics, Manufacturing, Healthcare, EdTech, IT, BFSI, Retail and Startups — with tailored HRO, workforce and training solutions.'
 }
 
 const industries = [

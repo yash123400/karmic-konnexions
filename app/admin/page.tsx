@@ -1,7 +1,9 @@
-import { createClient } from '@supabase/supabase-js'
+import { getSupabaseAdmin } from '@/lib/supabase-server'
 import { BookOpen, FileText, Users, MessageSquare, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { client as sanityClient } from '@/lib/sanity'
+import AnalyticsWidget from '@/components/admin/AnalyticsWidget'
+import SearchConsoleWidget from '@/components/admin/SearchConsoleWidget'
 
 interface Lead {
   id: string
@@ -16,12 +18,9 @@ async function getDashboardStats() {
   let proposalsCount = 0
   let recentLeads: Lead[] = []
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-  if (supabaseUrl && supabaseKey) {
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
     try {
-      const supabase = createClient(supabaseUrl, supabaseKey)
+      const supabase = getSupabaseAdmin()
       const [leadsRes, proposalsRes, recentRes] = await Promise.all([
         supabase.from('leads').select('*', { count: 'exact', head: true }),
         supabase.from('proposals').select('*', { count: 'exact', head: true }),
@@ -155,6 +154,9 @@ export default async function AdminDashboard() {
           )}
         </div>
       </div>
+
+      <AnalyticsWidget />
+      <SearchConsoleWidget />
     </div>
   )
 }

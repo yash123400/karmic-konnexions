@@ -1,38 +1,48 @@
-export const teamMember = {
+import { defineField, defineType } from 'sanity'
+import { UsersIcon } from '@sanity/icons'
+
+export default defineType({
   name: 'teamMember',
-  title: 'Team Member',
+  title: 'Team Members',
   type: 'document',
+  icon: UsersIcon,
   fields: [
-    {
+    defineField({
       name: 'name',
-      title: 'Name',
+      title: 'Full name',
       type: 'string',
-      validation: (Rule: any) => Rule.required(),
-    },
-    {
+      validation: r => r.required(),
+    }),
+    defineField({
       name: 'role',
-      title: 'Role',
+      title: 'Role / Title',
       type: 'string',
-    },
-    {
-      name: 'bio',
-      title: 'Bio',
-      type: 'text',
-    },
-    {
-      name: 'image',
-      title: 'Image',
+      validation: r => r.required(),
+    }),
+    defineField({
+      name: 'photo',
+      title: 'Photo',
       type: 'image',
       options: { hotspot: true },
-    },
+    }),
+    defineField({ name: 'bio', title: 'Short bio', type: 'text', rows: 3 }),
+    defineField({ name: 'linkedin', title: 'LinkedIn URL', type: 'url' }),
+    defineField({ name: 'email', title: 'Email address', type: 'string' }),
+    defineField({
+      name: 'order',
+      title: 'Display order (1 = first)',
+      type: 'number',
+      initialValue: 99,
+    }),
+  ],
+  orderings: [
     {
-      name: 'socials',
-      title: 'Social Links',
-      type: 'object',
-      fields: [
-        { name: 'linkedin', type: 'url', title: 'LinkedIn' },
-        { name: 'twitter', type: 'url', title: 'Twitter' },
-      ],
+      title: 'Display order',
+      name: 'order',
+      by: [{ field: 'order', direction: 'asc' }],
     },
   ],
-}
+  preview: {
+    select: { title: 'name', subtitle: 'role', media: 'photo' },
+  },
+})

@@ -11,7 +11,7 @@ export default defineType({
     defineField({
       name: 'service', title: 'Related Service', type: 'string',
       options: { list: ['HR & Payroll', 'Finance & Accounts', 'CRM & Sales Ops', 'Marketing Services',
-        'E-Learning', 'Global Workforce', 'Corporate Apparel', 'BPO Bundle'] },
+        'E-Learning', 'Global Workforce', 'Corporate Apparel', 'HRO Bundle'] },
     }),
     defineField({ name: 'featured', title: 'Show on homepage?', type: 'boolean', initialValue: false }),
     defineField({ name: 'order', title: 'Display Order', type: 'number' }),

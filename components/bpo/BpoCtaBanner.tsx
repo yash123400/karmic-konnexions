@@ -49,7 +49,7 @@ export default function BpoCtaBanner() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Download BPO Brochure
+              Download HRO Brochure
             </Link>
           </div>
         </RevealSection>

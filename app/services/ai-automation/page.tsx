@@ -80,7 +80,7 @@ export default function AiAutomationPage() {
               <Sparkles className="w-12 h-12 text-[#F97316] mx-auto mb-8" />
               
               <h2 className="text-2xl md:text-3xl font-medium text-white leading-relaxed mb-8">
-                "We're building AI-enhanced versions of our BPO, HR, and Marketing services — integrating automation tools that reduce manual effort, increase accuracy, and surface insights faster."
+                "We're building AI-enhanced versions of our HRO, HR, and Marketing services — integrating automation tools that reduce manual effort, increase accuracy, and surface insights faster."
               </h2>
               
               <p className="text-[#9CA3AF] text-lg max-w-2xl mx-auto">

@@ -33,7 +33,7 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>
 
 const SERVICES = [
-  "BPO Outsourcing", "HR & Payroll", "Finance & Accounts", 
+  "HRO & Business Functions", "HR & Payroll", "Finance & Accounts", 
   "CRM & Sales Ops", "Marketing Services", "E-Learning & Training", 
   "Global Workforce Solutions", "Corporate Apparel", "AI Automation", "Other"
 ]

@@ -8,20 +8,20 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Professional Services & Solutions | Karmic Konnexions",
-  description: "Full-spectrum BPO, Global Workforce, E-Learning, and AI Automation services. Scale smarter with Karmic Konnexions.",
+  description: "Full-spectrum HRO, Global Workforce, E-Learning, and AI Automation services. Scale smarter with Karmic Konnexions.",
 };
 
 const serviceCategories = [
   {
-    title: "BPO & Outsourcing",
+    title: "HRO & Business Functions",
     icon: BarChart4,
     color: "indigo",
-    href: "/services/bpo-outsourcing",
-    description: "End-to-end management of back-office operations. HR, Finance, CRM, and Marketing executed by experts.",
+    href: "/services/hro-outsourcing",
+    description: "End-to-end management of HRO and allied functions. HR, Finance, CRM, and Marketing executed by experts.",
     subLinks: [
-      { label: "HR & Payroll", href: "/services/bpo-outsourcing/hr-outsourcing" },
-      { label: "Finance & Accounts", href: "/services/bpo-outsourcing/finance-accounts" },
-      { label: "CRM & Sales Ops", href: "/services/bpo-outsourcing/crm-sales-ops" },
+      { label: "HR & Payroll", href: "/services/hro-outsourcing/hr-outsourcing" },
+      { label: "Finance & Accounts", href: "/services/hro-outsourcing/finance-accounts" },
+      { label: "CRM & Sales Ops", href: "/services/hro-outsourcing/crm-sales-ops" },
     ]
   },
   {

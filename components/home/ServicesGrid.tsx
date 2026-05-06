@@ -10,9 +10,9 @@ import ServiceCard from "@/components/shared/ServiceCard";
 const services = [
   {
     icon: Briefcase,
-    title: "BPO Outsourcing",
-    desc: "Fixed-cost, execution-focused outsourcing for HR, Finance, CRM and Marketing. Senior expertise without the headcount.",
-    href: "/services/bpo-outsourcing",
+    title: "HRO & Business Functions",
+    desc: "Human Resources Operations, Accounts, Marketing & CRM outsourcing powered by Agentic AI.",
+    href: "/services/hro-outsourcing",
   },
   {
     icon: GraduationCap,

@@ -1,8 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { getSupabaseAdmin } from '@/lib/supabase-server'
+import { getResend, FROM_EMAIL, TO_EMAIL } from '@/lib/resend'
+import { rateLimit } from '@/lib/rate-limit'
+import { headers } from 'next/headers'
 
 export async function POST(req: NextRequest) {
   try {
+    const headersList = await headers()
+    const ip =
+      headersList.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+      headersList.get('x-real-ip') ??
+      '127.0.0.1'
+
+    const { allowed } = rateLimit(ip, 5, 60_000)
+    if (!allowed) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please wait a minute and try again.' },
+        { status: 429 }
+      )
+    }
+
     const body = await req.json()
     const { name, company, email, phone, service, message } = body
 
@@ -12,15 +29,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Store in Supabase leads table
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-    if (!supabaseUrl || !supabaseServiceKey) {
-      console.error('Supabase credentials missing')
-      return NextResponse.json({ error: 'Database configuration missing' }, { status: 500 })
-    }
-
-    const supabase = createClient(supabaseUrl, supabaseServiceKey)
+    const supabase = getSupabaseAdmin()
     
     const { error: dbError } = await supabase.from('leads').insert({
       name,
@@ -38,59 +47,45 @@ export async function POST(req: NextRequest) {
       // We continue even if DB fails to try and send email (or at least not block user)
     }
 
-    // 3. Send notification email via Resend
-    const resendApiKey = process.env.RESEND_API_KEY
-    if (resendApiKey) {
-      try {
-        const { Resend } = await import('resend')
-        const resend = new Resend(resendApiKey)
-        await resend.emails.send({
-          from: 'Karmic Website <onboarding@resend.dev>', // Use verified domain once set up
-          to: 'karmickonnexions2309@gmail.com',
-          subject: `New Enquiry: ${name} (${company})`,
-          html: `
-            <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-              <h2 style="color: #4F46E5;">New Lead Captured</h2>
-              <p style="font-size: 16px; line-height: 1.6;">A new message has been sent from the website contact form.</p>
-              <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
-              <table style="width: 100%; border-collapse: collapse;">
-                <tr>
-                  <td style="padding: 8px 0; font-weight: bold; color: #666;">Name:</td>
-                  <td style="padding: 8px 0;">${name}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; font-weight: bold; color: #666;">Company:</td>
-                  <td style="padding: 8px 0;">${company}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; font-weight: bold; color: #666;">Email:</td>
-                  <td style="padding: 8px 0;"><a href="mailto:${email}" style="color: #4F46E5;">${email}</a></td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td>
-                  <td style="padding: 8px 0;">${phone}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; font-weight: bold; color: #666;">Service:</td>
-                  <td style="padding: 8px 0;">${service}</td>
-                </tr>
+    // 3. Send email notification — non-blocking, failure does not affect
+    // the 200 response sent back to the user
+    try {
+      const resend = getResend()
+      await resend.emails.send({
+        from: FROM_EMAIL,
+        to: TO_EMAIL,
+        replyTo: email,
+        subject: `New Enquiry — ${name} (${company ?? email})`,
+        html: `
+          <div style="font-family:sans-serif;max-width:600px;margin:0 auto;">
+            <div style="background:#4F46E5;padding:24px;border-radius:8px 8px 0 0;">
+              <h1 style="color:white;margin:0;font-size:20px;">New Contact Form Submission</h1>
+              <p style="color:#C7D2FE;margin:4px 0 0;">karmickonnexions.com</p>
+            </div>
+            <div style="background:#F8FAFC;padding:24px;border:1px solid #E2E8F0;border-top:none;border-radius:0 0 8px 8px;">
+              <table style="width:100%;border-collapse:collapse;">
+                <tr><td style="padding:8px 0;color:#64748B;width:130px;">Name</td><td style="padding:8px 0;font-weight:600;color:#0F172A;">${name}</td></tr>
+                <tr><td style="padding:8px 0;color:#64748B;">Email</td><td style="padding:8px 0;color:#0F172A;"><a href="mailto:${email}" style="color:#4F46E5;">${email}</a></td></tr>
+                <tr><td style="padding:8px 0;color:#64748B;">Phone</td><td style="padding:8px 0;color:#0F172A;">${phone ?? '—'}</td></tr>
+                <tr><td style="padding:8px 0;color:#64748B;">Company</td><td style="padding:8px 0;color:#0F172A;">${company ?? '—'}</td></tr>
+                <tr><td style="padding:8px 0;color:#64748B;">Service</td><td style="padding:8px 0;color:#0F172A;">${service ?? '—'}</td></tr>
               </table>
-              <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 8px;">
-                <p style="margin: 0; font-weight: bold; color: #666; margin-bottom: 10px;">Message:</p>
-                <p style="margin: 0; font-style: italic; color: #333;">${message || 'No message provided'}</p>
+              <div style="margin-top:16px;padding:16px;background:white;border-radius:6px;border:1px solid #E2E8F0;">
+                <p style="color:#64748B;margin:0 0 8px;font-size:13px;">MESSAGE</p>
+                <p style="color:#0F172A;margin:0;white-space:pre-wrap;">${message}</p>
               </div>
-              <p style="font-size: 12px; color: #aaa; margin-top: 30px; text-align: center;">
-                Sent from Karmic Konnexions Lead Capture Engine
+              <p style="color:#94A3B8;font-size:12px;margin-top:16px;">
+                Submitted ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST
+                · Reply directly to this email to respond to ${name}
               </p>
             </div>
-          `,
-        })
-      } catch (emailErr) {
-        console.error('Failed to send email via Resend:', emailErr)
-      }
+          </div>
+        `,
+      })
+    } catch (emailErr) {
+      // Email failure must NOT break the form submission.
+      console.error('Resend email failed:', emailErr)
     }
-
-    console.log('New lead captured:', { name, company, service })
 
     return NextResponse.json({ success: true })
   } catch (err) {

@@ -27,7 +27,7 @@ const steps = [
     day: "Days 6–15",
     title: "Team Setup",
     description:
-      "We hire and assign trained BPO specialists dedicated to your account.",
+      "We hire and assign trained HRO specialists dedicated to your account.",
   },
   {
     number: 4,
