@@ -22,8 +22,11 @@ const FUNCTIONS = [
 ]
 
 export default function ROICalculator() {
+  const [isMounted, setIsMounted] = useState(false)
   const [headcount, setHeadcount] = useState(100)
   const [selectedFunctions, setSelectedFunctions] = useState<string[]>(['hr'])
+
+  useEffect(() => { setIsMounted(true) }, [])
 
   const toggleFunction = (id: string) => {
     setSelectedFunctions(prev => 
@@ -167,8 +170,9 @@ export default function ROICalculator() {
             </div>
           </div>
 
-          {/* Chart */}
+          {/* Chart — only renders client-side to prevent Recharts SSR dimension warnings */}
           <div className="h-[200px] w-full mt-8">
+            {isMounted && (
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={chartData}>
                 <defs>
@@ -206,6 +210,7 @@ export default function ROICalculator() {
                 />
               </AreaChart>
             </ResponsiveContainer>
+            )}
           </div>
           <div className="text-center mt-4">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Cumulative 12-Month Savings Curve</span>
