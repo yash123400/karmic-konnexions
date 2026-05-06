@@ -33,9 +33,9 @@ export default function DataZenmasterPage() {
             <div className="mt-12 bg-[#FFF7ED] rounded-3xl p-8 md:p-12 border border-[#FFEDD5] shadow-sm">
               <ul className="space-y-6">
                 {[
-                  "[Placeholder] Develop strong data literacy and the ability to interpret complex datasets.",
-                  "[Placeholder] Master data storytelling to effectively communicate insights to stakeholders.",
-                  "[Placeholder] Build and deploy business intelligence dashboards for real-time decision-making."
+                  "Develop strong data literacy and the ability to interpret complex datasets.",
+                  "Master data storytelling to effectively communicate insights to stakeholders.",
+                  "Build and deploy business intelligence dashboards for real-time decision-making."
                 ].map((item, i) => (
                   <li key={i} className="flex gap-4">
                     <CheckCircle2 className="w-8 h-8 text-[#F97316] shrink-0" />
@@ -64,9 +64,9 @@ export default function DataZenmasterPage() {
                 </div>
                 <ul className="space-y-4">
                   {[
-                    "[Placeholder] Business professionals looking to improve their data-driven decision-making.",
-                    "[Placeholder] Analysts wanting to level-up their data storytelling skills.",
-                    "[Placeholder] Managers overseeing data-heavy projects or reporting teams."
+                    "Business professionals looking to improve their data-driven decision-making.",
+                    "Analysts wanting to level-up their data storytelling skills.",
+                    "Managers overseeing data-heavy projects or reporting teams."
                   ].map((item, i) => (
                     <li key={i} className="flex gap-3 text-[#94A3B8]">
                       <span className="text-[#16A34A] font-bold">✓</span>
@@ -87,9 +87,9 @@ export default function DataZenmasterPage() {
                 </div>
                 <ul className="space-y-4">
                   {[
-                    "[Placeholder] You are seeking an advanced Machine Learning or AI engineering degree.",
-                    "[Placeholder] You have no basic understanding of spreadsheet software.",
-                    "[Placeholder] Your role does not involve working with reports, metrics, or data."
+                    "You are seeking an advanced Machine Learning or AI engineering degree.",
+                    "You have no basic understanding of spreadsheet software.",
+                    "Your role does not involve working with reports, metrics, or data."
                   ].map((item, i) => (
                     <li key={i} className="flex gap-3 text-[#94A3B8]">
                       <span className="text-[#DC2626] font-bold">✕</span>
@@ -111,17 +111,17 @@ export default function DataZenmasterPage() {
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                title: "[Placeholder] Module 1: Data Foundations",
+                title: "Module 1: Data Foundations",
                 duration: "Weeks 1-4",
                 items: ["Data Literacy Basics", "Structuring Data", "Data Cleaning Techniques"]
               },
               {
-                title: "[Placeholder] Module 2: Business Intelligence",
+                title: "Module 2: Business Intelligence",
                 duration: "Weeks 5-8",
                 items: ["Dashboard Design", "KPI Tracking", "Visualisation Best Practices"]
               },
               {
-                title: "[Placeholder] Module 3: Data Storytelling",
+                title: "Module 3: Data Storytelling",
                 duration: "Weeks 9-12",
                 items: ["Presenting Data to Execs", "Actionable Insights", "Capstone Project"]
               }

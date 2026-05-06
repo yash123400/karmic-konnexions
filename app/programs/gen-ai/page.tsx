@@ -33,9 +33,9 @@ export default function GenAIPage() {
             <div className="mt-12 bg-[#F0FDF4] rounded-3xl p-8 md:p-12 border border-[#DCFCE7] shadow-sm">
               <ul className="space-y-6">
                 {[
-                  "[Placeholder] Master prompt engineering and advanced capabilities of LLMs.",
-                  "[Placeholder] Build automated, AI-assisted workflows for daily business operations.",
-                  "[Placeholder] Understand the ethics, privacy, and security implications of Gen AI."
+                  "Master prompt engineering and advanced capabilities of LLMs.",
+                  "Build automated, AI-assisted workflows for daily business operations.",
+                  "Understand the ethics, privacy, and security implications of Gen AI."
                 ].map((item, i) => (
                   <li key={i} className="flex gap-4">
                     <CheckCircle2 className="w-8 h-8 text-[#22C55E] shrink-0" />
@@ -64,9 +64,9 @@ export default function GenAIPage() {
                 </div>
                 <ul className="space-y-4">
                   {[
-                    "[Placeholder] Professionals looking to increase their productivity using AI.",
-                    "[Placeholder] Managers wanting to implement AI tools within their teams.",
-                    "[Placeholder] Content creators, marketers, and operators seeking AI acceleration."
+                    "Professionals looking to increase their productivity using AI.",
+                    "Managers wanting to implement AI tools within their teams.",
+                    "Content creators, marketers, and operators seeking AI acceleration."
                   ].map((item, i) => (
                     <li key={i} className="flex gap-3 text-[#94A3B8]">
                       <span className="text-[#16A34A] font-bold">✓</span>
@@ -87,9 +87,9 @@ export default function GenAIPage() {
                 </div>
                 <ul className="space-y-4">
                   {[
-                    "[Placeholder] You are looking to build foundational AI models from scratch.",
-                    "[Placeholder] You want a highly technical, deep-dive Python/PyTorch course.",
-                    "[Placeholder] You have no basic digital literacy."
+                    "You are looking to build foundational AI models from scratch.",
+                    "You want a highly technical, deep-dive Python/PyTorch course.",
+                    "You have no basic digital literacy."
                   ].map((item, i) => (
                     <li key={i} className="flex gap-3 text-[#94A3B8]">
                       <span className="text-[#DC2626] font-bold">✕</span>
@@ -111,17 +111,17 @@ export default function GenAIPage() {
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                title: "[Placeholder] Module 1: Prompt Engineering",
+                title: "Module 1: Prompt Engineering",
                 duration: "Weeks 1-4",
                 items: ["LLM Fundamentals", "Advanced Prompting Techniques", "Evaluating Outputs"]
               },
               {
-                title: "[Placeholder] Module 2: AI Workflows",
+                title: "Module 2: AI Workflows",
                 duration: "Weeks 5-8",
                 items: ["No-Code Integrations", "Automating Routine Tasks", "Multi-Agent Systems"]
               },
               {
-                title: "[Placeholder] Module 3: Security & Strategy",
+                title: "Module 3: Security & Strategy",
                 duration: "Weeks 9-12",
                 items: ["Data Privacy & Ethics", "Enterprise Adoption", "Capstone Project"]
               }

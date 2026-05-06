@@ -33,9 +33,9 @@ export default function BusinessStackPage() {
             <div className="mt-12 bg-[#FAFBFF] rounded-3xl p-8 md:p-12 border border-[#E0E7FF] shadow-sm">
               <ul className="space-y-6">
                 {[
-                  "[Placeholder] Develop strong strategic thinking and execution capabilities aligned with corporate objectives.",
-                  "[Placeholder] Master stakeholder management and cross-functional team leadership.",
-                  "[Placeholder] Gain deep understanding of P&L ownership, budgeting, and financial decision-making."
+                  "Develop strong strategic thinking and execution capabilities aligned with corporate objectives.",
+                  "Master stakeholder management and cross-functional team leadership.",
+                  "Gain deep understanding of P&L ownership, budgeting, and financial decision-making."
                 ].map((item, i) => (
                   <li key={i} className="flex gap-4">
                     <CheckCircle2 className="w-8 h-8 text-[#4F46E5] shrink-0" />
@@ -64,9 +64,9 @@ export default function BusinessStackPage() {
                 </div>
                 <ul className="space-y-4">
                   {[
-                    "[Placeholder] Mid-to-senior level managers preparing for executive roles.",
-                    "[Placeholder] Team leads managing cross-functional projects.",
-                    "[Placeholder] Professionals transitioning from technical to leadership tracks."
+                    "Mid-to-senior level managers preparing for executive roles.",
+                    "Team leads managing cross-functional projects.",
+                    "Professionals transitioning from technical to leadership tracks."
                   ].map((item, i) => (
                     <li key={i} className="flex gap-3 text-[#94A3B8]">
                       <span className="text-[#16A34A] font-bold">✓</span>
@@ -87,9 +87,9 @@ export default function BusinessStackPage() {
                 </div>
                 <ul className="space-y-4">
                   {[
-                    "[Placeholder] You are looking for an entry-level management course.",
-                    "[Placeholder] You want a highly technical, deep-dive coding program.",
-                    "[Placeholder] You are not currently in a role with people or project management responsibilities."
+                    "You are looking for an entry-level management course.",
+                    "You want a highly technical, deep-dive coding program.",
+                    "You are not currently in a role with people or project management responsibilities."
                   ].map((item, i) => (
                     <li key={i} className="flex gap-3 text-[#94A3B8]">
                       <span className="text-[#DC2626] font-bold">✕</span>
@@ -111,17 +111,17 @@ export default function BusinessStackPage() {
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                title: "[Placeholder] Module 1: Strategic Foundations",
+                title: "Module 1: Strategic Foundations",
                 duration: "Weeks 1-4",
                 items: ["Business Strategy Frameworks", "Market Analysis & Positioning", "Vision & Goal Setting"]
               },
               {
-                title: "[Placeholder] Module 2: Financial Acumen",
+                title: "Module 2: Financial Acumen",
                 duration: "Weeks 5-8",
                 items: ["Understanding P&L", "Budgeting & Forecasting", "Financial Decision Making"]
               },
               {
-                title: "[Placeholder] Module 3: Leadership & Execution",
+                title: "Module 3: Leadership & Execution",
                 duration: "Weeks 9-12",
                 items: ["Stakeholder Management", "Change Leadership", "Capstone Project"]
               }
