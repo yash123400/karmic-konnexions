@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import LenisProvider from "@/components/providers/LenisProvider";
 import PageTransition from "@/components/providers/PageTransition";
@@ -90,6 +91,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="font-[family-name:var(--font-inter-var)]">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-5YW1LD3RB5"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-5YW1LD3RB5');
+          `}
+        </Script>
         {/* Skip to main content — accessibility */}
         <a
           href="#main-content"
