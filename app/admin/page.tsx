@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { client as sanityClient } from '@/lib/sanity'
 import AnalyticsWidget from '@/components/admin/AnalyticsWidget'
 import SearchConsoleWidget from '@/components/admin/SearchConsoleWidget'
+import RealtimeWidget from '@/components/admin/RealtimeWidget'
 
 interface Lead {
   id: string
@@ -156,6 +157,7 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
+      <RealtimeWidget />
       <AnalyticsWidget />
       <SearchConsoleWidget />
     </div>
