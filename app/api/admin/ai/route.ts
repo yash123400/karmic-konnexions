@@ -1,8 +1,8 @@
-import Anthropic from '@anthropic-ai/sdk'
+import Groq from 'groq-sdk'
 import { auth } from '@/auth'
 import { NextRequest, NextResponse } from 'next/server'
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+const client = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
 async function requireAdmin() {
   const session = await auth()
@@ -16,18 +16,22 @@ export async function POST(req: NextRequest) {
 
     if (action === 'score_lead') {
       const { name, email, company, service, message } = data
-      const response = await client.messages.create({
-        model: 'claude-haiku-4-5-20251001',
+      const response = await client.chat.completions.create({
+        model: 'llama-3.3-70b-versatile',
         max_tokens: 600,
-        system: `You are an expert B2B sales qualifier for Karmic Konnexions Global Consulting LLP,
+        messages: [
+          {
+            role: 'system',
+            content: `You are an expert B2B sales qualifier for Karmic Konnexions Global Consulting LLP,
 a Gurgaon-based firm offering HRO (Human Resources Operations) outsourcing,
 E-Learning, Global Workforce, Corporate Apparel, and AI Automation services.
 Their ideal client: companies with 50–500 employees, budget-conscious, in growth phase.
 Their key selling points: 15+ years experience, 98% retention, 60% cost saving vs in-house.
 Be concise and practical.`,
-        messages: [{
-          role: 'user',
-          content: `Score this lead and draft a reply.
+          },
+          {
+            role: 'user',
+            content: `Score this lead and draft a reply.
 
 Name: ${name}
 Email: ${email}
@@ -42,10 +46,11 @@ Return a JSON object with exactly these fields:
   "priority_service": "which Karmic service best fits their need",
   "suggested_reply": "a warm, professional WhatsApp/email reply (3-4 sentences max, from Harleen's voice)"
 }`,
-        }],
+          },
+        ],
       })
 
-      const text = response.content[0].type === 'text' ? response.content[0].text : ''
+      const text = response.choices[0]?.message?.content ?? ''
       const jsonMatch = text.match(/\{[\s\S]*\}/)
       const result = jsonMatch
         ? JSON.parse(jsonMatch[0])
@@ -55,18 +60,22 @@ Return a JSON object with exactly these fields:
 
     if (action === 'draft_blog') {
       const { topic, keywords, tone } = data
-      const response = await client.messages.create({
-        model: 'claude-sonnet-4-6',
+      const response = await client.chat.completions.create({
+        model: 'llama-3.3-70b-versatile',
         max_tokens: 2000,
-        system: `You are a content writer for Karmic Konnexions Global Consulting LLP.
+        messages: [
+          {
+            role: 'system',
+            content: `You are a content writer for Karmic Konnexions Global Consulting LLP.
 Write in a confident, expert B2B tone. The firm's tagline is "Health, Wealth, Longevity".
 They serve 500+ clients across 20+ industries with 98% retention.
 Services: HRO outsourcing, E-Learning, Global Workforce, Corporate Apparel, AI Automation.
 Write practical, insight-led content. No fluff. No bullet-point overload.
 Always end with a soft CTA toward getting a proposal or consultation.`,
-        messages: [{
-          role: 'user',
-          content: `Write a blog post draft.
+          },
+          {
+            role: 'user',
+            content: `Write a blog post draft.
 
 Topic: ${topic}
 Target keywords (weave in naturally): ${keywords || 'none specified'}
@@ -81,21 +90,23 @@ Format:
 - Estimated reading time
 
 Total length: 450-600 words.`,
-        }],
+          },
+        ],
       })
 
-      const text = response.content[0].type === 'text' ? response.content[0].text : ''
+      const text = response.choices[0]?.message?.content ?? ''
       return NextResponse.json({ draft: text })
     }
 
     if (action === 'generate_seo') {
       const { title, content, type } = data
-      const response = await client.messages.create({
-        model: 'claude-haiku-4-5-20251001',
+      const response = await client.chat.completions.create({
+        model: 'llama-3.3-70b-versatile',
         max_tokens: 300,
-        messages: [{
-          role: 'user',
-          content: `Generate SEO metadata for this Karmic Konnexions ${type || 'page'}.
+        messages: [
+          {
+            role: 'user',
+            content: `Generate SEO metadata for this Karmic Konnexions ${type || 'page'}.
 
 Title/Topic: ${title}
 Content summary: ${content || 'Not provided'}
@@ -106,10 +117,11 @@ Return JSON:
   "meta_description": "under 155 characters, compelling, includes CTA",
   "focus_keyword": "single best keyword phrase"
 }`,
-        }],
+          },
+        ],
       })
 
-      const text = response.content[0].type === 'text' ? response.content[0].text : ''
+      const text = response.choices[0]?.message?.content ?? ''
       const jsonMatch = text.match(/\{[\s\S]*\}/)
       const result = jsonMatch ? JSON.parse(jsonMatch[0]) : {}
       return NextResponse.json(result)
