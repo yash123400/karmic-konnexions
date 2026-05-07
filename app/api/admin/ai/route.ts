@@ -6,7 +6,7 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 async function requireAdmin() {
   const session = await auth()
-  if (!session) throw new Error('Unauthorized')
+  if (!session?.user) throw new Error('Unauthorized')
 }
 
 export async function POST(req: NextRequest) {

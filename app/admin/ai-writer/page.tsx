@@ -26,7 +26,11 @@ export default function AIWriterPage() {
       body: JSON.stringify({ action: 'draft_blog', data: { topic, keywords, tone } }),
     })
     const result = await res.json()
-    setDraft(result.draft || 'Error generating draft.')
+    if (result.error) {
+      setDraft(`Error: ${result.error}`)
+    } else {
+      setDraft(result.draft || 'No content returned.')
+    }
     setLoading(false)
   }
 
