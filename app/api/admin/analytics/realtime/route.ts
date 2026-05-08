@@ -34,7 +34,7 @@ export async function GET() {
           dimensions: [{ name: 'unifiedPagePathScreen' }],
           metrics: [{ name: 'activeUsers' }],
           orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
-          limit: 5,
+          limit: '5',
         },
       }),
       analyticsdata.properties.runRealtimeReport({
@@ -43,7 +43,7 @@ export async function GET() {
           dimensions: [{ name: 'country' }],
           metrics: [{ name: 'activeUsers' }],
           orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
-          limit: 5,
+          limit: '5',
         },
       }),
     ])

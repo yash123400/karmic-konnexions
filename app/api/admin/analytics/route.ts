@@ -39,7 +39,7 @@ export async function GET() {
           dimensions: [{ name: 'pagePath' }],
           metrics: [{ name: 'screenPageViews' }],
           orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
-          limit: 5,
+          limit: '5',
         },
       }),
       analyticsdata.properties.runReport({
@@ -49,7 +49,7 @@ export async function GET() {
           dimensions: [{ name: 'sessionDefaultChannelGroup' }],
           metrics: [{ name: 'sessions' }],
           orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
-          limit: 5,
+          limit: '5',
         },
       }),
     ])
