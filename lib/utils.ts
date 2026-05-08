@@ -1,23 +1,18 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }
 
-export function readingTime(content: any[]): number {
-  if (!content) return 0
-  const words = content.reduce((acc, block) => {
-    if (block._type !== 'block' || !block.children) return acc
-    return acc + block.children.reduce((acc2: number, child: any) => acc2 + (child.text?.split(/\s+/).length || 0), 0)
-  }, 0)
-  return Math.ceil(words / 200) || 1
+export function formatDate(dateStr?: string): string {
+  if (!dateStr) return ''
+  return new Date(dateStr).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
-export function formatDate(date: string) {
-  return new Intl.DateTimeFormat('en-IN', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  }).format(new Date(date))
+export function readingTime(body: unknown): number {
+  if (!body) return 1
+  const text = JSON.stringify(body)
+  const words = text.split(/\s+/).length
+  return Math.max(1, Math.round(words / 200))
 }

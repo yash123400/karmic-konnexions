@@ -1,6 +1,6 @@
 "use client"
-import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface SplitTextProps {
@@ -16,12 +16,13 @@ export default function SplitText({
   delay = 0,
   wordDelay = 0.06,
 }: SplitTextProps) {
-  const words = text.split(" ");
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-  const shouldReduceMotion = useReducedMotion();
+  const [isMounted, setIsMounted] = useState(false);
 
-  if (shouldReduceMotion) {
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
     return (
       <span className={className} aria-label={text} role="heading">
         {text}
@@ -29,14 +30,15 @@ export default function SplitText({
     );
   }
 
+  const words = text.split(" ");
   return (
     <motion.span
-      ref={ref}
       className={cn("inline-block", className)}
       aria-label={text}
       role="heading"
       initial="hidden"
-      animate={inView ? "visible" : "hidden"}
+      whileInView="visible"
+      viewport={{ once: true }}
       variants={{
         visible: { transition: { staggerChildren: wordDelay } },
       }}

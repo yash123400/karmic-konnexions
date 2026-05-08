@@ -1,6 +1,6 @@
 // Blog
 export const ALL_POSTS_QUERY = `
-  *[_type == "blogPost"] | order(publishedAt desc) {
+  *[_type == "blogPost" && defined(slug.current)] | order(publishedAt desc) {
     _id, title, slug, excerpt, category, author, publishedAt,
     coverImage { asset->{ url } }
   }

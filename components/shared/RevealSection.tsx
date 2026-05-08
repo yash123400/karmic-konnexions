@@ -1,7 +1,6 @@
 "use client"
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
-import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface RevealSectionProps {
   children: React.ReactNode;
@@ -18,29 +17,21 @@ export default function RevealSection({
   className,
   direction = 'up',
 }: RevealSectionProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px 0px" });
-  const shouldReduceMotion = useReducedMotion();
+  const [isMounted, setIsMounted] = useState(false);
 
-  if (shouldReduceMotion) {
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
     return <div className={className}>{children}</div>;
   }
 
-  const variants = {
-    hidden: {
-      opacity: 0,
-      y: direction === 'up' ? 40 : 0,
-      x: direction === 'left' ? -40 : direction === 'right' ? 40 : 0,
-    },
-    visible: { opacity: 1, y: 0, x: 0 },
-  };
-
   return (
     <motion.div
-      ref={ref}
-      variants={variants}
-      initial="hidden"
-      animate={inView ? 'visible' : 'hidden'}
+      initial={{ opacity: 0, y: direction === 'up' ? 40 : 0, x: direction === 'left' ? -40 : direction === 'right' ? 40 : 0 }}
+      whileInView={{ opacity: 1, y: 0, x: 0 }}
+      viewport={{ once: true, margin: "-80px 0px" }}
       transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
