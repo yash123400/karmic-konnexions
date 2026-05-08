@@ -3,9 +3,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, FileText, BookOpen, Users,
-  MessageSquare, Briefcase, ExternalLink, Sparkles,
+  MessageSquare, Briefcase, ExternalLink, Sparkles, LogOut,
 } from 'lucide-react'
+import { signOut } from 'next-auth/react'
 import { cn } from '@/lib/utils'
+import type { Session } from 'next-auth'
 
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
@@ -21,7 +23,7 @@ const studioLinks = [
   { href: '/studio/desk/testimonial', label: 'Testimonials', icon: MessageSquare },
 ]
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ session }: { session: Session }) {
   const pathname = usePathname()
 
   return (
@@ -76,7 +78,7 @@ export default function AdminSidebar() {
         </div>
       </nav>
 
-      <div className="px-4 py-4 border-t border-white/10">
+      <div className="px-4 py-4 border-t border-white/10 space-y-3">
         <a
           href="/"
           target="_blank"
@@ -86,6 +88,24 @@ export default function AdminSidebar() {
           <ExternalLink className="w-3 h-3" />
           View live website
         </a>
+
+        <div className="flex items-center justify-between pt-1 border-t border-white/10">
+          <div className="min-w-0">
+            <p className="text-white text-xs font-medium truncate">
+              {session.user?.name ?? session.user?.email}
+            </p>
+            {session.user?.name && (
+              <p className="text-gray-500 text-xs truncate">{session.user.email}</p>
+            )}
+          </div>
+          <button
+            onClick={() => signOut({ callbackUrl: '/admin/login' })}
+            title="Sign out"
+            className="flex-shrink-0 ml-2 p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-400/10 rounded-md transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+          </button>
+        </div>
       </div>
     </aside>
   )
