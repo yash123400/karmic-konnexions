@@ -6,7 +6,7 @@ const ORG_BASE = {
   url: BASE_URL,
   logo: `${BASE_URL}/logo-full.png`,
   telephone: '+91-9667759894',
-  email: 'karmickonnexions2309@gmail.com',
+  email: 'support@karmickonnexion.com',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '#106D, J Block, Adani Samsara Vilasa 2.0, Sec 63, Maidawas Road',
@@ -36,7 +36,7 @@ export const localBusinessSchema = {
   name: 'Karmic Konnexions Global Consulting LLP',
   image: `${BASE_URL}/logo-full.png`,
   telephone: '+91-9667759894',
-  email: 'karmickonnexions2309@gmail.com',
+  email: 'support@karmickonnexion.com',
   url: `${BASE_URL}/contact`,
   address: {
     '@type': 'PostalAddress',

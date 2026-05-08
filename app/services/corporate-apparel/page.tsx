@@ -281,7 +281,7 @@ export default function CorporateApparelPage() {
               <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-white">
                 <span className="font-semibold">+91-9667759894</span>
                 <span className="hidden sm:inline text-white/20">|</span>
-                <span className="font-semibold text-[#4F46E5]">karmickonnexions2309@gmail.com</span>
+                <a href="mailto:support@karmickonnexion.com" className="font-semibold text-[#4F46E5] hover:text-[#6366F1] transition-colors">support@karmickonnexion.com</a>
               </div>
             </div>
           </RevealSection>

@@ -14,6 +14,6 @@ export function getResend(): Resend {
 }
 
 export const FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev'
+  process.env.RESEND_FROM_EMAIL ?? 'support@karmickonnexion.com'
 export const TO_EMAIL =
-  process.env.RESEND_TO_EMAIL ?? 'karmickonnexions2309@gmail.com'
+  process.env.RESEND_TO_EMAIL ?? 'support@karmickonnexion.com'

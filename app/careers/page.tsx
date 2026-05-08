@@ -137,7 +137,7 @@ export default async function CareersPage() {
                       </div>
                       <div className="shrink-0 w-full md:w-auto">
                         <MagneticButton
-                          href={`mailto:${job.applyEmail ?? 'karmickonnexions2309@gmail.com'}?subject=Application: ${job.title}`}
+                          href={`mailto:${job.applyEmail ?? 'support@karmickonnexion.com'}?subject=Application: ${job.title}`}
                           className="w-full md:w-auto bg-slate-900 text-white px-10 py-5 !rounded-2xl flex items-center justify-center gap-3 hover:bg-primary transition-colors"
                         >
                           Apply Now <ArrowRight className="w-5 h-5" />
@@ -191,7 +191,7 @@ export default async function CareersPage() {
                   We are always looking for exceptional talent in HR, Finance, Sales, and Marketing. Send us your CV and a brief note on how you can contribute to the Karmic vision.
                 </p>
                 <MagneticButton
-                  href="mailto:karmickonnexions2309@gmail.com?subject=Open Application — [Your Name]"
+                  href="mailto:support@karmickonnexion.com?subject=Open Application — [Your Name]"
                   className="bg-primary text-white px-12 py-6 !rounded-2xl text-lg shadow-2xl shadow-primary/30"
                 >
                   Send Open Application

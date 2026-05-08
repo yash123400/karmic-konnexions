@@ -51,8 +51,8 @@ export default function PrivacyPage() {
         <p>
           You may request access to, correction of, or deletion of your personal
           data at any time by emailing us at{' '}
-          <a href="mailto:karmickonnexions2309@gmail.com" className="text-primary">
-            karmickonnexions2309@gmail.com
+          <a href="mailto:support@karmickonnexion.com" className="text-primary">
+            support@karmickonnexion.com
           </a>.
         </p>
 
@@ -61,8 +61,8 @@ export default function PrivacyPage() {
           Karmic Konnexions Global Consulting LLP<br />
           #106D, J Block, Adani Samsara Vilasa 2.0,<br />
           Sec 63, Maidawas Road, Gurgaon, Haryana – 122011<br />
-          <a href="mailto:karmickonnexions2309@gmail.com" className="text-primary">
-            karmickonnexions2309@gmail.com
+          <a href="mailto:support@karmickonnexion.com" className="text-primary">
+            support@karmickonnexion.com
           </a>
         </p>
       </section>

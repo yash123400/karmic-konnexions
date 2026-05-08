@@ -63,8 +63,8 @@ export default function TermsPage() {
         <h2>7. Contact</h2>
         <p>
           For any questions about these terms, contact us at{' '}
-          <a href="mailto:karmickonnexions2309@gmail.com" className="text-primary">
-            karmickonnexions2309@gmail.com
+          <a href="mailto:support@karmickonnexion.com" className="text-primary">
+            support@karmickonnexion.com
           </a>.
         </p>
       </section>

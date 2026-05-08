@@ -282,13 +282,13 @@ export default function ContactPage() {
                     </div>
                   </a>
 
-                  <a href="mailto:karmickonnexions2309@gmail.com" className="flex gap-4 group">
+                  <a href="mailto:support@karmickonnexion.com" className="flex gap-4 group">
                     <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center shrink-0 group-hover:border-primary transition-colors">
                       <Mail className="w-5 h-5 text-primary" />
                     </div>
                     <div>
                       <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Email Address</p>
-                      <p className="text-slate-900 font-bold text-lg group-hover:text-primary transition-colors">karmickonnexions2309@gmail.com</p>
+                      <p className="text-slate-900 font-bold text-lg group-hover:text-primary transition-colors">support@karmickonnexion.com</p>
                     </div>
                   </a>
                 </div>

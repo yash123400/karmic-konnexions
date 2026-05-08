@@ -31,8 +31,8 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 shrink-0" />
-                <a href="mailto:karmickonnexions2309@gmail.com" className="hover:text-white transition-colors">
-                  karmickonnexions2309@gmail.com
+                <a href="mailto:support@karmickonnexion.com" className="hover:text-white transition-colors">
+                  support@karmickonnexion.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
@@ -125,7 +125,7 @@ export default function Footer() {
 
             <div className="text-center">
               <a 
-                href="mailto:karmickonnexions2309@gmail.com" 
+                href="mailto:support@karmickonnexion.com" 
                 className="text-[#4F46E5] hover:text-[#6366F1] text-sm font-medium transition-colors"
               >
                 Send us an email →

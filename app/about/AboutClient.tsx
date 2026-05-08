@@ -321,12 +321,12 @@ export default function AboutPage() {
                   </p>
                 </a>
                 
-                <a href="mailto:karmickonnexions2309@gmail.com" className="flex items-center gap-4 group">
+                <a href="mailto:support@karmickonnexion.com" className="flex items-center gap-4 group">
                   <div className="w-10 h-10 shrink-0 bg-[#EEF2FF] group-hover:bg-[#4F46E5] group-hover:text-white transition-colors rounded-full flex items-center justify-center text-[#4F46E5]">
                     <Mail className="w-5 h-5" />
                   </div>
                   <p className="text-[#0F172A] font-medium group-hover:text-[#4F46E5] transition-colors break-all">
-                    karmickonnexions2309@gmail.com
+                    support@karmickonnexion.com
                   </p>
                 </a>
               </div>

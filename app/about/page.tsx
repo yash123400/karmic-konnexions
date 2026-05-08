@@ -381,13 +381,13 @@ export default async function AboutPage() {
                   </div>
                 </a>
 
-                <a href="mailto:karmickonnexions2309@gmail.com" className="flex items-center gap-4 group">
+                <a href="mailto:support@karmickonnexion.com" className="flex items-center gap-4 group">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Email</div>
-                    <div className="text-lg font-bold text-slate-900">karmickonnexions2309@gmail.com</div>
+                    <div className="text-lg font-bold text-slate-900">support@karmickonnexion.com</div>
                   </div>
                 </a>
 

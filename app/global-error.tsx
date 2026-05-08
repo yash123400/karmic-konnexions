@@ -31,8 +31,8 @@ export default function GlobalError({ error, unstable_retry }: GlobalErrorProps)
             </h1>
             <p style={{ color: '#6B7280', marginBottom: '32px' }}>
               A critical error occurred. Please try again or contact us at{' '}
-              <a href="mailto:karmickonnexions2309@gmail.com" style={{ color: '#4F46E5' }}>
-                karmickonnexions2309@gmail.com
+              <a href="mailto:support@karmickonnexion.com" style={{ color: '#4F46E5' }}>
+                support@karmickonnexion.com
               </a>
             </p>
             <button
