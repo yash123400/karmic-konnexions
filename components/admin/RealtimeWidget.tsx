@@ -32,7 +32,17 @@ export default function RealtimeWidget() {
     return () => clearInterval(interval)
   }, [fetchRealtime])
 
-  if (error) return null
+  if (error) return (
+    <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gray-300" />
+        </span>
+        <h2 className="font-semibold text-gray-900">Live visitors</h2>
+      </div>
+      <p className="text-sm text-gray-400">Analytics connected — data will appear once Google service account is configured.</p>
+    </div>
+  )
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6">

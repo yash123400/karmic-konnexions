@@ -11,23 +11,34 @@ type SCData = {
 export default function SearchConsoleWidget() {
   const [data, setData] = useState<SCData | null>(null)
   const [loading, setLoading] = useState(true)
+  const [noData, setNoData] = useState(false)
 
   useEffect(() => {
     fetch('/api/admin/search-console')
       .then(r => r.json())
       .then(d => {
-        // If the API returned an error shape, silently hide the widget
         if (d?.error || !d?.queries) {
+          setNoData(true)
           setLoading(false)
           return
         }
         setData(d)
         setLoading(false)
       })
-      .catch(() => setLoading(false))
+      .catch(() => { setNoData(true); setLoading(false) })
   }, [])
 
-  if (loading || !data || !data.queries) return null
+  if (loading) return null
+
+  if (noData || !data || !data.queries) return (
+    <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="flex items-center gap-2 mb-3">
+        <Search className="w-4 h-4 text-emerald-600" />
+        <h2 className="font-semibold text-gray-900">Google Rankings</h2>
+      </div>
+      <p className="text-sm text-gray-400">Analytics connected — data will appear once the site is indexed and Search Console is verified.</p>
+    </div>
+  )
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6">

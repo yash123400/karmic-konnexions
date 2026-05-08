@@ -40,7 +40,15 @@ export default function AnalyticsWidget() {
     </div>
   )
 
-  if (error || !data) return null
+  if (error || !data) return (
+    <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="flex items-center gap-2 mb-3">
+        <TrendingUp className="w-4 h-4 text-indigo-600" />
+        <h2 className="font-semibold text-gray-900">Website analytics</h2>
+      </div>
+      <p className="text-sm text-gray-400">Analytics connected — data will appear once traffic is recorded for this property.</p>
+    </div>
+  )
 
   const formatDuration = (secs: number) => {
     const m = Math.floor(secs / 60)
