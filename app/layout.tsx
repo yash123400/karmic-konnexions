@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Geist } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import LenisProvider from "@/components/providers/LenisProvider";
@@ -12,6 +12,9 @@ import QueryProvider from "@/components/layout/QueryProvider";
 import NextAuthSessionProvider from "@/components/providers/SessionProvider";
 import JsonLd from "@/components/seo/JsonLd";
 import { orgSchema } from "@/lib/schemas";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,7 +23,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.karmickonnexions.com"),
+  metadataBase: new URL("https://www.karmickonnexion.com"),
   title: {
     default:
       "Karmic Konnexions Global Consulting LLP | HRO & Business Functions Outsourcing India",
@@ -57,7 +60,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://www.karmickonnexions.com",
+    url: "https://www.karmickonnexion.com",
     siteName: "Karmic Konnexions Global Consulting LLP",
     title:
       "Karmic Konnexions — Execution-Focused Outsourcing & HR Solutions",
@@ -89,7 +92,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className="font-[family-name:var(--font-inter-var)]">
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-5YW1LD3RB5"

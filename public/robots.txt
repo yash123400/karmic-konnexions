@@ -7,7 +7,7 @@ User-agent: *
 Disallow: /studio
 
 # Host
-Host: https://www.karmickonnexions.com
+Host: https://www.karmickonnexion.com
 
 # Sitemaps
-Sitemap: https://www.karmickonnexions.com/sitemap.xml
+Sitemap: https://www.karmickonnexion.com/sitemap.xml

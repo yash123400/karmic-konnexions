@@ -1,4 +1,4 @@
-const BASE_URL = 'https://www.karmickonnexions.com'
+const BASE_URL = 'https://www.karmickonnexion.com'
 
 const ORG_BASE = {
   '@type': 'Organization',

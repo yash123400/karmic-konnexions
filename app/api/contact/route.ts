@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
           <div style="font-family:sans-serif;max-width:600px;margin:0 auto;">
             <div style="background:#4F46E5;padding:24px;border-radius:8px 8px 0 0;">
               <h1 style="color:white;margin:0;font-size:20px;">New Contact Form Submission</h1>
-              <p style="color:#C7D2FE;margin:4px 0 0;">karmickonnexions.com</p>
+              <p style="color:#C7D2FE;margin:4px 0 0;">karmickonnexion.com</p>
             </div>
             <div style="background:#F8FAFC;padding:24px;border:1px solid #E2E8F0;border-top:none;border-radius:0 0 8px 8px;">
               <table style="width:100%;border-collapse:collapse;">

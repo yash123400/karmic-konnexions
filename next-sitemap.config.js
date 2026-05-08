@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://www.karmickonnexions.com',
+  siteUrl: 'https://www.karmickonnexion.com',
   generateRobotsTxt: true,
   robotsTxtOptions: {
     policies: [

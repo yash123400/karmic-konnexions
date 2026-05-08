@@ -20,7 +20,7 @@ export default function TermsPage() {
 
         <h2>1. Acceptance of Terms</h2>
         <p>
-          By accessing and using karmickonnexions.com, you accept and agree to
+          By accessing and using karmickonnexion.com, you accept and agree to
           be bound by these Terms of Service. If you do not agree, please do
           not use this website.
         </p>

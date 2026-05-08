@@ -70,7 +70,7 @@ export default function LoginForm() {
                   required
                   autoComplete="email"
                   className="w-full bg-white/10 border border-white/20 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-400 transition-colors"
-                  placeholder="you@karmickonnexions.com"
+                  placeholder="you@karmickonnexion.com"
                 />
               </div>
             </div>
