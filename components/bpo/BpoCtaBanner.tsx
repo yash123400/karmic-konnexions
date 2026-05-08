@@ -34,7 +34,7 @@ export default function BpoCtaBanner() {
         <RevealSection delay={0.2}>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <MagneticButton
-              href="/contact?service=bpo&type=audit"
+              href="/contact?service=hro&type=audit"
               variant="primary"
               className="px-10 py-4 text-base font-bold rounded-xl bg-white !text-[#4F46E5] hover:bg-[#EEF2FF]"
             >

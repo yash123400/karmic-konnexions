@@ -133,7 +133,7 @@ export default function BpoOutsourcingPage() {
               <RevealSection delay={0.5}>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-10">
                   <MagneticButton
-                    href="/contact?service=bpo"
+                    href="/contact?service=hro"
                     variant="primary"
                     className="px-8 py-4 text-base font-bold rounded-xl bg-[#4F46E5] text-white"
                   >
