@@ -163,6 +163,13 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {/* DEVELOPER CREDIT */}
+      <div className="py-3 border-t border-white/5 text-center">
+        <span className="text-[10px] font-medium tracking-[0.25em] uppercase text-white/20 hover:text-white/50 transition-colors duration-500 cursor-default">
+          Crafted with intent by Samsars AI Labs
+        </span>
+      </div>
     </footer>
   );
 }
