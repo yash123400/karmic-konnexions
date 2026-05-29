@@ -8,6 +8,8 @@ import PageHero from "@/components/shared/PageHero";
 import RevealSection from "@/components/shared/RevealSection";
 import SectionHeader from "@/components/shared/SectionHeader";
 import MagneticButton from "@/components/shared/MagneticButton";
+import { ClientsStrip } from "@/components/shared/ClientsStrip";
+import { elearningClients } from "@/lib/clients";
 
 export const metadata: Metadata = {
   title: 'E-Learning & Corporate Training Solutions | Karmic Konnexions',
@@ -368,6 +370,13 @@ export default function ELearningPage() {
               ))}
             </div>
           </RevealSection>
+        </div>
+
+        <div className="mt-24 border-t border-white/5 mx-auto max-w-7xl px-4">
+          <ClientsStrip 
+            clients={Array(8).fill(elearningClients[0])} 
+            label="eLearning Delivered For" 
+          />
         </div>
       </section>
 

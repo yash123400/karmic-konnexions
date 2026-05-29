@@ -7,6 +7,8 @@ import RevealSection from "@/components/shared/RevealSection";
 import SectionHeader from "@/components/shared/SectionHeader";
 import MagneticButton from "@/components/shared/MagneticButton";
 import { Users, FileText, Settings, ShieldCheck } from "lucide-react";
+import { ClientsStrip } from "@/components/shared/ClientsStrip";
+import { hroClients } from "@/lib/clients";
 
 export const metadata: Metadata = {
   title: 'Global Workforce Solutions | Karmic Konnexions',
@@ -58,7 +60,7 @@ export default function GlobalWorkforceHubPage() {
   const usps = [
     "Talent sourcing across India, SEA, Middle East, Africa, Europe",
     "Local teams & international mobilization capabilities",
-    "Industry-specific talent pools built over 15+ years",
+    "Identity-specific talent pools built over 15+ years",
     "GCC (Global Capability Centre) model adoption and pipeline support"
   ];
 
@@ -190,6 +192,11 @@ export default function GlobalWorkforceHubPage() {
           </div>
         </div>
       </section>
+
+      {/* Clients Strip */}
+      <div className="border-t border-white/5 mx-auto max-w-7xl px-4">
+        <ClientsStrip clients={hroClients} label="HRO Clients We Serve" speed={35} />
+      </div>
 
       {/* CTA */}
       <section className="py-20 bg-[#0F172A] text-center border-t border-white/10">

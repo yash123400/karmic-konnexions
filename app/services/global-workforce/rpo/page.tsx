@@ -3,6 +3,8 @@ import PageHero from "@/components/shared/PageHero";
 import RevealSection from "@/components/shared/RevealSection";
 import SectionHeader from "@/components/shared/SectionHeader";
 import MagneticButton from "@/components/shared/MagneticButton";
+import { ClientsStrip } from "@/components/shared/ClientsStrip";
+import { rpoClients } from "@/lib/clients";
 
 export const metadata: Metadata = {
   title: 'Recruitment Process Outsourcing (RPO) | Karmic Konnexions',
@@ -70,6 +72,11 @@ export default function RpoPage() {
           </div>
         </div>
       </section>
+
+      {/* Clients Strip */}
+      <div className="border-t border-white/5 mx-auto max-w-7xl px-4">
+        <ClientsStrip clients={rpoClients} label="RPO Placements — Brands We've Powered" speed={35} />
+      </div>
 
       {/* CTA */}
       <section className="py-20 bg-white text-center border-t border-[#E0E7FF]">
