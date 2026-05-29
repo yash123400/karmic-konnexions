@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useEffect } from "react";
 import { useState } from "react";
 import RevealSection from "@/components/shared/RevealSection";
 import MagneticButton from "@/components/shared/MagneticButton";
@@ -30,6 +30,17 @@ export default function HeroSection() {
     []
   );
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.play().catch(() => {
+      // autoplay blocked — poster fallback already visible
+    });
+  }, []);
+
   return (
     <section
       id="hero"
@@ -37,14 +48,16 @@ export default function HeroSection() {
       onMouseMove={handleMouseMove}
     >
       {/* Full-screen video background */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0" style={{ backgroundColor: '#0A0A1A' }}>
         <video
+          ref={videoRef}
           src="/videos/hero-bg.mp4"
           autoPlay
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/images/hero-poster.jpg"
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Dark overlay — keeps text legible, min opacity 0.55 */}
