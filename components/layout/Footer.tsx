@@ -10,9 +10,13 @@ export default function Footer() {
           
           {/* COLUMN 1 — Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-4 inline-flex">
-              <div className="w-[40px] h-[40px] bg-white rounded-lg flex items-center justify-center shrink-0">
-                <span className="text-[#4F46E5] font-black text-xl">K</span>
+            <Link href="/" className="flex items-center gap-3 mb-4 inline-flex group">
+              <div className="relative w-[40px] h-[40px] rounded-xl overflow-hidden bg-black/40 flex items-center justify-center border border-slate-800 shadow-sm transition-colors duration-300 group-hover:border-orange-500/30">
+                <img 
+                  src="/images/brand/logo-infinity.jpg" 
+                  alt="Karmic Konnexions Logo" 
+                  className="h-full w-full object-contain p-0.5 transform scale-110 group-hover:scale-120 transition-transform duration-500"
+                />
               </div>
               <span className="text-white font-bold text-lg">Karmic Konnexions</span>
             </Link>

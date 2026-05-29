@@ -146,15 +146,12 @@ export default function Header() {
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0 py-2 group">
-            <div className={cn(
-              "relative w-[38px] h-[38px] overflow-hidden rounded-lg shadow-sm transition-all duration-300",
-              isDarkTheme && "brightness-0 invert"
-            )}>
+            <div className="relative w-[40px] h-[40px] rounded-xl overflow-hidden bg-[#090D16] flex items-center justify-center border border-slate-800 shadow-[0_2px_8px_rgba(0,0,0,0.15),0_0_10px_rgba(249,115,22,0.1)] group-hover:border-orange-500/30 group-hover:shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_14px_rgba(249,115,22,0.25)] transition-all duration-500">
               <Image 
-                src="/images/brand/logo-main.png" 
+                src="/images/brand/logo-infinity.jpg" 
                 alt="Karmic Konnexions Logo" 
                 fill 
-                className="object-cover"
+                className="object-contain p-0.5 transform scale-110 group-hover:scale-120 transition-transform duration-500"
               />
             </div>
             <div className="flex flex-col transition-all duration-300 origin-left">

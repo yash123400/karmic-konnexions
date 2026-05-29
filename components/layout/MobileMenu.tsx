@@ -101,7 +101,23 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white z-[100] overflow-y-auto"
           >
             <div className="flex items-center justify-between p-6 border-b border-border">
-              <img src="/logo-full.png" alt="Karmic Konnexions" className="h-10 w-auto object-contain" />
+              <Link href="/" onClick={onClose} className="flex items-center gap-3 group">
+                <div className="relative w-[36px] h-[36px] rounded-lg overflow-hidden bg-[#090D16] flex items-center justify-center border border-slate-800 shadow-sm">
+                  <img 
+                    src="/images/brand/logo-infinity.jpg" 
+                    alt="Karmic Konnexions Logo" 
+                    className="h-full w-full object-contain p-0.5"
+                  />
+                </div>
+                <div className="flex flex-col origin-left">
+                  <div className="font-bold text-base leading-none text-[#4F46E5]">
+                    Karmic Konnexions
+                  </div>
+                  <div className="text-[9px] tracking-wide mt-0.5 text-[#6B7280]">
+                    Global Consulting LLP
+                  </div>
+                </div>
+              </Link>
               <button
                 onClick={onClose}
                 className="p-2 text-text-muted hover:text-text-primary transition-colors"
