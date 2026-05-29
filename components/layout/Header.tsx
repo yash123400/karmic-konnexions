@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import MagneticButton from "@/components/shared/MagneticButton";
@@ -84,25 +84,23 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 50);
-  });
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    setIsScrolled(scrollY.get() > 50);
-  }, [scrollY]);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 60);
+    };
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const isHomePage = pathname === "/";
   // Forced solid theme for 100% reliability and visibility
   const isDarkTheme = false; 
 
-  const textColour = 'text-[#374151] font-semibold';
-  const logoColour = 'text-[#4F46E5] font-extrabold';
-  const headerBg = 'bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm';
+  const textColour = 'text-white hover:text-white/70 font-semibold transition-colors duration-300';
+  const logoColour = 'text-white font-extrabold';
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -138,10 +136,13 @@ export default function Header() {
     <>
       <motion.header
         ref={headerRef}
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 h-[64px] lg:h-[72px] flex items-center transition-all duration-300",
-          headerBg
-        )}
+        className="fixed top-0 left-0 right-0 z-50 h-[64px] lg:h-[72px] flex items-center border-b"
+        animate={{
+          backgroundColor: scrolled ? "rgba(0, 0, 0, 0.4)" : "rgba(0, 0, 0, 0)",
+          backdropFilter: scrolled ? "blur(12px)" : "blur(0px)",
+          borderBottomColor: scrolled ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0)",
+        }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
           {/* Logo */}
@@ -162,7 +163,7 @@ export default function Header() {
                 Karmic Konnexions
               </div>
               <div className={cn(
-                "text-[10px] tracking-wide mt-0.5 hidden sm:block transition-colors duration-300 text-[#6B7280]"
+                "text-[10px] tracking-wide mt-0.5 hidden sm:block transition-colors duration-300 text-white/70"
               )}>
                 Global Consulting LLP
               </div>
@@ -183,8 +184,7 @@ export default function Header() {
                   className={cn(
                     "px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-lg transition-all duration-300 inline-flex items-center gap-0.5 xl:gap-1",
                     textColour,
-                    isActive(link.href) && "font-bold underline underline-offset-8 decoration-2 decoration-primary/50",
-                    isScrolled && !isActive(link.href) && "hover:bg-[#EEF2FF] hover:text-[#4F46E5]"
+                    isActive(link.href) && "font-bold underline underline-offset-8 decoration-2 decoration-white/50"
                   )}
                   aria-expanded={hoveredItem === link.label}
                   aria-haspopup={(link.megaMenu || link.dropdown) ? "true" : undefined}
@@ -318,7 +318,7 @@ export default function Header() {
             <div className="hidden lg:block">
               <MagneticButton
                 href="/get-proposal"
-                className="bg-[#4F46E5] text-white px-5 py-2.5 text-sm font-semibold rounded-lg hover:bg-[#3730A3] transition-colors inline-block"
+                className="bg-[#4F46E5] text-white px-5 py-2.5 text-sm font-semibold rounded-lg hover:bg-[#3730A3] transition-colors inline-block ring-1 ring-white/20 shadow-lg shadow-indigo-500/10"
               >
                 Get a Proposal
               </MagneticButton>
@@ -326,7 +326,7 @@ export default function Header() {
             
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg transition-colors duration-300 text-[#374151] hover:bg-[#EEF2FF]"
+              className="lg:hidden p-2 rounded-lg transition-colors duration-300 text-white hover:bg-white/10"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -335,7 +335,7 @@ export default function Header() {
             {/* Top Right Brand Mark (Desktop) */}
             <div className={cn(
               "hidden lg:flex items-center pl-4 border-l transition-colors duration-300",
-              isScrolled ? "border-slate-200" : "border-white/20"
+              scrolled ? "border-white/10" : "border-white/20"
             )}>
               <div className="relative w-8 h-8 opacity-40 hover:opacity-100 transition-opacity">
                 <Image 
@@ -343,7 +343,7 @@ export default function Header() {
                   alt="Karmic Brand Mark" 
                   fill 
                   className={cn(
-                    "object-contain transition-all duration-300 grayscale hover:grayscale-0"
+                    "object-contain transition-all duration-300 grayscale hover:grayscale-0 invert brightness-200"
                   )}
                 />
               </div>
