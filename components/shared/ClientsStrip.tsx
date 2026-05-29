@@ -19,10 +19,10 @@ export function ClientsStrip({
   speed = 35 
 }: ClientsStripProps) {
   return (
-    <div className="w-full py-12">
+    <div className="w-full py-12 bg-transparent">
       {/* Section label */}
       <p className="text-center text-[10px] font-bold tracking-[0.3em] 
-        text-white/30 uppercase mb-8">
+        text-gray-400 uppercase mb-8">
         {label}
       </p>
 
@@ -38,18 +38,18 @@ export function ClientsStrip({
               key={i}
               className="flex flex-col items-center justify-center 
                 min-w-[180px] px-6 py-3 rounded-xl 
-                bg-white/[0.03] border border-white/[0.07]
-                hover:border-indigo-500/30 hover:bg-white/[0.06]
+                bg-white border border-gray-200
+                hover:border-indigo-500/30 hover:bg-indigo-50/60
                 transition-all duration-500 group cursor-default"
             >
-              <span className="text-[13px] font-semibold text-white/60 
-                group-hover:text-white/90 transition-colors duration-300 
+              <span className="text-[13px] font-semibold text-gray-600 
+                group-hover:text-gray-900 transition-colors duration-300 
                 whitespace-nowrap tracking-wide text-center leading-tight">
                 {client.name}
               </span>
               {client.tag && (
                 <span className="text-[9px] font-bold tracking-[0.2em] 
-                  text-amber-500/50 group-hover:text-amber-400/80 
+                  text-amber-600/70 group-hover:text-amber-600 
                   uppercase mt-1 transition-colors duration-300">
                   {client.tag}
                 </span>
