@@ -33,6 +33,7 @@ const menuSections = [
       { label: "Global Workforce", href: "/services/global-workforce" },
       { label: "Corporate Apparel", href: "/services/corporate-apparel" },
       { label: "AI Automation", href: "/services/ai-automation" },
+      { label: "Preventive Healthcare", href: "/services/preventive-healthcare" },
     ],
   },
   {

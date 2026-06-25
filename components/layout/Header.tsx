@@ -54,6 +54,7 @@ const servicesMegaMenu = [
   {
     heading: "AI & Technology",
     links: [
+      { label: "Preventive Healthcare", href: "/services/preventive-healthcare" },
       { label: "AI Automation", href: "/services/ai-automation" },
       { label: "Technology Programs", href: "/services/technology" },
       { label: "Gen AI Suites", href: "/programs/gen-ai" },

@@ -53,8 +53,9 @@ const serviceCategories = [
     icon: Zap,
     color: "rose",
     href: "/services/ai-automation",
-    description: "Leveraging Gen-AI for workflow automation and providing specialized corporate apparel solutions.",
+    description: "Leveraging Gen-AI for workflow automation, specialized corporate apparel solutions, and smart preventive healthcare.",
     subLinks: [
+      { label: "Preventive Healthcare", href: "/services/preventive-healthcare" },
       { label: "AI Automation", href: "/services/ai-automation" },
       { label: "Corporate Apparel", href: "/services/corporate-apparel" },
     ]
