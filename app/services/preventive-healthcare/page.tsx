@@ -15,7 +15,13 @@ import {
   Microscope,
   Stethoscope,
   ShieldCheck,
-  CheckCircle2
+  CheckCircle2,
+  BriefcaseMedical,
+  Building2,
+  MonitorSmartphone,
+  FileText,
+  Utensils,
+  LineChart
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -96,6 +102,42 @@ export default function PreventiveHealthcarePage() {
     }
   ];
 
+  const deploymentModels = [
+    {
+      title: "Health ATM (Kiosk)",
+      desc: "Comprehensive physical kiosk for community centers, clinics, and hospitals.",
+      icon: <MonitorSmartphone className="w-8 h-8 text-emerald-500" />
+    },
+    {
+      title: "Box Clinic",
+      desc: "Portable, suitcase-sized unit. Ideal for health camps and door-to-door medical services.",
+      icon: <BriefcaseMedical className="w-8 h-8 text-emerald-500" />
+    },
+    {
+      title: "Health Lounge",
+      desc: "Modern private wellness space. Perfect for corporate offices, malls, and airports.",
+      icon: <Building2 className="w-8 h-8 text-emerald-500" />
+    }
+  ];
+
+  const smartFeatures = [
+    {
+      title: "Smart Medical Reports",
+      desc: "Instant 360-degree health assessment with color-coded indicators. Delivered via WhatsApp, Email & Print.",
+      icon: <FileText className="w-8 h-8 text-indigo-400" />
+    },
+    {
+      title: "AI Nutrition Plans",
+      desc: "Personalized Indian meal plans (e.g., 7-day caloric diet) generated instantly based on patient vitals.",
+      icon: <Utensils className="w-8 h-8 text-orange-400" />
+    },
+    {
+      title: "Population Analytics",
+      desc: "Filter data by age, gender, location, and parameters to monitor public health trends and detect abnormalities.",
+      icon: <LineChart className="w-8 h-8 text-cyan-400" />
+    }
+  ];
+
   const certifications = [
     { title: "ISO 13485", desc: "Medical Devices QMS" },
     { title: "ISO 27001", desc: "Information Security" },
@@ -160,6 +202,30 @@ export default function PreventiveHealthcarePage() {
         </div>
       </section>
 
+      {/* Deployment Models */}
+      <section className="py-24 bg-[#FAFBFF] border-t border-[#E0E7FF]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader eyebrow="Form Factors" title="Flexible Deployment Models" align="center" />
+          <p className="text-center text-gray-500 mt-4 max-w-2xl mx-auto">
+            From comprehensive hospital setups to portable door-to-door diagnostic clinics.
+          </p>
+          
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {deploymentModels.map((model, i) => (
+              <RevealSection key={i} delay={0.1 * i}>
+                <div className="bg-white rounded-2xl p-8 border border-gray-200 h-full shadow-sm hover:shadow-lg hover:border-emerald-500/30 transition-all text-center flex flex-col items-center">
+                  <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 ring-1 ring-emerald-100">
+                    {model.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{model.title}</h3>
+                  <p className="text-gray-600 text-sm">{model.desc}</p>
+                </div>
+              </RevealSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Diagnostics */}
       <section className="py-24 bg-[#FAFBFF] border-y border-[#E0E7FF]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -187,6 +253,30 @@ export default function PreventiveHealthcarePage() {
                       </li>
                     ))}
                   </ul>
+                </div>
+              </RevealSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Smart Reporting */}
+      <section className="py-24 bg-white border-b border-[#E0E7FF]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader eyebrow="Digital Experience" title="Smart Reporting & AI Nutrition" align="center" />
+          <p className="text-center text-gray-500 mt-4 max-w-2xl mx-auto">
+            Every test generates actionable, easy-to-read insights delivered instantly to the patient's phone.
+          </p>
+          
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {smartFeatures.map((feature, i) => (
+              <RevealSection key={i} delay={0.1 * i}>
+                <div className="bg-slate-50 rounded-2xl p-8 h-full border border-slate-200 hover:bg-slate-100 transition-colors">
+                  <div className="mb-6">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">{feature.desc}</p>
                 </div>
               </RevealSection>
             ))}
