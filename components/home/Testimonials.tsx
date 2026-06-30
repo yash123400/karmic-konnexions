@@ -11,7 +11,7 @@ export default async function Testimonials() {
   const displayTestimonials = testimonials?.length > 0 ? testimonials : [
     {
       _id: 'default',
-      quote: "Karmic Konnexions built our entire HR function from scratch in 45 days. Dashboards, compliance and a great team — without a single full-time HR hire.",
+      quote: "Karmic Konnexions built our entire HR function from scratch in 180 days. Dashboards, compliance and a great team — without a single full-time HR hire.",
       attribution: "CFO, Logistics Company, 300 Employees",
       service: "HR & Payroll"
     }

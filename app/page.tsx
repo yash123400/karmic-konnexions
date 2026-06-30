@@ -1,5 +1,4 @@
 import HeroSection from "@/components/home/HeroSection";
-import StatsBar from "@/components/home/StatsBar";
 import ServicesGrid from "@/components/home/ServicesGrid";
 import WhyKarmic from "@/components/home/WhyKarmic";
 import IndustriesStrip from "@/components/home/IndustriesStrip";
@@ -15,7 +14,6 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <StatsBar />
       <div className="border-t border-white/5 mx-auto max-w-7xl px-4">
         <ClientsStrip clients={allClients} label="Our Clients Across Industries" speed={40} />
       </div>

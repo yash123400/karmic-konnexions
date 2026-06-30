@@ -87,18 +87,6 @@ export default function HeroSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[120px] pb-24 lg:pt-[160px] lg:pb-0 relative z-10">
         <div className="max-w-4xl">
 
-          {/* Badge */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px 0px" }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl mb-8">
-              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shadow-[0_0_10px_rgba(245,158,11,0.8)]" />
-              <span className="text-[10px] font-bold tracking-[0.2em] text-white/70 uppercase">Global Consulting Excellence</span>
-            </div>
-          </motion.div>
 
           {/* Title */}
           <motion.div
