@@ -37,6 +37,7 @@ const servicesMegaMenu = [
     heading: "E-Learning",
     links: [
       { label: "LMS Platform", href: "/services/elearning/lms-platform" },
+      { label: "Karmic FairConnect", href: "/services/elearning/karmic-fairconnect" },
       { label: "Training Programs", href: "/services/elearning/training-programs" },
       { label: "Career Guidance", href: "/services/elearning/career-guidance" },
       { label: "E-Learning Hub", href: "/services/elearning" },
