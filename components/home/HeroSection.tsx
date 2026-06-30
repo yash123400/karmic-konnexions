@@ -141,8 +141,8 @@ export default function HeroSection() {
           >
             <div className="flex flex-wrap items-center gap-10 mt-16 pt-10 border-t border-white/10">
               <div className="group">
-                <div className="text-4xl font-light text-white tracking-tighter group-hover:text-amber-400 transition-colors duration-300">500<span className="text-amber-500 font-bold">+</span></div>
-                <div className="text-[10px] font-bold text-white/40 mt-1 uppercase tracking-[0.2em]">Global Clients</div>
+                <div className="text-4xl font-light text-white tracking-tighter group-hover:text-amber-400 transition-colors duration-300">Notable</div>
+                <div className="text-[10px] font-bold text-white/40 mt-1 uppercase tracking-[0.2em]">Clients Served</div>
               </div>
               <div className="w-px h-12 bg-white/10" />
               <div className="group">
