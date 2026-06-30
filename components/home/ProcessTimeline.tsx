@@ -7,7 +7,7 @@ import RevealSection from "@/components/shared/RevealSection";
 const steps = [
   {
     number: 1,
-    days: "Days 1–30",
+    days: "Days 1–90",
     title: "Audit & Setup",
     bullets: [
       "Stakeholder discovery & process mapping",
@@ -17,7 +17,7 @@ const steps = [
   },
   {
     number: 2,
-    days: "Days 31–60",
+    days: "Days 91–270",
     title: "Implementation",
     bullets: [
       "Policies, HRMS, payroll and compliance go live",
@@ -27,7 +27,7 @@ const steps = [
   },
   {
     number: 3,
-    days: "Days 61–90",
+    days: "Days 271–730",
     title: "Optimise & Scale",
     bullets: [
       "Conversion rate optimisation across all functions",
@@ -43,7 +43,7 @@ export default function ProcessTimeline() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="How We Work"
-          title="From Discovery to Full Operation in 90 Days"
+          title="From Discovery to Full Operation in 730 Days"
           align="center"
         />
 

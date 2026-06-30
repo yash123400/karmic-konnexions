@@ -10,38 +10,38 @@ gsap.registerPlugin(ScrollTrigger);
 const steps = [
   {
     number: 1,
-    day: "Day 1",
+    day: "Days 1–15",
     title: "Discovery Call",
     description:
       "We map your current processes and identify quick wins immediately.",
   },
   {
     number: 2,
-    day: "Days 2–5",
+    day: "Days 16–45",
     title: "Process Audit",
     description:
       "Our team documents your workflows and spots inefficiencies in depth.",
   },
   {
     number: 3,
-    day: "Days 6–15",
+    day: "Days 46–90",
     title: "Team Setup",
     description:
       "We hire and assign trained HRO specialists dedicated to your account.",
   },
   {
     number: 4,
-    day: "Days 16–25",
+    day: "Days 91–150",
     title: "Parallel Run",
     description:
       "Your team and ours run the process together to ensure zero quality loss.",
   },
   {
     number: 5,
-    day: "Day 30",
+    day: "Day 180",
     title: "Full Handover",
     description:
-      "You step back. We step up. Full SLA reporting begins from Day 30.",
+      "You step back. We step up. Full SLA reporting begins from Day 180.",
   },
 ];
 
@@ -112,7 +112,7 @@ export default function BpoOnboardingTimeline() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Our Engagement Model"
-          title="How We Onboard You in 30 Days"
+          title="How We Onboard You in 180 Days"
           align="center"
         />
 
