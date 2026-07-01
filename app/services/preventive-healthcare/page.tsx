@@ -441,7 +441,7 @@ export default function PreventiveHealthcarePage() {
 
           <div className="mt-16 text-center">
             <MagneticButton
-              href="/get-proposal"
+              href="/get-proposal?service=healthcare"
               className="bg-emerald-600 text-white px-8 py-4 text-base font-bold rounded-xl hover:bg-emerald-700 transition-colors inline-block shadow-lg"
             >
               Request a Formal Proposal

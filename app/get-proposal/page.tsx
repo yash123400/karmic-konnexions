@@ -23,7 +23,7 @@ export default function GetProposalPage() {
       <PageHero
         eyebrow="Get a Tailored Proposal"
         title={"Tell Us About\nYour Business."}
-        subtitle="Fill out this short form and we'll prepare a customised outsourcing proposal — with scope, engagement model, and timelines — within 48 hours."
+        subtitle="Fill out this short form and we'll prepare a customised proposal — with scope, engagement model, and timelines — within 48 hours."
       />
 
       <section className="py-24">

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Check, 
@@ -27,6 +27,9 @@ const SERVICES = [
   { id: 'marketing', name: 'Marketing Services', desc: 'Strategic outreach & brand management', icon: '/images/icons/bpo/icon-4.png' },
   { id: 'training', name: 'E-Learning / Training', desc: 'Corporate L&D and skill development', icon: '/images/icons/bpo/icon-8.png' },
   { id: 'global', name: 'Global Workforce', desc: 'International hiring & cross-border trade', icon: '/images/icons/bpo/icon-13.png' },
+  { id: 'healthcare', name: 'Preventive Healthcare', desc: 'Health ATM & Diagnostic Kiosks', icon: '/images/icons/bpo/icon-6.png' },
+  { id: 'ai', name: 'AI Automation', desc: 'Intelligent process automation & AI bots', icon: '/images/icons/bpo/icon-11.png' },
+  { id: 'apparel', name: 'Corporate Apparel', desc: 'Custom branding & corporate uniforms', icon: '/images/icons/bpo/icon-10.png' },
 ]
 
 export default function ProposalForm() {
@@ -48,6 +51,16 @@ export default function ProposalForm() {
     referral_source: '',
     notes: ''
   })
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      const serviceParam = params.get('service')
+      if (serviceParam && SERVICES.some(s => s.id === serviceParam)) {
+        setFormData(prev => ({ ...prev, services: [serviceParam] }))
+      }
+    }
+  }, [])
 
   const nextStep = () => setStep(s => Math.min(s + 1, 3))
   const prevStep = () => setStep(s => Math.max(s - 1, 1))
@@ -216,7 +229,7 @@ export default function ProposalForm() {
               className="space-y-12"
             >
               <div className="space-y-6">
-                <h5 className="text-sm font-bold text-slate-900">Which functions would you like to outsource?</h5>
+                <h5 className="text-sm font-bold text-slate-900">Which services are you interested in?</h5>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {SERVICES.map((s) => (
                     <button
